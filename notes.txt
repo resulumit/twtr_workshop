@@ -1,0 +1,6 @@
+See:
+
+1. https://rtweet-workshop.mikewk.com/#1
+2. https://www.tidytextmining.com/twitter.html
+3. https://www.mzes.uni-mannheim.de/socialsciencedatalab/article/collecting-and-analyzing-twitter-using-r/#analyzing-twitter-data
+

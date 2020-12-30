@@ -1,0 +1,604 @@
+---
+title: "Working with Twitter Data in R"
+subtitle: "Resul Umit"
+institute: ""
+date: "February 2021"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      highlightSpans: true
+      countIncrementalSlides: false
+      ratio: "16:9"
+    seal: false
+---
+
+class: inverse, center, middle
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE, crayon.enabled = TRUE)
+
+library(crayon)
+library(fansi)
+library(dplyr)
+library(ggplot2)
+library(stargazer)
+library(countdown)
+
+```
+
+<style type="text/css">
+
+.hljs-github .hljs {
+    background: #e5e5e5;
+}
+
+.inline-c, remark-inline-code {
+   background: #e5e5e5;
+   border-radius: 3px;
+   padding: 4px;
+   font-family: 'Source Code Pro', 'Lucida Console', Monaco, monospace;
+}
+
+
+.yellow-h{
+   background: #ffff88;
+}
+
+
+.out-t, remark-inline-code {
+   background: #9fff9f;
+   border-radius: 3px;
+   padding: 4px;
+   
+}
+
+.pull-left-c {
+    float: left;
+    width: 58%;
+    
+}
+
+.pull-right-c {
+    float: right;
+    width: 38%;
+    
+}
+
+.medium {
+    font-size: 75%
+    
+}
+
+.small {
+    font-size: 50%
+    }
+
+.action {
+    background-color: #f2eecb;
+  
+}
+
+
+</style>
+
+
+# Working with Twitter Data in R
+
+<br>
+
+### Resul Umit
+
+### February 2021
+
+.footnote[
+
+[Skip intro &mdash; To the contents slide](#contents-slide). &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="mailto:resuluy@uio.no?subject=R Markdown workshop">I can teach this workshop at your institution &mdash; Email me</a>.
+
+]
+
+---
+## Who am I?
+
+Resul Umit
+
+- post-doctoral researcher at the University of Oslo
+
+- interested in representation, elections, and parliaments
+    - [a recent publication](https://doi.org/10.1177%2F1478929920967588):
+    Parliamentary communication allowances do not increase electoral turnout or incumbents’ vote share.    
+    
+    - more at [resulumit.com](https://resulumit.com/)
+
+---
+## The Workshop &mdash; Overview
+
+- Two days, on how to collect, process, and analyse data from Twitter
+
+  - 200+ slides, 40+ exercises, and time for working on a real project
+
+--
+
+- Based on converting a mock manuscript written in Word to R Markdown
+
+  - plus, improving its reproducibility and version-controlling it
+  - with a PDF output in mind
+
+--
+
+- Designed for researchers with basic knowledge of R programming language
+
+  - does not cover programming with R
+      - e.g., writing functions    
+<br>
+  - existing ability to work with data in R will be very helpful
+      - but not absolutely necessary &mdash; this ability can be developed during and after the workshop as well
+        
+---
+name: contents-slide
+
+## The Workshop &mdash; Contents
+
+
+[Part 1. Getting the Tools Ready](#part1)
+   - e.g., downloading course material
+
+[Part 2. Data Collection](#part2)
+   - e.g., searching for and downloading tweets
+   
+[Part 2. Data Processing](#part3)
+   - e.g., cleaning and tidying tweet-based datasets
+   
+[Part 2. Data Anaysis](#part4)
+   - e.g., sentiment analysis   
+
+.footnote[
+
+[To the list of references](#reference-slide).
+
+] 
+
+---
+## The Workshop &mdash; Organisation
+
+- Sit in groups of two
+
+  - participants learn as much from their partner as from instructors
+  - switch partners after every part
+
+- Type, rather than copy and paste, the code that you will find on these slides
+
+  - typing is a part of the learning process
+
+- When you have a question
+
+  - ask your partner
+  - google together
+  - ask me
+
+---
+class: action
+
+## The Workshop &mdash; Organisation &mdash; Slides
+
+Slides with this background colour indicate that your action is required, for
+
+- setting the workshop up
+    - e.g., installing R 
+    
+- completing the exercises
+    - e.g., managing references in R Markdown
+    - there are 40+ exercises
+    - these slides have countdown timers
+    
+`r countdown(minutes = 3, seconds = 00, top = 0)`
+
+---
+## The Workshop &mdash; Organisation &mdash; Slides
+
+- Codes and texts that go in R Markdown documents .inline-c[appear as such &mdash; in a different font, on gray background]
+    - long codes and texts will have their own line(s)
+
+```{r, demonstration, eval=FALSE}
+
+ggplot(data = df, mapping = aes(x = h5_median, y = h5_index, color = subfield)) +
+       geom_point() +
+       facet_wrap(. ~ branch) +
+       scale_colour_discrete(name = "Journal Type", breaks = c(0, 1), labels = c("Generalist", "Subfield"))    
+
+```
+
+---
+## The Workshop &mdash; Organisation &mdash; Slides
+
+- Codes and texts that go in R Markdown documents .inline-c[appear as such &mdash; in a different font, on gray background]
+    - long codes and texts will have their own line(s)
+
+- Results that come out in output files .out-t[appear as such &mdash; in the same font, on green background]
+    - except very obvious results, such as figures and tables
+    
+--
+    
+- Specific sections are .yellow-h[highlighted yellow as such] for emphasis
+    - these could be for anything &mdash; codes and texts in input, results in output, and/or texts on slides
+    
+--
+
+- The slides are designed for self-study as much as for the workshop
+    - *accessible*, in substance and form, to go through on your own
+
+---
+## The Workshop &mdash; Aims
+
+- To make you aware what is possible with R Markdown
+
+  - we will cover a large breath of issues, not all of it is for long-term memory
+      - one reason why the slides are designed for self study as well    
+<br>
+  - awareness of what is possible, `Google`, and perseverance are all we need
+
+--
+
+- To encourage you to convert into R Markdown 
+
+  - practice with a mock manuscript (Parts 3&ndash;9)
+  - start converting a real one (Part 10)
+    
+---
+name: part1
+class: inverse, center, middle
+
+# Part 1. Getting the Tools Ready
+
+.footnote[
+
+[Back to the contents slide](#contents-slide).
+
+]
+
+---
+## Course Materials &mdash; Overview
+
+Materials, available at <https://github.com/resulumit/rmd_workshop/tree/materials>, have the following structure
+
+```
+
+rmd_workshop-materials
+   |
+   |- manuscript
+   |  |
+   |  |- reproduce_this.pdf
+   |  |- journals.Rmd
+   |  |- references.bib
+   |  |- apa_7th.csl
+   |
+   |-data
+   |  |
+   |  |- journals.csv
+   |
+   |-image
+   |  |
+   |  |- google_scholar.png
+   
+   
+```
+
+---
+name: download-zip
+class: action
+
+## Course Materials &mdash; Download from the Internet
+
+- Download the materials from <https://github.com/resulumit/rmd_workshop/tree/materials>
+
+  - on the webpage, follow
+
+> `Code -> Download ZIP`
+
+<br>
+
+- Unzip and rename the folder
+
+  - unzip to a location that is not synced
+     - e.g., perhaps Documents, but not Dropbox
+  
+  - rename the folder as `YOURNAME-rmd`
+     - e.g., `resul-rmd`
+     - this will come handy in Part 9
+  
+---
+## Course Materials &mdash; Contents
+
+- `manuscript\reproduce_this.pdf`
+
+    - the document, formatted in Word but saved as PDF, that we will re-create with R Markdown 
+    - randomly generated sentences, with figures and tables from randomly a generated dataset<sup>*</sup>
+    - key sections in-need of attention are highlighted yellow
+    
+.footnote[
+
+<sup>*</sup> The text, _Lorem ipsum_, is generated with the `stringi` package (Gagolewski, 2020) while the dataset is created with the `fabricatr` package (Blair et al., 2019). 
+
+]
+
+---
+## Course Materials &mdash; Contents
+
+- `manuscript\reproduce_this.pdf`
+    - the document, formatted in Word but saved as PDF, that we will re-create with R Markdown 
+    - randomly generated sentences, with figures and tables from randomly generated dataset
+    - key sections in-need of attention are highlighted
+
+- `manuscript\journals.Rmd`
+    - the R Markdown document that we will work on
+    - includes unformatted text from `reproduce_this.pdf` to save time
+    - major components, such as paragraphs and tables, are numbered and marked in comments to facilitate navigation
+
+--
+
+- `manuscript\references.bib` 
+
+    - a BibTeX document with three fabricated references
+
+--
+
+- `manuscript\apa_7th.csl`
+
+    - a Citation Style Language document, with APA (7th Edition) referencing style (Wiernik, 2020)
+
+---
+## Course Materials &mdash; Contents  
+
+`data\journals.csv`
+- a dataset created with the `fabricatr` package (Blair et al., 2019), imagined to explore the `Google Scholar` rankings of fictitious journals
+    
+- includes the following variables 
+    - **name**: journals (1090 random titles)
+    - **origin**: geographic origins (five continents)
+    - **branch**: major discipline of journals (four branches)
+    - **since**: time of first publication (years)
+    - **h5_index**: H5 Index (integers)
+    - **h5_median**: H5 Median (integers)
+    - **english**: English (1) *vs.* other-language (0) journals
+    - **subfield**: subfield (1) *vs.* generalist (0) journals
+    - **issues**: number of issues published per year (integers)
+
+---
+## Course Materials &mdash; Contents  
+
+- `image\google_scholar.png`
+
+    - a screeenshot image of the [Google Scholar homapage](https://scholar.google.ch/)
+
+---
+class: action
+name: install-git
+
+## Git &mdash; Download from the Internet and Install
+
+- For Windows, install 'Git for Windows', downloading from [https://gitforwindows.org](https://gitforwindows.org/)
+       - select 'Git from the command line and also from 3rd-party software'
+       
+- For Mac, install 'Git', downloading from [https://git-scm.com/downloads](https://git-scm.com/downloads)
+
+---
+class: action
+
+## GitHub &mdash; Open an Account
+
+Sign up for GitHub at [https://github.com](https://github.com/)
+
+- registering an account is free
+
+- usernames are public
+      - either choose an anonymous username (e.g., `asdf029348`)
+      - or choose one carefully &mdash; it becomes a part of users' online presence
+      
+- usernames can be changed later
+        
+---
+class: action
+
+## R and RStudio &mdash; Download from the Internet and Install
+
+- Download R from [https://cloud.r-project.org](https://cloud.r-project.org)
+    - choose the version for your operating system
+
+- Download RStudio from [https://rstudio.com/products/rstudio/download](https://rstudio.com/products/rstudio/download)
+    - choose the free version
+
+---
+class: action
+
+## R Packages &mdash; Install from within RStudio
+
+```{r eval=FALSE, tidy=FALSE}
+install.packages(c("rmarkdown", "tinytex", "dplyr", "stargazer", "ggplot2"))
+
+tinytex::install_tinytex()
+
+```
+
+--
+
+- `rmarkdown` (Allaire et al., 2020), for automating the process of converting R Markdown documents into other formats
+
+---
+class: action
+
+## R Packages &mdash; Install from within RStudio
+
+```{r eval=FALSE, tidy=FALSE}
+install.packages(c("rmarkdown", "tinytex", "dplyr", "stargazer", "ggplot2"))
+
+tinytex::install_tinytex() #<<
+
+```
+
+- `rmarkdown` (Allaire et al., 2020), for automating the process of converting R Markdown documents into other formats
+
+- `tinytex` (Xie, 2020), for PDF outputs
+    - requires an additional step to install
+    - alternative: a TeX/LaTeX system installed on your computer
+
+---
+class: action
+
+## R Packages &mdash; Install from within RStudio
+
+```{r eval=FALSE, tidy=FALSE}
+install.packages(c("rmarkdown", "tinytex", "dplyr", "stargazer", "ggplot2"))
+
+tinytex::install_tinytex()
+
+```
+
+
+- `dplyr` (Wickham, 2020a), for data manipulation
+    - alternatives: e.g., `base`, `data.table` (Dowle & Srinivasan, 2019)
+
+--
+
+- `stargazer` (Hlavac, 2018), for tables
+    - alternatives: e.g., `knitr` (Xie, 2020b), `kableExtra` (Zhu, 2019)
+    
+--
+
+    
+- `ggplot2` (Wickham, 2020b), for figures
+    - alternatives: e.g., `base`, `plotly` (Sievert et al., 2020)
+
+---
+class: action
+name: rstudio-project
+
+## RStudio Project &mdash; Create from within RStudio 
+
+- RStudio allows for dividing your work with R into separate projects, each with own history etc.
+
+  - [this page](https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects) has more information on why projects are recommended
+
+<br>
+
+- Create a new RStudio project for the existing<sup>*</sup> workshop directory `...\YOURNAME-rmd` from the RStudio menu:
+
+> `File -> New Project -> Existing Directory -> Browse -> ...\YOURNAME-rmd -> Open`
+
+
+.footnote[
+
+<sup>*</sup> Recall that we have downloaded this earlier from GitHub. [Back to the relevant slide](#download-zip).
+
+]
+
+---
+class: action
+
+## R Markdown Cheat Sheet &mdash; Download from the Internet
+
+Downloading process can be initiated from within RStudio
+
+- follow from the RStudio menu
+
+> `Help -> Cheatsheets -> R Markdown Cheat Sheet` 
+
+
+---
+## Other Resources<sup>*</sup>
+
+- Pandoc User's Guide
+
+   - available at [https://pandoc.org/MANUAL.html](https://pandoc.org/MANUAL.html)
+
+- R Markdown: The Definitive Guide (Xie et al., 2019)
+
+   - open access at [https://bookdown.org/yihui/rmarkdown](https://bookdown.org/yihui/rmarkdown/)
+    
+
+- R for Data Science (Wickham and Grolemund, 2019)
+  
+   - open access at [https://r4ds.had.co.nz](https://r4ds.had.co.nz/)
+   
+.footnote[
+
+<sup>*</sup> During the workshop, R Markdown Cheat Sheet is likely to be more helpful than these resources, which I recommend to be consulted after the workshop.
+
+]
+
+---
+name: part2
+class: inverse, center, middle
+
+# Part 2. Introducing R Markdown
+
+.footnote[
+
+[Back to the contents slide](#contents-slide).
+
+]
+
+
+---
+class: inverse, center, middle
+
+# References
+
+.footnote[
+
+[Back to the contents slide](#contents-slide).
+
+]
+
+---
+name: reference-slide
+## References
+
+Allaire, J. J., Xie, Y., McPherson, J., Luraschi, J., Ushey, K., Atkins, A., Wickham, H., Cheng, J., Chang, W. and Iannone, R. (2020). [rmarkdown: Dynamic documents for R](https://cran.r-project.org/web/packages/rmarkdown/index.html). R package, version 2.1.
+
+Blair, G., Cooper, J., Coppock, A., Humphreys, M., Rudkin, A. and Fultz, N. (2019). [fabricatr: Imagine your data before you collect it](https://cran.r-project.org/web/packages/fabricatr/index.html). R package, version 0.10.0.
+
+Carlisle, D., Fairbairns, R., Harris, E. and Tobin, G. (2011). [setspace – Set space between lines](https://ctan.org/pkg/setspace). LaTeX package, version 6.7a.
+
+Dowle, M. and Srinivasan, A. (2019). [data.table: Extension of 'data.frame'](https://cran.r-project.org/web/packages/data.table/index.html). R package, version 1.12.8.
+
+Gagolewski, M. (2020). [stringi: Character String Processing Facilities](https://cran.r-project.org/web/packages/stringi/index.html). R package, version 1.4.6.
+
+Hlavac, M. (2018). [stargazer: Well-formatted regression and summary statistics tables](https://cran.r-project.org/web/packages/stargazer/index.html). R package, version 5.2.2.
+
+Wickham, H. and Grolemund, G. (2019). R for data science. O'Reilly. Open access at [https://r4ds.had.co.nz](https://r4ds.had.co.nz/).
+
+Wickham, H., Chang, W., Henry, L., Pedersen, T. L., Takahashi, K., Wilke, C., Woo, K., Yutani, H. and Dunnington, D. (2020a). [dplyr: A grammar of data manipulation](https://cran.r-project.org/web/packages/dplyr/index.html). R package, version 0.8.5.
+
+---
+## References
+
+Wickham, H., François, W., Henry L. and Müller, K. (2020b). [ggplot2: Create elegant data visualisations using the grammar of graphics](https://cran.r-project.org/web/packages/ggplot2/index.html). R package, version 0.8.5.
+
+Wiernik, B. M. (2020). [American Psychological Association 7th edition (no ampersand)](https://www.zotero.org/styles/apa-no-ampersand). Citation style language file, version 1.0.
+
+Xie, Y. (2020a). [tinytex: Helper functions to install and maintain TeX Live and compile LaTeX documents](https://cran.r-project.org/web/packages/tinytex/index.html). R package, version 0.21.
+
+Xie, Y. (2020b). [knitr: A general-purpose package for dynamic report generation in R](https://cran.r-project.org/web/packages/knitr/index.html). R package, version 1.28.
+
+Xie, Y. (2020c). [bookdown: Authoring books and technical documents with R Markdown](https://cran.rstudio.com/web/packages/bookdown/index.html). R package, version 0.18.
+
+Xie, Y. (2020d). [blogdown: Create blogs and websites with R Markdown](https://cran.r-project.org/web/packages/blogdown/index.html). R package, version 0.18.
+
+Xie, Y., Allaire, J. J., and Grolemund, G. (2019). R markdown: The definitive guide. CRC Press. Open access at [https://bookdown.org/yihui/rmarkdown](https://bookdown.org/yihui/rmarkdown/).
+
+Zhu, H. (2019). [kableExtra: Construct Complex Table with 'kable' and Pipe Syntax](https://cran.r-project.org/web/packages/kableExtra/index.html). R package, version 1.1.0.
+
+---
+class: middle, center
+
+## The workshop ends here.
+## Congradulations for making it this far, and
+## thank you for joining me!
+
+.footnote[
+
+[Back to the contents slide](#contents-slide).
+
+]
