@@ -95,9 +95,7 @@ library(countdown)
 
 .footnote[
 
-[Skip intro &mdash; To the contents slide](#contents-slide). &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="mailto:resuluy@uio.no?subject=R Markdown workshop">I can teach this workshop at your institution &mdash; Email me</a>.
-
-]
+[Skip intro &mdash; To the contents slide](#contents-slide).]
 
 ---
 ## Who am I?
@@ -109,16 +107,21 @@ Resul Umit
 - interested in representation, elections, and parliaments
     - [a recent publication](https://doi.org/10.1177%2F1478929920967588):
     Parliamentary communication allowances do not increase electoral turnout or incumbents’ vote share. 
-    
+
+--
+
+- working with Twitter data
     - [a publication based on Twitter data](https://doi.org/10.1080/13572334.2017.1283166): The voices of Eurosceptic members of parliament (MPs) echo disproportionately louder on Twitter.
     
       - 400,000+ tweets from 1,000+ MPs
       - automated classification, using a bag-of-words approach
       - manual validation
       
-    - [an app based on Twitter data](https://resulumit.shinyapps.io/likewise/): LikeWise &mdash; an app that faciliatates searching the tweets that you liked.
-    
-    - more at [resulumit.com](https://resulumit.com/)
+    - [an app based on Twitter data](https://resulumit.shinyapps.io/likewise/): LikeWise &mdash; an app that facilitates searching the tweets that you liked.
+
+--
+
+- more information available at [resulumit.com](https://resulumit.com/)
 
 ---
 ## The Workshop &mdash; Overview
@@ -148,61 +151,90 @@ Resul Umit
 ## The Workshop &mdash; Motivation
 
 - Twitter provides attractive opportunities for academic research
-    - a simple search for "twitter data" returns 55,000+ results on Google Scholar, by the end of 2020
+
+  - a simple search for "twitter data" returns 55,000+ results on Google Scholar, at the end of 2020
 
 --
 
 - Research based on Twitter data requires a set of skills 
-    - typically, these skills are not part of academic training
+
+  - typically, these skills are not part of academic training
 
 
 ---
 ## The Workshop &mdash; Motivation &mdash; Opportunities
 
 - Popularity of the network
+
   - about 350 million users, more than half are daily active
   - your subjects are likely Twitter users
-    - e.g., for me, members of parliament
+     - e.g., for me, members of parliament
 
---
+---
+## The Workshop &mdash; Motivation &mdash; Opportunities
+
+- Popularity of the network
+
+  - about 350 million users, more than half are daily active<sup>*</sup>
+  - your subjects are likely Twitter users
+     - e.g., for me, members of parliament
 
 - Richness of the data
+
   - about 500 million tweets per day<sup>*</sup>
   - with up to 90 variables for each tweet
 
---
-
-- Accesibilty of the data
-  - most Twitter data are public
-    - i.e., relatively few private profiles
-  - programmatic access to Twitter is enabled
-    - through API (application programming interface)
 
 .footnote[
 
-<sup>*</sup> The user and usage statistics on this slide are compiled by [BusinessOfApps](https://www.businessofapps.com/data/twitter-statistics).
+<sup>*</sup> These statistics are compiled at the end of 2020, by [BusinessOfApps](https://www.businessofapps.com/data/twitter-statistics).
 
 ]
+
+---
+## The Workshop &mdash; Motivation &mdash; Opportunities
+
+- Popularity of the network
+
+  - about 350 million users, more than half are daily active
+  - your subjects are likely Twitter users
+     - e.g., for me, members of parliament
+
+- Richness of the data
+
+  - about 500 million tweets per day
+  - with up to 90 variables for each tweet
+
+- Accessibility of the data
+
+  - most Twitter data are public
+     - i.e., relatively few private profiles
+  - programmatic access to Twitter is enabled
+     - through API (application programming interface)
 
 ---
 ## The Workshop &mdash; Motivation &mdash; Challenges
 
 - Research based on Twitter data requires certain skills
-    - e.g., availability of API is meaningless for researchers who cannot write code yet
-    - processing and analysing are no less challenging without programming skills
+
+  - e.g., availability of API is meaningless for researchers who cannot write code yet
+  - processing and analysing are no less challenging without programming skills
+
+--
 
 - The required skills are often uncovered in the academic training of social scientists
-    - e.g., methodology courses
-    - but help is available elsewhere
-      - collaborate with researchers with the skillset
+
+  - e.g., methodology courses
+  - but help is available elsewhere
+      - collaborate with researchers with the skills
          - sacrificing some control over your research and research agenda
       - acquire the skills through individual effort
-        - e.g., workshops such as this one
+         - e.g., workshops such as this one
 
 ---
 ## The Workshop &mdash; Motivation &mdash; Aims
 
-- To provide you with an understanding of what is possible with R
+- To provide you with an understanding of what is possible
 
   - we will cover a large breath of issues, not all of it is for long-term memory
       - one reason why the slides are designed for self study as well    
@@ -337,128 +369,150 @@ class: inverse, center, middle
 
 - Ideally, we already have one or more research questions, hypotheses
   - developed prior to data collection on Twitter and analysis
-    - based on, e.g., theory, claims, observations
+     - based on, e.g., theory, claims, observations
+  - perhaps, even pre-registered
+     - e.g., at [OSF Registries](https://osf.io/registries)
 
 --
 
 - Not all questions can be answered with Twitter data
   - see relevant literature for what works, what does not
-    - e.g., for political science, the review by [Jungherr (2016)](https://doi.org/10.1080/19331681.2015.1132401)
-    - for public health, the review by [Sinnenberg et al. (2017)](https://doi.org/10.2105/AJPH.2016.303512)
+     - e.g., for political science, the review by [Jungherr (2016)](https://doi.org/10.1080/19331681.2015.1132401)
+     - e.g., for public health, the review by [Sinnenberg et al. (2017)](https://doi.org/10.2105/AJPH.2016.303512)
 
 ---
+
+
 ## Considerations &mdash; Potential Biases
 
-There are two sources of potential bias in Twitter data
+There are two potential sources of bias in Twitter data
 
 - sampling
+
   - Twitter users are not representative of the people out there
      - see, for example, [Mellon and Prosser (2017)](https://doi.org/10.1177%2F2053168017720008)
-  - what users (do not) tweet about has a strategic component [Umit (2017)](https://doi.org/10.1080/13572334.2017.1283166)
+  - Tweeting behaviour has a strategic component 
+     - see, for example, [Umit (2017)](https://doi.org/10.1080/13572334.2017.1283166)
 
 
-- 
-mediation
+--
+name: potential-biases
+
+- mediation
+
   - the behaviour on Twitter is mediated through written and unwritten rules
-    - e.g., the function to like, but no dislike
-      - does this systematically bias the replies towards negative?
-    - e.g., the common use of the like function as a bookmark
-      - what would a study of likes measure?
+     - e.g., the function to like, but no dislike
+       - does this systematically bias the replies towards negative?
+     - e.g., the common use of the like function as a bookmark
+       - what would a study of likes measure?
 
 ---
 ## Considerations &mdash; Constraints over Data Access
 
 - Twitter has restrictions on data access
-    - how much data can you download through API
-        - how quickly, frequently, how far dating back, *etc*
-        
+
+  - how much data can you download through API
+     - how quickly, frequently, how far dating back, *etc*.
+
 --
 
 - These restrictions vary from one operation to another, a lot!
-    - e.g., historical tweets from all users, including a word
-        - up to 18,000 tweets
-        - posted up to seven to nine days prior to search
+
+  - e.g., collecting tweets in real time *vs*. collecting historical tweets
+     - but also, collecting historical tweets from a specific user *vs*. tweets from any user
+
+--
+
+- Twitter might change the rules of the game at any anytime
+
+  - making these restrictions more or less stricter
+     - e.g., while you are in the middle of data collection
     
-    - e.g., historical tweets from a given user
-        - up to 3,200 most recent tweets
-        - posted anytime
-        
-    - e.g., live tweets, including a word
-        - up to 1% of the total volume
-    
-.footnote[
-
-We will discuss these limitations in more detail in [Part 2](#part2). 
-
-]
-
----
-## Considerations &mdash; Constraints over Data Access
-
-- Twitter has restrictions on data access
-    - how much data can you download through API
-        - how quickly, frequently, how far dating back, *etc*
-
-- These restrictions vary from one operation to another, a lot!
-    - e.g., historical tweets from all users vs. from a given user
-
-- Twitter might change the rules of the game anytime
-    - making these restrictions more or less stricter
 
 ---
 ## Considerations &mdash; Constraints over Data Redistribution
 
 - Twitter restricts content redistribution
+
    - only Tweet IDs can be made publicly available in datasets
       - not tweets themselves
  - see [Twitter Developer terms](https://developer.twitter.com/en/developer-terms/agreement-and-policy) for further details
+
+--
  
 - Reproducibility of research based on Twitter data is limited in practice
-    - i.e., reproducibility after publication, by others
-    - technically, they can retrieve the tweets with IDs
-        - in practice, this is very demanding, and may even be impossible
-            - e.g., the tweets, accounts might be deleted
+
+  - i.e., reproducibility after publication, by others
+  - technically, they can retrieve the tweets with IDs
+      - in practice, this is very demanding, and may even be impossible
+          - e.g., tweets, or whole accounts, might be deleted
 
 ---
 ## Considerations &mdash; Changes in the Twitter API
 
 - Twitter is currently switching to a new API
-    - replacing API v1 with API v2
-    - see https://developer.twitter.com/en/docs/twitter-api/early-access
+
+  - replacing API v1 with API v2
+  - see https://developer.twitter.com/en/docs/twitter-api/early-access
 
 --
 
 - Existing codes to collect tweets may or may not be affected, depending on
+
    - how the API v2 will look in the end
        - it is still a work in progress
-   - whether and how the `rtweet` package<sup>*<sup> will adopt
-
---
-
-- Not all changes are bad
-   - among others, API v2 promises
-       - 'to serve the unique needs and challenges of academic researchers'
-           - see https://developer.twitter.com/en/solutions/academic-research
-       - unlimited access to all public tweets
+   - whether and how the `rtweet` package<sup>*</sup> will adopt
+   
    
 .footnote[
 
 <sup>*<sup> This is the R package that we will use to collect tweets. More details are in [Part 2](#part2). 
 
-]
+]   
+
+---
+## Considerations &mdash; Changes in the Twitter API
+
+- Twitter is currently switching to a new API
+
+  - replacing API v1 with API v2
+  - see https://developer.twitter.com/en/docs/twitter-api/early-access
+
+
+- Existing codes to collect tweets may or may not be affected, depending on
+
+   - how the API v2 will look in the end
+       - it is still a work in progress
+   - whether and how the `rtweet` package will adopt
+
+
+- Not all changes are bad
+
+   - among others, API v2 promises
+       - 'to serve the unique needs and challenges of academic researchers'
+           - see https://developer.twitter.com/en/solutions/academic-research
+       - unlimited access to all public tweets
 
 ---
 ## Considerations &mdash; Law and Ethics
 
-- It may be illegal and/or unethical to collect and analyze twitter data without user consent
-    - Twitter has no problem with it, but
-    - your country and/or (funding) institution may think otherwise
+- For most research designs, it is impossible to get users' consent to collect and analyze their twitter data
+    
+  - Twitter itself has no problem with it, but others may disagree
+      - e.g., your country, (funding) institution, subjects
     
 --
     
 - Check the rules that apply to your case
+   
+  - is it legal in your country?
+  - does your institution allow it? 
+  
+--
 
 - Reflect on whether using Twitter data for research is ethical
+
+  - even where it is legal and allowed, it may not be moral
 
 ---
 ## Considerations &mdash; Data Storage
@@ -466,21 +520,24 @@ We will discuss these limitations in more detail in [Part 2](#part2).
 Twitter data might require 
 
 - large amounts of digital storage space
-    - typically big data
-       - many tweets, variables
-    - e.g., a dataset of 1M tweets requires about 250MB 
-        - when stored in .Rdata format
+
+  - typically big data
+      - many tweets, variables
+  - e.g., a dataset of 1M tweets requires about 250MB 
+      - when stored in .Rdata format
 
 --
 
 - private, safe storage spaces
-    - due to Twitter's terms
-    - but also local laws, institutional requirements
-    
+
+  - due to [Twitter Developer terms](https://developer.twitter.com/en/developer-terms/agreement-and-policy)
+  - but also local laws, institutional requirements
+
 ---
 ## Considerations &mdash; Language and Context
 
 - Some tools of analysis are developed for a specific language and context
+
    - e.g., dictionaries for sentiment analysis, 
        - e.g., in English, for political texts
    - these may not be useful, valid for different languages, and context
@@ -488,14 +545,10 @@ Twitter data might require
 --
 
 - Some tools of analysis are developed for general context
+
    - e.g., a dictionary for sentiment analysis in general
    - these may not be useful, valid for a specific context
       - e.g., political science
-
-
-
-
-
 
 ---
 name: part2
@@ -514,13 +567,21 @@ class: action
 
 ## Workshop Slides &mdash; Access on Your Browser
 
-- Having the slides on your own machine might be helpful
-    - flexibility to go back and forward if you need
-    - ability to scroll across long codes on some slides
+- Having the workshop slides<sup>*</sup> on your own machine might be helpful
+
+  - flexibility to go back and forward on your own
+  - ability to scroll across long codes on some slides
 
 - Access at <https://resulumit.com/teaching/twtr_workshop.html>
-  - produced with the `xaringan` package (Xie, 2020)
 
+  - will remain accessible after the workshop
+  
+  
+.footnote[
+
+<sup>*</sup> These slides are produced in R, with the `xaringan` package (Xie, 2020).
+
+]
 
 ---
 class: action
@@ -535,9 +596,9 @@ class: action
   - an alternative: [python](https://www.python.org/)
   
 - Optional, if you have R already installed
-  - consider updating it if it is not up to date
+  - consider updating if it is not up to date
     - type the `R.version.string` command in R to check the version of your copy
-    - the latest version is R 4.0.3
+    - compare with the latest official release at [https://cran.r-project.org/sources.html](https://cran.r-project.org/sources.html)
 
 - Download R from [https://cloud.r-project.org](https://cloud.r-project.org)
     - choose the version for your operating system
@@ -554,8 +615,10 @@ class: action
   - an alternative: [GNU Emacs](https://www.gnu.org/software/emacs/)
 
 - Download RStudio from [https://rstudio.com/products/rstudio/download](https://rstudio.com/products/rstudio/download)
-    - choose the free version
-    - if you have RStudio already installed on your machine, check if a newer version is available
+  - choose the free version
+  - consider updating if it is not up to date, following from the RStudio menu:
+
+> `Help -> Check for Updates`
 
 ---
 class: action
@@ -563,7 +626,9 @@ name: rstudio-project
 
 ## RStudio Project &mdash; Create from within RStudio 
 
-- RStudio allows for dividing your work with R into separate projects, each with own history etc.
+- RStudio allows for dividing your work with R into separate projects
+
+  - each project gets dedicated workspace, history, and source documents
 
   - [this page](https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects) has more information on why projects are recommended
 
@@ -571,7 +636,7 @@ name: rstudio-project
 
 - Create a new RStudio project from the RStudio menu:
 
-> `File -> New Project`
+> `File -> New Project -> New Directory -> New Project`
 
 ---
 class: action
@@ -579,84 +644,79 @@ class: action
 ## R Packages &mdash; Install from within RStudio
 
 ```{r eval=FALSE, tidy=FALSE}
-install.packages(c("rtweet", "tidytext", "dplyr", "ggplot2"))
+install.packages(c("rtweet", "httpuv", "tidytext", "dplyr", "ggplot2"))
 
 ```
 
 --
 
-- `rmarkdown` (Allaire et al., 2020), for automating the process of converting R Markdown documents into other formats
+- `rtweet` ([Kearney, 2020](https://cran.r-project.org/web/packages/rtweet/index.html)), for collecting tweets
+    - alternatives: used to be `twitteR` ([Gentry, 2015](https://cran.r-project.org/web/packages/twitteR/index.html)), but not anymore; running Python in R
+    
+--
 
----
-class: action
+- `httpuv` ([Cheng & Chang, 2020](https://cran.r-project.org/web/packages/httpuv/index.html)), for API authorization
+    - alternative: using your own access tokens
+        - necessitates making an application through a developer
+        - has advantages that we will discuss later on
 
-## R Packages &mdash; Install from within RStudio
+--
 
-```{r eval=FALSE, tidy=FALSE}
-install.packages(c("rmarkdown", "tinytex", "dplyr", "stargazer", "ggplot2"))
+- `tidytext` ([Robinson & Silge, 2021](https://cran.r-project.org/web/packages/tidytext/index.html)), for working with text as data
+    - alternative: e.g., `quenteda` (Benoit et al., 2020)
+--
 
-tinytex::install_tinytex() #<<
-
-```
-
-- `rtweet` (Kearney, 2020), for collecting tweets
-    - alternatives: `twitteR` (Gentry, 2015)
-
-- `dplyr` (Wickham, 2020a), for data manipulation
-    - alternatives: e.g., `base`, `data.table` (Dowle & Srinivasan, 2019)
+- `dplyr` ([Wickham et al., 2020a](https://cran.r-project.org/web/packages/dplyr/index.html)), for data manipulation
+    - alternatives: e.g., `base`, `data.table` ([Dowle & Srinivasan, 2020](https://cran.r-project.org/web/packages/data.table/index.html))
 
 --
     
-- `ggplot2` (Wickham, 2020b), for figures
-    - alternatives: e.g., `base`, `plotly` (Sievert et al., 2020)
+- `ggplot2` ([Wickham et al., 2020b](https://cran.r-project.org/web/packages/ggplot2/index.html)), for plotting data
+    - alternatives: e.g., `base`, `plotly` ([Sievert et al., 2020](https://cran.r-project.org/web/packages/plotly/index.html))
 
 ---
 class: action
 
 ## Twitter &mdash; Open an Account
 
-Sign up for GitHub at [https://github.com](https://github.com/)
+Sign up for Twitter at [https://twitter.com/](twitter.com)
 
-- registering an account is free
+- a pre-condition for interacting with the Twitter API
+    - for both authentication methods
+        - i.e., through the `rtweet` and `httpuv` packages, or your personal access tokens
 
-- usernames are public
+--
+
+- helpful for getting to know what you study
+    - e.g., the written and unwritten rules that mediate the behaviour on Twitter
+        - as discussed [in Part 1](#potential-biases)
+
+--
+
+- with a strategic username
+  - usernames are changeable, but nevertheless public
       - either choose an anonymous username (e.g., `asdf029348`)
-      - or choose one carefully &mdash; it becomes a part of users' online presence
-      
-- usernames can be changed later
+      - or choose one carefully &mdash; they become a part of users' online presence
         
-
----
-class: action
-
-## R Markdown Cheat Sheet &mdash; Download from the Internet
-
-Downloading process can be initiated from within RStudio
-
-- follow from the RStudio menu
-
-> `Help -> Cheatsheets -> R Markdown Cheat Sheet` 
-
 
 ---
 ## Other Resources<sup>*</sup>
 
-- Pandoc User's Guide
 
-   - available at [https://pandoc.org/MANUAL.html](https://pandoc.org/MANUAL.html)
-
-- R Markdown: The Definitive Guide (Xie et al., 2019)
-
-   - open access at [https://bookdown.org/yihui/rmarkdown](https://bookdown.org/yihui/rmarkdown/)
-    
-
-- R for Data Science (Wickham and Grolemund, 2019)
+- R for Data Science ([Wickham & Grolemund, 2019](https://r4ds.had.co.nz/))
   
    - open access at [https://r4ds.had.co.nz](https://r4ds.had.co.nz/)
    
+--
+   
+- Text Mining with R: A Tidy Approach ([Silge & Robinson, 2017](https://www.tidytextmining.com/))
+ 
+   - open access at [tidytextmining.com](https://www.tidytextmining.com/)
+   
+   
 .footnote[
 
-<sup>*</sup> During the workshop, R Markdown Cheat Sheet is likely to be more helpful than these resources, which I recommend to be consulted after the workshop.
+<sup>*</sup> I recommend these to be consulted not during but after the workshop.
 
 ]
 
@@ -671,6 +731,27 @@ class: inverse, center, middle
 [Back to the contents slide](#contents-slide).
 
 ]
+---
+## Considerations &mdash; Constraints over Data Access
+
+- Twitter has restrictions on data access
+
+  - how much data can you download through API
+      - how quickly, frequently, how far dating back, *etc*.
+        
+  - these restrictions vary from one operation to another, a lot!
+    - e.g., historical tweets from all users, including a word
+        - up to 18,000 tweets
+        - posted up to seven to nine days prior to search
+    
+    - e.g., historical tweets from a given user
+        - up to 3,200 most recent tweets
+        - posted anytime
+        
+    - e.g., live tweets, including a word
+        - up to 1% of the total volume
+
+
 
 ---
 name: part4
@@ -711,30 +792,40 @@ class: inverse, center, middle
 name: reference-slide
 ## References
 
+Benoit, K., Watanabe, K., Wang, H., Nulty, P., Obeng, A., Müller, S., Matsuo, A., Lua, J. W., Kuha, J., & Lowe, W. (2020). [quanteda: Quantitative Analysis of Textual Data](https://cran.r-project.org/web/packages/quanteda/index.html). R package, version 2.1.2.
 
+Cheng, J., & Chang, W. (2020). [httpuv: HTTP and WebSocket Server Library](https://cran.r-project.org/web/packages/httpuv/index.html). R package, version 1.5.4.
 
-Dowle, M. and Srinivasan, A. (2019). [data.table: Extension of 'data.frame'](https://cran.r-project.org/web/packages/data.table/index.html). R package, version 1.12.8.
+Dowle, M., & Srinivasan, A. (2019). [data.table: Extension of 'data.frame'](https://cran.r-project.org/web/packages/data.table/index.html). R package, version 1.13.6.
 
 Gagolewski, M. (2020). [stringi: Character String Processing Facilities](https://cran.r-project.org/web/packages/stringi/index.html). R package, version 1.4.6.
 
-Jungherr, A. (2016). [Twitter use in election campaigns: A systematic literature review](https://doi.org/10.1080/19331681.2015.1132401). Journal of Information Technology & Politics, 13(1), 72-91.
+Gentry, J. (2015). [twitteR: R Based Twitter Client](https://cran.r-project.org/web/packages/twitteR/index.html). R package, version 1.1.9.
 
-Mellon, J., & Prosser, C. (2017). [Twitter and Facebook are not representative of the general population: Political attitudes and demographics of British social media users](https://doi.org/10.1177%2F2053168017720008). Research & Politics, July-September 2017, 1--9.
+Jungherr, A. (2016). [Twitter use in election campaigns: A systematic literature review](https://doi.org/10.1080/19331681.2015.1132401). Journal of Information Technology & Politics, 13(1), 72&ndash;91.
 
-Sinnenberg, L., Buttenheim, A. M., Padrez, K., Mancheno, C., Ungar, L., & Merchant, R. M. (2017). [Twitter as a tool for health research: A systematic review](https://doi.org/10.2105/AJPH.2016.303512). American Journal of Public Health, 107(1), e1-e8.
+Mellon, J., & Prosser, C. (2017). [Twitter and Facebook are not representative of the general population: Political attitudes and demographics of British social media users](https://doi.org/10.1177%2F2053168017720008). Research & Politics, July-September 2017, 1&ndash;9.
 
-Umit, R. (2017). [Strategic communication of EU affairs: An analysis of legislative behaviour on Twitter](). Journal of Legislative Studies, 23(1), 93-124.
+Robinson, D., & Silge, J. (2021). [tidytext: Text mining using 'dplyr', 'ggplot2', and other tidy tools](https://cran.r-project.org/web/packages/tidytext/index.html). R package, version 0.3.0.
 
-Wickham, H. and Grolemund, G. (2019). R for data science. O'Reilly. Open access at [https://r4ds.had.co.nz](https://r4ds.had.co.nz/).
-
-Wickham, H., Chang, W., Henry, L., Pedersen, T. L., Takahashi, K., Wilke, C., Woo, K., Yutani, H. and Dunnington, D. (2020a). [dplyr: A grammar of data manipulation](https://cran.r-project.org/web/packages/dplyr/index.html). R package, version 0.8.5.
+Sievert, C., Parmer, C.,  Hocking, T., Chamberlain, S., Ram, K., Corvellec, M., & Despouy, P. (2020). [plotly: Create Interactive Web Graphics via 'plotly.js'](https://cran.r-project.org/web/packages/plotly/index.html). R package, version 4.9.3.
 
 ---
 ## References
 
-Wickham, H., François, W., Henry L. and Müller, K. (2020b). [ggplot2: Create elegant data visualisations using the grammar of graphics](https://cran.r-project.org/web/packages/ggplot2/index.html). R package, version 0.8.5.
+Silge, J., & Robinson, D. (2017). [Text mining with R: A tidy approach](https://www.tidytextmining.com). O'Reilly. Open access at
 
+Sinnenberg, L., Buttenheim, A. M., Padrez, K., Mancheno, C., Ungar, L., & Merchant, R. M. (2017). [Twitter as a tool for health research: A systematic review](https://doi.org/10.2105/AJPH.2016.303512). American Journal of Public Health, 107(1), 1&ndash;8.
 
+Umit, R. (2017). [Strategic communication of EU affairs: An analysis of legislative behaviour on Twitter](https://doi.org/10.1080/13572334.2017.1283166). Journal of Legislative Studies, 23(1), 93&ndash;124.
+
+Wickham, H. and Grolemund, G. (2019). [R for data science](https://r4ds.had.co.nz). O'Reilly. Open access at [https://r4ds.had.co.nz](https://r4ds.had.co.nz/).
+
+Wickham, H., Chang, W., Henry, L., Pedersen, T. L., Takahashi, K., Wilke, C., Woo, K., Yutani, H. and Dunnington, D. (2020a). [dplyr: A grammar of data manipulation](https://cran.r-project.org/web/packages/dplyr/index.html). R package, version 0.8.5.
+
+Wickham, H., François, W., Henry L. and Müller, K. (2020b). [ggplot2: Create elegant data visualisations using the grammar of graphics](https://cran.r-project.org/web/packages/ggplot2/index.html). R package, version 3.3.3.
+
+Xie, Y. (2020). [xaringan: Presentation Ninja](https://cran.r-project.org/web/packages/xaringan/index.html). R package, version 0.19.
 
 
 
