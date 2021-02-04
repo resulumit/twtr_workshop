@@ -9,3 +9,4 @@
 presentation/*
 !presentation/twtr_workshop.Rmd
 !presentation/twtr_workshop.pdf
+data/tweets_all.rds
