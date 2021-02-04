@@ -1724,7 +1724,7 @@ search_tweets(q = "publish `-`lang:de",
 ]
 
 ---
-## Data Collection &mdash; `search_tweets()` &mdash; Notes
+## Data Collection &mdash; `search_tweets` &mdash; Notes
 
 .pull-left[
 
@@ -1805,7 +1805,7 @@ class: action
 `r countdown(minutes = 20, seconds = 00, top = 0)`
 
 ---
-## Data Collection &mdash; `search_users()`
+## Data Collection &mdash; `search_users`
 
 .pull-left[
 - Collect information on users
@@ -1922,7 +1922,7 @@ class: action
 ## Exercises
 
 12) Check all your remaining rate limits
-- hint: assign the call `rate_limit()` to a name 
+- hint: assign the call `rate_limit` to a name 
    - so that you can observe the resulting data frame better
 
 <br> 
@@ -1948,7 +1948,7 @@ class: action
 
 - `retryonratelimit` is not available for all functions in the package
 
-  - e.g., `search_users()`
+  - e.g., `search_users`
   - does not mean you will not run into limits
     
 --
@@ -1992,7 +1992,7 @@ class: middle, center
 # `lookup_`
 
 ---
-## Data Collection &mdash; `lookup_tweets()`
+## Data Collection &mdash; `lookup_tweets`
 
 .pull-left[
 
@@ -2021,7 +2021,7 @@ lookup_tweets(statuses,
 ]
 
 ---
-## Data Collection &mdash; `lookup_tweets()`
+## Data Collection &mdash; `lookup_tweets`
 
 Collect data on one or more status IDs 
 
@@ -2043,7 +2043,7 @@ lookup_tweets(statuses = df_ids$status_id)
 ```
 
 ---
-## Data Collection &mdash; `lookup_users()`
+## Data Collection &mdash; `lookup_users`
 
 .pull-left[
 
@@ -2070,7 +2070,7 @@ lookup_users(users,
 ]
 
 ---
-## Data Collection &mdash; `lookup_users()`
+## Data Collection &mdash; `lookup_users`
 
 Collect data on one or more status IDs 
 
@@ -2092,7 +2092,7 @@ lookup_users(users  = df_usernames$screen_name)
 ```
 
 ---
-## Data Collection &mdash; `lookup_friendships()`
+## Data Collection &mdash; `lookup_friendships`
 
 .pull-left[
 
@@ -2154,31 +2154,43 @@ class: middle, center
 # `get_`
 
 ---
-## Data Collection &mdash; `get_timeline()`
+## Data Collection &mdash; `get_timeline`
+
+.pull-left[
 
 - Collect the latest posts from one or more users
-    - by username or user IDs, with the `user` argument
-    - returns the most recent tweets, replies, and/or retweets
 
-- Limited to 3,200 tweets
-    - set the limit with the `n` argument
-        - the default is `n = 100`
-        - best accepts the multiples of 100
-    - there is no `retryonratelimit` argument
+  - specified by username or user IDs, with the `user` argument
+  - limited to 3,200 tweets per user-timeline  
+      - there is no `retryonratelimit` argument
+  - returns the most recent only, if there is more
+
+]
     
 .pull-right[
 
+```{r, eval=FALSE}
+get_timeline(user,
+             n = 100,
+             max_id = NULL,
+             home = FALSE,
+             parse = TRUE,
+             check = TRUE,
+             token = NULL,
+             ...
+)
+```
 
 ]
 
 ---
-## Data Collection &mdash; `get_timeline()`
+## Data Collection &mdash; `get_timeline`
 
 
 .pull-left[
 
-Collect the most recent posts by Hadley Wickham
-- e.i., tweets from the user-timeline of one user
+Collect the most recent 200 tweets by David Robinson
+- e.i., tweets from the user-timeline of .yellow-h[one] user
 
 ]
 
@@ -2188,7 +2200,7 @@ Collect the most recent posts by Hadley Wickham
 
 ```{r, eval=FALSE}
 
-search_tweets(user = "hadleywickham",
+search_tweets(user = "drob",
               n = 200)
 
 ```
@@ -2196,17 +2208,22 @@ search_tweets(user = "hadleywickham",
 ]
 
 ---
-## Data Collection &mdash; `get_timeline()`
+## Data Collection &mdash; `get_timeline`
 
 
 .pull-left[
 
-Collect the most recent posts by Hadley Wickham .yellow-h[and] David Robinson
-- tweets from the user-timeline of multiple users
+- Collect the most recent posts by David Robinson .yellow-h[and] Hadley Wickham
 
-Note that
-- this results in a dataframe of 400 observations
-- 200 from each specified user
+  - tweets from the user-timeline of .yellow-h[multiple] users 
+
+<br>
+
+- Note that
+  
+  - this results in a dataframe of 400 observations
+  - 200 from each specified user
+  - with increasing number of users, you are likely to run out of rate limit
 
 ]
 
@@ -2216,7 +2233,8 @@ Note that
 
 ```{r, eval=FALSE}
 
-get_timeline(user = `c("hadleywickham", "drob")`,
+get_timeline(user = `c("drob",`
+                     `"hadleywickham")`,
              n = 200)
 
 ```
@@ -2224,14 +2242,16 @@ get_timeline(user = `c("hadleywickham", "drob")`,
 ]
 
 ---
-## Data Collection &mdash; `get_timeline()` &mdash; Notes
+## Data Collection &mdash; `get_timeline` &mdash; Home Timeline
 
 .pull-left[
-The [package documentation](https://cran.r-project.org/web/packages/rtweet/rtweet.pdf) suggests that `get_timeline()` can also retrieve home-timelines
-- i.e., the tweets that appear on a given user's home, as posted by accounts followed by that user
-    - if the `home` argument is set to `TRUE`
-- this does not seem to be true
-    - this code returns .yellow-h[my] home-timeline, not Wickham's
+
+- The [package documentation](https://cran.r-project.org/web/packages/rtweet/rtweet.pdf) suggests that `get_timeline` can also retrieve home-timelines
+    - i.e., the tweets that appear on a given user's home, as posted by accounts followed by that user
+        - if the `home` argument is set to `TRUE`
+
+- This does not seem to be true
+    - this code returns my home-timeline, not Wickham's
         - from the last 6 to 9 days
     - the `user` argument is ignored when `home = TRUE`
     - but the `user` argument cannot be missing
@@ -2244,7 +2264,7 @@ The [package documentation](https://cran.r-project.org/web/packages/rtweet/rtwee
 
 ```{r, eval=FALSE}
 
-get_timeline(user = `"hadleywickham"`,
+get_timeline(`user = "hadleywickham"`,
              n = 200, 
              `home = TRUE`)
 
@@ -2257,33 +2277,60 @@ class: action
 
 ## Exercises
 
-11) Collect the most recent messages posted by three users 
-- 100 from the first user, 200 from the second user, and 300 from the third user
-- hint: see the function documentation on how to vary `n` per user
+21) Collect the most recent messages posted by three users 
+- 100 from the first user, 200 from the second, and 300 from the third
+- hint: see the function documentation on how to vary the `n` argument by user
 
 <br>
 
-12) Collect as many tweets as possible from your own home-timeline 
+22) Collect as many tweets as possible from your own home-timeline
 
+<br>
 
-`r countdown(minutes = 7, seconds = 30, top = 0)`
+23) Collect data from timelines of the first five MPs in `mps.csv`
+- collect as many tweets as possible
+
+`r countdown(minutes = 10, seconds = 10, top = 0)`
 
 ---
-## Data Collection &mdash; `get_followers()`
+## Data Collection &mdash; `get_followers`
 
 .pull-left[
 
-Get a list of followers, following .yellow-h[one] user
-- this returns a single column of user IDs, not usernames
-   - can be combined with, for example, `lookup_users()` to see the associated usernames *etc*.
-- limited with 75,000 followers per 15 minutes
-   - use `retryonratelimit = TRUE` to surpass the limit
+- Get a list of followers, following .yellow-h[one] user
+
+  - returns a single column of user IDs, not usernames
+  - limited with 75,000 followers per 15 minutes
+      - use `retryonratelimit = TRUE` to surpass the limit
+
+<br>     
+- Note that
+
+   - this function does not accept multiple users
+   - it can be combined with `lookup_users` if usernames are needed
 
 ]
 
 
 .pull-right[
+```{r, eval=FALSE}
+get_followers(user,
+              n = 5000,
+              page = "-1",
+              retryonratelimit = FALSE,
+              parse = TRUE,
+              verbose = TRUE,
+              token = NULL
+)
+```
+]
 
+---
+## Data Collection &mdash; `get_followers`
+
+Get a list of Hadley Wickham's followers on Twitter
+
+<br>
 
 ```{r, eval=FALSE}
 
@@ -2293,21 +2340,22 @@ get_followers(user = "hadleywickham",
 
 ```
 
-]
 
 ---
-## Data Collection &mdash; `get_friends()`
+## Data Collection &mdash; `get_friends`
 
 .pull-left[
 
-Get a list of users, .yellow-h[followed by] one or .yellow-h[more users]
+Get a list of users, .yellow-h[followed by].yellow-h[ one or more] users
+
 - this returns a single column of user IDs, not usernames
-   - can be combined with, for example, `lookup_users()` to see the associated usernames *etc*.
-- limited with 15 users
-   - use `retryonratelimit = TRUE` to surpass the limit
-- limited also with 5,000 followers per user
-   - `retryonratelimit = TRUE` does not help
-   - use the `page` argument instead to surpass the limit
+- limited to 15 users
+      - use `retryonratelimit = TRUE` to surpass the limit   
+<br>
+- limited also to 5,000 followers per user
+      - here `retryonratelimit = TRUE` does not help   
+<br>
+- use the `page` argument instead to surpass the limit
       - learn the correct value with the `next_cursor` argument
 ]
 
@@ -2317,50 +2365,67 @@ Get a list of users, .yellow-h[followed by] one or .yellow-h[more users]
 
 ```{r, eval=FALSE}
 
-get_friends(user = "JohnHolbein1",
+get_friends(users,
             n = 5000,
-            page = -2)
+            retryonratelimit = FALSE,
+            page = "-1",
+            parse = TRUE,
+            verbose = TRUE,
+            token = NULL
+)
+
 
 ```
 
 ]
 
 ---
+## Data Collection &mdash; `get_friends`
+
+Collect a list of users followed by Jenny Bryan and Hadley Wickham on Twitter
+   - with 20 friends from each
+
+<br>
+
+```{r, eval=FALSE}
+
+get_friends(users = c("hadleywickham", "JennyBryan"),
+            n = 20)
+
+```
+
+---
 class: action
 
 ## Exercises
 
-13) Get a list of accounts following *Universität Luzern*
-- search for the Unversity's username with `search_users()`
-- search for the followers `get_followers()`
+24) Collect a list of accounts following *Universität Luzern*
+- search for the Unversity's username with `search_users`
+- search for the followers `get_followers`
 
 <br>
 
-14) Get a list of accounts that *Universität Luzern* follows
-- find out more about these accounts with `lookup_users()`
+25) Collect a list of accounts that *Universität Luzern* follows
+- find out more about these accounts with `lookup_users`
    - hint: use `df_friends$user_id` as the `users` argument
    
 <br>
    
-15) Check your rate limits
+26) Check your rate limits
 
 `r countdown(minutes = 7, seconds = 30, top = 0)`
 
 ---
-## Data Collection &mdash; `get_favorites()`
+## Data Collection &mdash; `get_favorites`
 
 .pull-left[
 
-- Collect posts *liked* by one or more users
-    - by username or user IDs, with the `user` argument
-    - returns the most recent tweets, replies, and/or retweets
+Collect tweets liked by one or more users
 
-- Limited to 3,000 posts
-    - set the limit with the `n` argument
-        - the default is `n = 200`
-        - best accepts the multiples of 100
-    - there is no `retryonratelimit` argument
-
+  - by username or user IDs, with the `user` argument
+  - limited to 3,000 likes
+      - there is no `retryonratelimit` argument
+  - returns the most recent only, if there is more
 
 ]
 
@@ -2370,36 +2435,76 @@ class: action
 
 ```{r, eval=FALSE}
 
-get_favorites(user = "chrishanretty")
+get_favorites(user,
+              n = 200,
+              since_id = NULL,
+              max_id = NULL,
+              parse = TRUE,
+              token = NULL
+)
 
 ```
 
 ]
 
 ---
-## Data Collection &mdash; `get_retweets()`
+## Data Collection &mdash; `get_favorites`
 
-.pull-left[
+Collect a list of tweets liked by Jenny Bryan
 
-- Collect information on the retweets of one post
-   - using the `status_id` argument
-   - available in the data frames returned by many functions in the package
-       - e.g., `get_timeline()`
-   - also available on browsers
-   
-- Limited to 100 retweets
-   - can be further limited with the `n` argument
+<br>
 
+.pull-right[
+
+```{r, eval=FALSE}
+
+get_favorites(user = "JennyBryan")
+
+```
 
 ]
 
 ---
+## Data Collection &mdash; `get_retweets`
 
-## Data Collection &mdash; `get_retweets()`
+.pull-left[
+
+- Collect information on the retweets of .yellow-h[one] tweet
+
+   - using the `status_id` argument
+   - available in the data frames returned by many functions in the package
+       - e.g., `get_timeline`
+        - also available on browsers    
+<br>
+   - limited to 100 retweets
+      - even if there might be more
+
+
+]
+
+.pull-right[
+
+```{r, eval=FALSE}
+
+get_retweets(status_id, 
+             n = 100, 
+             parse = TRUE, 
+             token = NULL, 
+             ...
+)
+
+```
+]
+
+
+---
+## Data Collection &mdash; `get_retweets`
 
 - Collect the most recent 50 retweets 
+
    - of the post announcing the [Academic Research product track](https://twitter.com/TwitterDev/status/1354143047324299264)
 
+<br>
 
 ```{r, eval=FALSE}
 
@@ -2413,29 +2518,33 @@ class: action
 
 ## Exercises
 
-16) Get a list of favorites by three users
-- Compare and contrast the resulting data with the same information available on browser
+27) Collect a list of favorites by three users
+- compare and contrast the resulting data with the same information available on browser
 
 <br>
 
-17) Get a list of accounts retweeting a recent tweet of yours
-- Compare and contrast the resulting data with what you can see on a browser
+28) Collect a list of accounts retweeting a recent tweet of yours
+- compare and contrast the resulting data with what you can see on a browser
 
 `r countdown(minutes = 7, seconds = 30, top = 0)`
 
 ---
-## Data Collection &mdash; `get_trends()`
+## Data Collection &mdash; `get_trends`
 
 .pull-left[
 
 - Collect information on twitter trends
+
    - by town or country, specified with 
-       - the `woeid` argument, or 
+       - the `woeid` argument,<sup>*</sup> or 
        - the `lat` and `long` arguments
-       
+
+<br>       
 - Note that
-    - not all locations have trending data
-    - use the `trends_available()` argument to check availability
+
+  - not all locations have trending data
+  - use the `trends_available` function to check availability
+      - with no argument
 
 ]
 
@@ -2444,14 +2553,69 @@ class: action
 
 ```{r, eval=FALSE}
 
-get_trends("london")
+get_trends(woeid = 1,
+           lat = NULL,
+           lng = NULL,
+           exclude_hashtags = FALSE,
+           token = NULL,
+           parse = TRUE
+)
 
-get_trends(lat = "51.50",
-           lng = "0.12")
 
 ```
 
 ]
+
+.footnote[
+
+<sup>*</sup> It stands for "where on earth identifier", which is 44418 for London. Google for more!
+
+]
+
+---
+## Data Collection &mdash; `get_trends`
+
+Collect the trends data for London
+ - using the `woeid` argument
+
+```{r, eval=FALSE}
+
+get_trends(woeid = 44418)
+
+```
+
+
+<br>
+
+Collect the same trends data for London
+ - using the `lat` and `long` arguments instead
+
+
+```{r, eval=FALSE}
+
+get_trends(lat = "51.50", lng = "0.12")
+
+```
+
+---
+class: action
+
+## Exercises
+
+29) Collect a list of places where the trends data is available
+- hint: use the `trends_available` function
+
+<br>
+
+30) Collect the lists of trends for two locations
+- compare and contrast the resulting data for two locations
+
+<br>
+
+31) Collect the list of trends for your location
+- compare and contrast the resulting data with what you see on your browser
+
+`r countdown(minutes = 7, seconds = 30, top = 0)`
 
 ---
 class: middle, center
@@ -2459,12 +2623,38 @@ class: middle, center
 # `lists_`
 
 ---
-## Data Collection &mdash; `lists_memberships()`
+## Data Collection &mdash; `lists_memberships`
 
-- Collect data on lists where a given user is a member
-   - i.e., lists where a user appears
+.pull-left[
 
-- Limited with 200 lists
+- Collect .yellow-h[data on lists], where one or more users are listed
+
+   - i.e., the lists where a user appears
+   - limited to 200 lists
+
+]
+
+.pull-right[
+
+```{r, eval=FALSE}
+
+lists_memberships(user = NULL,
+                  n = 200,
+                  cursor = "-1",
+                  filter_to_owned_lists = FALSE,
+                  token = NULL,
+                  parse = TRUE,
+                  previous_cursor = NULL
+)
+
+```
+
+]
+
+---
+## Data Collection &mdash; `lists_memberships`
+
+Collect data on lists where Jenny Bryan is listed
 
 ```{r, eval=FALSE}
 
@@ -2472,19 +2662,60 @@ lists_memberships(user = "JennyBryan")
 
 ```
 
----
-## Data Collection &mdash; `lists_members()`
+<br>
 
-- Collect data on users listed in a list
+Collect data on lists where Jenny Bryan .yellow-h[and/or] Hadley Wickham is listed
+
+```{r, eval=FALSE}
+
+lists_memberships(user = c("JennyBryan", "hadleywickham"))
+
+```
+
+---
+## Data Collection &mdash; `lists_members`
+
+.pull-left[
+
+- Collect .yellow-h[data on users] listed in .yellow-h[one] list
+
    - specify the list with the `list_id` argument
-       - e.g., with data from `lists_memberships()`
-       
-- Limited with 5,000 members
+       - e.g., with data from `lists_memberships`
+   - or the `owner_user` .yellow-h[and] `slug` arguments together
+   - limited to 5,000 members
    
+<br>
+
 - Note that
-    - lists also appear at twitter.com/USERNAME/lists
-    - see, for example, [twitter.com/tweetminster/lists](https://twitter.com/tweetminster/lists)
-    - list IDs appear in browser search bar
+
+  - lists also appear at twitter.com/USERNAME/lists
+  - see, for example, [twitter.com/tweetminster/lists](https://twitter.com/tweetminster/lists)
+
+]
+   
+.pull-right[
+
+```{r, eval=FALSE}
+
+lists_members(list_id = NULL,
+              slug = NULL,
+              owner_user = NULL,
+              n = 5000,
+              cursor = "-1",
+              token = NULL,
+              parse = TRUE,
+              ...
+)
+
+```
+
+]
+
+---
+## Data Collection &mdash; `lists_members`
+
+Collect data on the list of MPs in the House of Commons
+- using the `list_id` argument
    
 ```{r, eval=FALSE}
 
@@ -2492,30 +2723,55 @@ lists_members(list_id = "1405362")
 
 ```
 
----
-## Data Collection &mdash; `lists_members()`
+--
+<br>
 
-- Alternatively, specify lists with two arguments together
-   - `owner_user` and `slug`
+Collect the same data, with different arguments
+- using the `owner_user` .yellow-h[and] `slug` arguments
    
 ```{r, eval=FALSE}
 
-lists_statuses(owner_user = "tweetminster",
-               slug = "UKMPs")
+lists_members(owner_user = "tweetminster", slug = "UKMPs")
 
 ```
 
 ---
-## Data Collection &mdash; `lists_statuses()`
+## Data Collection &mdash; `lists_statuses`
 
-- Collect posts from the timeline of a list
-   - specify the list with the `list_id` argument
-       - e.g., with data from `lists_memberships()`
+.pull-left[
+
+Collect tweets from the timeline of a list
    
-- Note that
-    - lists also appear at twitter.com/USERNAME/lists
-    - see, for example, [twitter.com/tweetminster/lists](https://twitter.com/tweetminster/lists)
-    - list IDs appear in browser search bar
+- i.e., tweets posted by those listed on a given list
+- specify the list with the `list_id` argument
+- or the `owner_user` .yellow-h[and] `slug` arguments together
+   
+]
+    
+.pull-right[
+
+```{r, eval=FALSE}
+
+lists_statuses(list_id = NULL,
+               slug = NULL,
+               owner_user = NULL,
+               since_id = NULL,
+               max_id = NULL,
+               n = 200,
+               include_rts = TRUE,
+               parse = TRUE,
+               token = NULL
+)
+
+```
+
+]
+
+---
+## Data Collection &mdash; `lists_statuses`
+
+Collect tweets posted by the members of the UKMPs list
+- using the `list_id` argument
    
 ```{r, eval=FALSE}
 
@@ -2523,86 +2779,200 @@ lists_statuses(list_id = "1405362")
 
 ```
 
----
-## Data Collection &mdash; `lists_statuses()`
+--
+<br>
 
-- Alternatively, specify lists with two arguments together
-   - `owner_user` and `slug`
+Collect the same data, with different arguments
+- using the `owner_user` .yellow-h[and] `slug` arguments
    
 ```{r, eval=FALSE}
 
-lists_statuses(owner_user = "tweetminster",
-               slug = "UKMPs")
+lists_statuses(owner_user = "tweetminster", slug = "UKMPs")
 
 ```
 
 ---
-## Data Collection &mdash; `lists_subscribers()`
+## Data Collection &mdash; `lists_subscribers`
 
-- Collect data on users subscribed to a given list
-       - specify the list with the `list_id` argument
-       - or with the `owner_user` and `slug` arguments
+.pull.left[
 
+Collect data on users subscribed to a given list
+
+- i.e., users who are following a list
+- specify the list with the `list_id` argument
+- or with the `owner_user` and `slug` arguments
+- limited to 5,000 users
    
-- Limited with 5,000 users
+]
+
+.pull-right[
+
+```{r, eval=FALSE}
+
+lists_subscribers(list_id = NULL,
+                  slug = NULL,
+                  owner_user = NULL,
+                  n = 20,
+                  cursor = "-1",
+                  parse = TRUE,
+                  token = NULL
+)
+
+```
+
+]
+
+---
+## Data Collection &mdash; `lists_subscribers`
+
+Collect data on users subscribed to the UKMPs list
+- using the `list_id` argument
    
 ```{r, eval=FALSE}
 
 lists_subscribers(list_id = "1405362")
 
-lists_subscribers(owner_user = "tweetminster",
-                  slug = "UKMPs")
-
 ```
 
----
-## Data Collection &mdash; `lists_subscriptions()`
+--
+<br>
 
-- Collect data on the lists a user is subscribed to
-       - specify the user with `user` argument
-           - takes user ID or username
-
-   
-- Limited with 1,000 subscriptions
+Collect the same data, with different arguments
+- using the `owner_user` .yellow-h[and] `slug` arguments
    
 ```{r, eval=FALSE}
 
-lists_subscriptions(user = "37999671")
-
-lists_subscriptions(user = "AimeePaige")
+lists_subscribers(owner_user = "tweetminster", slug = "UKMPs")
 
 ```
 
 ---
+## Data Collection &mdash; `lists_subscriptions`
+
+.pull-left[
+
+Collect data on the lists a user is subscribed to
+
+  - specify the user with `user` argument
+      - takes user ID or username
+  - limited to 1,000 subscriptions
+
+]
+
+.pull-right[
+
+```{r, eval=FALSE}
+
+lists_subscriptions(user, 
+                    n = 20, 
+                    cursor = "-1", 
+                    parse = TRUE, 
+                    token = NULL)
+
+```
+
+]
+
 ---
+## Data Collection &mdash; `lists_subscriptions`
+
+.pull-left[
+
+Collect data on the lists that Aimee Paige is subscribed to
+
+```{r, eval=FALSE}
+lists_subscriptions(user = "AimeePaige")
+```
+
+---
+class: action
+
+## Exercises
+
+32) Collect data on lists where Hadley Wickham is listed
+- hint: his username is "hadleywickham"
+
+<br>
+
+33) For one of these lists, see who else is listed with Hadley Wickham
+- compare and contrast this data with what you can see on a browser
+
+<br>
+
+34) Collect the latest posts from that list
+
+<br>
+
+35) Collect data on users subscribed to that list
+
+<br>
+
+36) For one of these users, see if they are subscribed to any other lists
+
+
+`r countdown(minutes = 10, seconds = 00, top = 0)`
+
+---
+
 class: middle, center
 
 # `stream_tweets`
 
 ---
-## Data Collection &mdash; `stream_tweets()`
+## Data Collection &mdash; `stream_tweets`
+
+.pull-left[
 
 - Collect tweets as they are posted real time
+
    - about 1% of all new public Tweets, randomly chosen
    - set the length of search with the `timeout` argument
-      - can be set to infinity with `Inf`
 
 - The search can be limited with the `q` argument
-    - up to 400 keywords
-    - up to 5,000 user IDs or usernames
-    - location coordinates of geographical boxes
+
+  - up to 400 keywords
+  - up to 5,000 user IDs or usernames
+  - location coordinates of .yellow-h[geographical boxes]
+     - not two, but four coordinates
+     
+
+- Note that
+
+  - this function uses the stream APIs
+  - unlike any other function covered so far
+
+]
+
+.pull-right[
+
+```{r, eval=FALSE}
+
+stream_tweets(q = "",
+              timeout = 30,
+              parse = TRUE,
+              token = NULL,
+              file_name = NULL,
+              verbose = TRUE,
+              ...
+)
+```
+
+]
 
 ---
-## Data Collection &mdash; `stream_tweets()`
+## Data Collection &mdash; `stream_tweets`
 
 .pull-left[
 
 - Collect a random sample of tweets being sent
-   - continuously
-   
-- Note that
-   - you are likely to run into connection problems at some point
 
+   - continuously
+  
+<br>
+- Note that
+
+   - the `timeout` function can be set to infinity
+   - you are likely to run into connection problems at some point
 
 ]
 
@@ -2610,21 +2980,24 @@ class: middle, center
 ```{r, eval=FALSE}
 
 stream_tweets(q = "",
-              timeout = Inf)
+              `timeout = Inf`)
 
 ```
 ]
 
 ---
-## Data Collection &mdash; `stream_tweets()`
+## Data Collection &mdash; `stream_tweets`
 
 .pull-left[
 
-- Collect a random sample of tweets being sent
-   - `for 30 seconds`
+- Collect a random sample of tweets being sent   
 
+   - for 30 seconds
+
+<br>
 - Note that
-   - `timeout` values are in seconds
+
+   - `timeout` values are otherwise in seconds
 
 ]
 
@@ -2638,13 +3011,14 @@ stream_tweets(q = "",
 ]
 
 ---
-## Data Collection &mdash; `stream_tweets()`
+## Data Collection &mdash; `stream_tweets`
 
 .pull-left[
 
-- Collect a random sample of tweets being sent
+- Collect a random sample of tweets being sent   
+
    - for 30 seconds
-   - filtered by `a search query`
+   - filtered by .yellow-h[a search query]
 
 
 ]
@@ -2660,18 +3034,20 @@ stream_tweets(q = `"switzerland, schweiz,`
 ]
 
 ---
-## Data Collection &mdash; `stream_tweets()`
+## Data Collection &mdash; `stream_tweets`
 
 .pull-left[
 
-- Collect a random sample of tweets being sent
+- Collect a random sample of tweets being sent   
+
    - for 30 seconds
-   - filtered by `usernames`
+   - filtered by .yellow-h[usernames]
 
 
 ]
 
 .pull-right[
+
 ```{r, eval=FALSE}
 
 stream_tweets(q = `"UniLuzern, hslu,
@@ -2679,29 +3055,59 @@ stream_tweets(q = `"UniLuzern, hslu,
               timeout = 30)
 
 ```
+
 ]
 
 ---
-## Data Collection &mdash; `stream_tweets()`
+## Data Collection &mdash; `stream_tweets`
 
 .pull-left[
 
-- Collect a random sample of tweets being sent
+- Collect a random sample of tweets being sent   
+
    - for 30 seconds
-   - filtered by `coordinates`
+   - filtered by .yellow-h[coordinates]
 
 
 ]
 
 .pull-right[
 ```{r, eval=FALSE}
-
 stream_tweets(q = `c(6.02, 45.77,` 
                   `10.44, 47.83),`
               timeout = 30)
 
 ```
 ]
+
+---
+class: action
+
+## Exercises
+
+37) Stream for all tweets, for 30 seconds
+- observer the outcome
+    - observe the outcome of each step below as well
+- hint: assign each stream to a different name, so that you can compare
+
+<br>
+
+38) Limit your stream to Switzerland
+   - and stream for 60 seconds
+
+<br>
+
+39) Further limit your stream by a popular keyword
+- e.g., "und"
+- stream for 60 more seconds
+
+<br>
+
+40) Further limit your stream to a not so popular word
+- e.g., "Luzern"
+- stream for 60 more seconds
+
+`r countdown(minutes = 10, seconds = 00, top = 0)`
 
 ---
 name: part4
@@ -2952,7 +3358,7 @@ str_to_lower(string = tweet)
 
 Note that
    - there are other functions in this family, including
-      - `str_to_sentence()`, `str_to_title()`, `str_to_upper()`
+      - `str_to_sentence`, `str_to_title`, `str_to_upper`
 
 ---
 ## Data Preperation &mdash; Change Unit of Observation
