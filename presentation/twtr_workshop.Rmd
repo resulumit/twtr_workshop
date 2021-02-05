@@ -19,14 +19,12 @@ class: inverse, center, middle
 
 ```{r setup, include=FALSE}
 options(htmltools.dir.version = FALSE, crayon.enabled = TRUE)
-
 library(crayon)
 library(fansi)
 library(dplyr)
 library(ggplot2)
 library(stargazer)
 library(countdown)
-
 ```
 
 <style type="text/css">
@@ -128,9 +126,11 @@ Resul Umit
 
 - Two days, on how to collect, process, and analyse data from Twitter
 
-  - 150+ slides, 40+ exercises, and time for working on a real project
+  - 150+ slides, 50+ exercises
+  - support for applications to Twitter, developing real projects
 
 --
+
 <br>
 
 - Designed for researchers with basic knowledge of R programming language
@@ -149,6 +149,7 @@ Resul Umit
   - at the end of 2020, a simple search for "twitter data" returns 55,000+ results on Google Scholar
 
 --
+
 <br>
 
 - Research based on Twitter data requires a set of skills 
@@ -205,6 +206,7 @@ Resul Umit
   - with up to 90 variables for each tweet
 
 <br>
+
 - Accessibility of the data
 
   - most Twitter data are public
@@ -247,6 +249,7 @@ Resul Umit
   - awareness of what is possible, `Google`, and perseverance are all you need
 
 --
+
 <br>
 
 - To start you with acquiring and practicing the skills needed 
@@ -334,7 +337,7 @@ Slides with this background colour indicate that your action is required, for
     - long codes and texts will have their own line(s)
 
 ```{r, demonstration, eval=FALSE}
-# load the tweets dataset
+# read in  the tweets dataset
 df <- read_rds("tweets.rds") %>%
   
 # split the variable `text`, create a new variable called `da_tweets`    
@@ -342,7 +345,6 @@ df <- read_rds("tweets.rds") %>%
  
 # remove rows that match any of the stop words as stored in the stop_words dataset 
   anti_join(stop_words, by = c("da_tweets" = "word")) 
-
 ```
 
 ---
@@ -359,16 +361,20 @@ df <- read_rds("tweets.rds") %>%
     - except very obvious results, such as figures and tables
     
 --
+
 <br>
 
     
 - Specific sections are .yellow-h[highlighted yellow as such] for emphasis
+
     - these could be for anything &mdash; codes and texts in input, results in output, and/or texts on slides
     
 --
+
 <br>
 
 - The slides are designed for self-study as much as for the workshop
+
     - *accessible*, in substance and form, to go through on your own
 
 ---
@@ -679,7 +685,6 @@ class: action
   - consider updating your copy, if it is not up to date, following from the RStudio menu:
 
 > `Help -> Check for Updates`
-
 ---
 class: action
 name: rstudio-project
@@ -697,7 +702,6 @@ name: rstudio-project
 
 > `File -> New Project -> New Directory -> New Project`
 
-
 - An unsynced directory is recommended
      - e.g., perhaps Documents, but not Dropbox
 
@@ -708,7 +712,6 @@ class: action
 
 ```{r eval=FALSE, tidy=FALSE}
 install.packages(c("rtweet", "httpuv", "tidyverse", "tidytext"))
-
 ```
 
 
@@ -725,7 +728,6 @@ class: action
 
 ```{r eval=FALSE, tidy=FALSE}
 install.packages(c("rtweet", "httpuv", "tidyverse", "tidytext"))
-
 ```
 
 - `rtweet` ([Kearney, 2020](https://cran.r-project.org/web/packages/rtweet/index.html)), for collecting tweets
@@ -748,10 +750,9 @@ class: action
 
 ```{r eval=FALSE, tidy=FALSE}
 install.packages(c("rtweet", "httpuv", "tidyverse", "tidytext"))
-
 ```
 
-- `tidyverse` ([Wickham et al., 2019](https://cran.r-project.org/web/packages/tidyverse/index.html)), for various tasks
+- `tidyverse` ([Wickham & RStudio 2019](https://cran.r-project.org/web/packages/tidyverse/index.html)), for various tasks
 
     - including data manipulation, visualisation
     - alternative: e.g., `base` R
@@ -768,23 +769,27 @@ class: action
 
 ## Course Materials &mdash; Download from the Internet
 
-- Download the materials from <https://www.dropbox.com/s/fej5husakvnf8tz/data.zip?dl=0> 
-      - to a sub-directory of your RStudio project
-      - in the code that follows, my subdirectory will be called `data`
+- Download the materials from <https://www.dropbox.com/s/fej5husakvnf8tz/data.zip?dl=0>
+
+  - to a sub-directory of your RStudio project
+  - in the code that follows, my subdirectory will be called `data`
 
 --
 
 - `data/mps.csv`
-    - a dataset on the members of parliament (MPs) in the British House of Commons, as of January 2021
-    - it includes variables on electoral results as well as Twitter usernames
+
+  - a dataset on the members of parliament (MPs) in the British House of Commons, as of January 2021
+  - it includes variables on electoral results as well as Twitter usernames
 
 - `data/status_ids.rds`
-    - a dataset with a single variable: `status_id`
-    - lists the status IDs of all tweets posted by the MPs listed in `mps.csv`, during January 2021
+
+  - a dataset with a single variable: `status_id`
+  - lists the status IDs of all tweets posted by the MPs listed in `mps.csv`, during January 2021
     
 - `data/tweets.rds`
-    - similar to `data/status_ids`, except that
-        - the time period is now limited to 15 to 31 January, reducing the number of observations below 50,000, allowing for all variables to be posted online
+
+  - similar to `data/status_ids`, except that
+      - the time period is now limited to 15 to 31 January, reducing the number of observations below 50,000, allowing for all variables to be posted online
 
 ---
 ## Twitter &mdash; Authorisation
@@ -803,7 +808,7 @@ class: action
       - repeated for every project
 
 - There may be additional steps
-   - e.g., registering for the [Academic Research product track](https://twitter.com/TwitterDev/status/1354143047324299264)
+   - e.g., registering for the [Academic Research product track](https://developer.twitter.com/en/portal/petition/academic/is-it-right-for-you)
    - per project, depending on meeting certain criteria
 
 ---
@@ -934,6 +939,7 @@ class: action
 ## Twitter &mdash; Keys and Tokens &mdash; Notes &mdash; Definitions
 
 - Consumer key and Consumer secret
+
   - identifiers for an application
   - provide .yellow-h[project authorization]
      - identify the application
@@ -943,6 +949,7 @@ class: action
 --
 
 - Access token and Access token secret
+
   - identifier for users of an application
      - this may or may not include anyone other than the owner
      - e.g., for `rstats2twitter`, there are many users
@@ -958,14 +965,17 @@ class: action
    - open access at [https://r4ds.had.co.nz](https://r4ds.had.co.nz/)
    
 --
-   
+
+<br>
+
 - Text Mining with R: A Tidy Approach ([Silge & Robinson, 2017](https://www.tidytextmining.com/))
  
    - open access at [tidytextmining.com](https://www.tidytextmining.com/)
-   
    - comes with [a course website](https://juliasilge.shinyapps.io/learntidytext/) where you can practice
    
 --
+
+<br>
 
 - [quanteda tutorials](https://tutorials.quanteda.io/)
   
@@ -1129,7 +1139,7 @@ Our attempts to collect data will be limited for various reasons, including
     - the [package repository](https://github.com/ropensci/rtweet) on GitHub
     - the [package documentation](https://cran.r-project.org/web/packages/rtweet/rtweet.pdf)
     - this [journal article](https://doi.org/10.21105/joss.01829) by its creator
-    - this [book](https://ggplot2.tidyverse.org/reference/) by Bob Rudis &mdash; a user of the package
+    - this [book](https://rud.is/books/21-recipes/) by Bob Rudis &mdash; a user of the package
     - numerous tutorials, such as [this](https://www.mzes.uni-mannheim.de/socialsciencedatalab/article/collecting-and-analyzing-twitter-using-r/), [this](https://www.r-pkg.org/pkg/rtweet), and [this](https://www.earthdatascience.org/courses/earth-analytics/get-data-using-apis/use-twitter-api-r/)
 
 --
@@ -1223,13 +1233,12 @@ class: action
 
 > `File -> New File -> R Script`
 
-
 - Name and save your file
     - to avoid the `Untitled123` problem
     - e.g., `data_collection.R`
 
 
-- Load the `rtweet` package
+- Load the `rtweet` and other packages
    - no need to load the `httpuv` package, enough if installed
 
 ]
@@ -1238,6 +1247,8 @@ class: action
 
 ```{r, eval=FALSE}
 library(rtweet)
+library(tidyverse)
+library(tidytext)
 ```
 
 ]
@@ -1262,7 +1273,6 @@ tw_token <- create_token(
     access_token = "",
     access_secret = ""
   )
-
 ```
 
 ---
@@ -1289,7 +1299,6 @@ tw_token <- create_token(
     access_token = "",
     access_secret = ""
    )
-
 ```
 
 
@@ -1298,7 +1307,6 @@ tw_token <- create_token(
 ```{r, eval=FALSE}
  library(rtweet)
  `source("keys_tokens.R")`
-
 ```
 
 ]
@@ -1334,7 +1342,6 @@ TWITTER_ACCESS_SECRET=SDF...
 
 ```{r, eval=FALSE}
  library(rtweet)
-
 tw_token <- create_token(
     app = Sys.getenv("TWITTER_APP"),
     consumer_key = Sys.getenv("TWITTER_CONSUMER_KEY"),
@@ -1342,7 +1349,6 @@ tw_token <- create_token(
     access_token = Sys.getenv("TWITTER_ACCESS_TOKEN"),
     access_secret = Sys.getenv("TWITTER_ACCESS_SECRET")
  )
-
 ```
 
 ]
@@ -1424,11 +1430,8 @@ search_tweets(q,
 
 
 ```{r, eval=FALSE}
-
 ```{r, eval=FALSE}
-
 search_tweets(q = `"#publish"`)
-
 ```
 
 ]
@@ -1511,10 +1514,8 @@ class: action
 
 
 ```{r, eval=FALSE}
-
 search_tweets(q = `"publish"`,
               `token = tw_token`)
-
 ```
 
 ]
@@ -1534,11 +1535,9 @@ Collect the .yellow-h[top] .yellow-h[200] tweets that
 
 
 ```{r, eval=FALSE}
-
 search_tweets(q = "publish",
               `n = 200`,
               `type = "popular"`)
-
 ```
 
 ]
@@ -1563,11 +1562,9 @@ search_tweets(q = "publish",
 
 
 ```{r, eval=FALSE}
-
 search_tweets(q = `"publish perish"`,
               n = 200,
               type = "popular")
-
 ```
 
 ]
@@ -1592,11 +1589,9 @@ search_tweets(q = `"publish perish"`,
 
 
 ```{r, eval=FALSE}
-
 search_tweets(q = `"publish OR perish"`,
               n = 200,
               type = "popular")
-
 ```
 
 ]
@@ -1621,11 +1616,9 @@ search_tweets(q = `"publish OR perish"`,
 
 
 ```{r, eval=FALSE}
-
 search_tweets(q = "`\"`publish perish`\"`",
               n = 200,
               type = "popular")
-
 ```
 
 ]
@@ -1650,11 +1643,9 @@ search_tweets(q = "`\"`publish perish`\"`",
 
 
 ```{r, eval=FALSE}
-
 search_tweets(q = "publish `-perish`",
               n = 200,
               type = "popular")
-
 ```
 
 ]
@@ -1679,11 +1670,9 @@ search_tweets(q = "publish `-perish`",
 
 
 ```{r, eval=FALSE}
-
 search_tweets(q = "publish `lang:de`",
               n = 200,
               type = "popular")
-
 ```
 
 ]
@@ -1714,11 +1703,9 @@ Note that
 
 
 ```{r, eval=FALSE}
-
 search_tweets(q = "publish `-`lang:de",
               n = 200,
               type = "popular")
-
 ```
 
 ]
@@ -1746,11 +1733,9 @@ search_tweets(q = "publish `-`lang:de",
 
 
 ```{r, eval=FALSE}
-
 search_tweets(q = "publish lang:en filter:replies",
               n = 200,
               type = "mixed")
-
 ```
 
 ```{r, eval=FALSE}
@@ -1759,7 +1744,6 @@ search_tweets(q = "publish",
               type = "mixed",
               lang = "en", 
               filter = "replies")
-
 ```
 
 ]
@@ -1898,9 +1882,7 @@ rate_limit(token = NULL,
 Check you remaining rate limits, for all operations
 
 ```{r, eval=FALSE}
-
 all_limits_now <- rate_limit()
-
 ```
 
 --
@@ -1911,9 +1893,7 @@ Check your remaining rate limits for the `search_tweets` function
 
 
 ```{r, eval=FALSE}
-
 all_limits_now <- rate_limit(`query = "search/tweets"`)
-
 ```
 
 ---
@@ -1964,9 +1944,7 @@ class: action
 
 ```{r, eval=FALSE}
 datalist <- list() # create an empty list, to be filled later
-
 for(i in 1:length(df_users$screen_name)) { # for one user, in the data frame df_users, at a time
-
   if (rate_limit(query = "application/rate_limit_status", token = tw_token)$remaining > 2 &
       rate_limit(query = "get_timeline", token = tw_token)$remaining > 20) { # if your are still under rate limit for this task
     
@@ -1974,15 +1952,12 @@ for(i in 1:length(df_users$screen_name)) { # for one user, in the data frame df_
                       token = tw_token)
   
   datalist[[i]] <- dat # fill the list with data, for one user at a time
-
   }else{ # if there is no limit, wait a little
-
   wait <- rate_limit(query = "get_timeline")$reset + 0.1
   Sys.sleep(wait * 60)
     
   }
 }
-
 df_tweets <- as.data.frame(do.call(rbind, datalist)) # put all data in one data frame
 ```
 
@@ -2015,7 +1990,6 @@ class: middle, center
 lookup_tweets(statuses, 
               parse = TRUE, 
               token = NULL)
-
 ```
 
 ]
@@ -2026,9 +2000,7 @@ lookup_tweets(statuses,
 Collect data on one or more status IDs 
 
 ```{r, eval=FALSE}
-
 lookup_tweets(statuses = c("567053242429734913", "266031293945503744", "440322224407314432"))
-
 ```
 
 --
@@ -2037,9 +2009,7 @@ lookup_tweets(statuses = c("567053242429734913", "266031293945503744", "44032222
 Collect data on status IDs .yellow[in a data frame] 
 
 ```{r, eval=FALSE}
-
 lookup_tweets(statuses = df_ids$status_id)
-
 ```
 
 ---
@@ -2075,9 +2045,7 @@ lookup_users(users,
 Collect data on one or more status IDs 
 
 ```{r, eval=FALSE}
-
 lookup_users(users = c( "drob", "hadleywickham", "JennyBryan"))
-
 ```
 
 --
@@ -2086,9 +2054,7 @@ lookup_users(users = c( "drob", "hadleywickham", "JennyBryan"))
 Collect data on status IDs .yellow[in a data frame] 
 
 ```{r, eval=FALSE}
-
 lookup_users(users  = df_usernames$screen_name)
-
 ```
 
 ---
@@ -2199,10 +2165,8 @@ Collect the most recent 200 tweets by David Robinson
 
 
 ```{r, eval=FALSE}
-
 search_tweets(user = "drob",
               n = 200)
-
 ```
 
 ]
@@ -2232,11 +2196,9 @@ search_tweets(user = "drob",
 
 
 ```{r, eval=FALSE}
-
 get_timeline(user = `c("drob",`
                      `"hadleywickham")`,
              n = 200)
-
 ```
 
 ]
@@ -2263,11 +2225,9 @@ get_timeline(user = `c("drob",`
 
 
 ```{r, eval=FALSE}
-
 get_timeline(`user = "hadleywickham"`,
              n = 200, 
              `home = TRUE`)
-
 ```
 
 ]
@@ -2277,7 +2237,7 @@ class: action
 
 ## Exercises
 
-21) Collect the most recent messages posted by three users 
+21) Collect the most recent tweets posted by three users 
 - 100 from the first user, 200 from the second, and 300 from the third
 - hint: see the function documentation on how to vary the `n` argument by user
 
@@ -2290,7 +2250,7 @@ class: action
 23) Collect data from timelines of the first five MPs in `mps.csv`
 - collect as many tweets as possible
 
-`r countdown(minutes = 10, seconds = 10, top = 0)`
+`r countdown(minutes = 10, seconds = 00, top = 0)`
 
 ---
 ## Data Collection &mdash; `get_followers`
@@ -2330,16 +2290,11 @@ get_followers(user,
 
 Get a list of Hadley Wickham's followers on Twitter
 
-<br>
-
 ```{r, eval=FALSE}
-
 get_followers(user = "hadleywickham",
               n = 10000,
               retryonratelimit = TRUE)
-
 ```
-
 
 ---
 ## Data Collection &mdash; `get_friends`
@@ -2364,7 +2319,6 @@ Get a list of users, .yellow-h[followed by].yellow-h[ one or more] users
 
 
 ```{r, eval=FALSE}
-
 get_friends(users,
             n = 5000,
             retryonratelimit = FALSE,
@@ -2373,8 +2327,6 @@ get_friends(users,
             verbose = TRUE,
             token = NULL
 )
-
-
 ```
 
 ]
@@ -2385,13 +2337,9 @@ get_friends(users,
 Collect a list of users followed by Jenny Bryan and Hadley Wickham on Twitter
    - with 20 friends from each
 
-<br>
-
 ```{r, eval=FALSE}
-
 get_friends(users = c("hadleywickham", "JennyBryan"),
             n = 20)
-
 ```
 
 ---
@@ -2434,7 +2382,6 @@ Collect tweets liked by one or more users
 
 
 ```{r, eval=FALSE}
-
 get_favorites(user,
               n = 200,
               since_id = NULL,
@@ -2442,7 +2389,6 @@ get_favorites(user,
               parse = TRUE,
               token = NULL
 )
-
 ```
 
 ]
@@ -2452,17 +2398,10 @@ get_favorites(user,
 
 Collect a list of tweets liked by Jenny Bryan
 
-<br>
-
-.pull-right[
-
 ```{r, eval=FALSE}
-
 get_favorites(user = "JennyBryan")
-
 ```
 
-]
 
 ---
 ## Data Collection &mdash; `get_retweets`
@@ -2485,14 +2424,12 @@ get_favorites(user = "JennyBryan")
 .pull-right[
 
 ```{r, eval=FALSE}
-
 get_retweets(status_id, 
              n = 100, 
              parse = TRUE, 
              token = NULL, 
              ...
 )
-
 ```
 ]
 
@@ -2504,12 +2441,9 @@ get_retweets(status_id,
 
    - of the post announcing the [Academic Research product track](https://twitter.com/TwitterDev/status/1354143047324299264)
 
-<br>
 
 ```{r, eval=FALSE}
-
 get_retweets(status_id = "1354143047324299264")
-
 ```
 
 
@@ -2552,7 +2486,6 @@ class: action
 .pull-right[
 
 ```{r, eval=FALSE}
-
 get_trends(woeid = 1,
            lat = NULL,
            lng = NULL,
@@ -2560,8 +2493,6 @@ get_trends(woeid = 1,
            token = NULL,
            parse = TRUE
 )
-
-
 ```
 
 ]
@@ -2579,9 +2510,7 @@ Collect the trends data for London
  - using the `woeid` argument
 
 ```{r, eval=FALSE}
-
 get_trends(woeid = 44418)
-
 ```
 
 
@@ -2592,9 +2521,7 @@ Collect the same trends data for London
 
 
 ```{r, eval=FALSE}
-
 get_trends(lat = "51.50", lng = "0.12")
-
 ```
 
 ---
@@ -2637,7 +2564,6 @@ class: middle, center
 .pull-right[
 
 ```{r, eval=FALSE}
-
 lists_memberships(user = NULL,
                   n = 200,
                   cursor = "-1",
@@ -2646,7 +2572,6 @@ lists_memberships(user = NULL,
                   parse = TRUE,
                   previous_cursor = NULL
 )
-
 ```
 
 ]
@@ -2657,9 +2582,7 @@ lists_memberships(user = NULL,
 Collect data on lists where Jenny Bryan is listed
 
 ```{r, eval=FALSE}
-
 lists_memberships(user = "JennyBryan")
-
 ```
 
 <br>
@@ -2667,9 +2590,7 @@ lists_memberships(user = "JennyBryan")
 Collect data on lists where Jenny Bryan .yellow-h[and/or] Hadley Wickham is listed
 
 ```{r, eval=FALSE}
-
 lists_memberships(user = c("JennyBryan", "hadleywickham"))
-
 ```
 
 ---
@@ -2696,7 +2617,6 @@ lists_memberships(user = c("JennyBryan", "hadleywickham"))
 .pull-right[
 
 ```{r, eval=FALSE}
-
 lists_members(list_id = NULL,
               slug = NULL,
               owner_user = NULL,
@@ -2706,7 +2626,6 @@ lists_members(list_id = NULL,
               parse = TRUE,
               ...
 )
-
 ```
 
 ]
@@ -2718,9 +2637,7 @@ Collect data on the list of MPs in the House of Commons
 - using the `list_id` argument
    
 ```{r, eval=FALSE}
-
 lists_members(list_id = "1405362")
-
 ```
 
 --
@@ -2730,9 +2647,7 @@ Collect the same data, with different arguments
 - using the `owner_user` .yellow-h[and] `slug` arguments
    
 ```{r, eval=FALSE}
-
 lists_members(owner_user = "tweetminster", slug = "UKMPs")
-
 ```
 
 ---
@@ -2751,7 +2666,6 @@ Collect tweets from the timeline of a list
 .pull-right[
 
 ```{r, eval=FALSE}
-
 lists_statuses(list_id = NULL,
                slug = NULL,
                owner_user = NULL,
@@ -2762,7 +2676,6 @@ lists_statuses(list_id = NULL,
                parse = TRUE,
                token = NULL
 )
-
 ```
 
 ]
@@ -2774,9 +2687,7 @@ Collect tweets posted by the members of the UKMPs list
 - using the `list_id` argument
    
 ```{r, eval=FALSE}
-
 lists_statuses(list_id = "1405362")
-
 ```
 
 --
@@ -2786,15 +2697,13 @@ Collect the same data, with different arguments
 - using the `owner_user` .yellow-h[and] `slug` arguments
    
 ```{r, eval=FALSE}
-
 lists_statuses(owner_user = "tweetminster", slug = "UKMPs")
-
 ```
 
 ---
 ## Data Collection &mdash; `lists_subscribers`
 
-.pull.left[
+.pull-left[
 
 Collect data on users subscribed to a given list
 
@@ -2808,7 +2717,6 @@ Collect data on users subscribed to a given list
 .pull-right[
 
 ```{r, eval=FALSE}
-
 lists_subscribers(list_id = NULL,
                   slug = NULL,
                   owner_user = NULL,
@@ -2817,7 +2725,6 @@ lists_subscribers(list_id = NULL,
                   parse = TRUE,
                   token = NULL
 )
-
 ```
 
 ]
@@ -2829,9 +2736,7 @@ Collect data on users subscribed to the UKMPs list
 - using the `list_id` argument
    
 ```{r, eval=FALSE}
-
 lists_subscribers(list_id = "1405362")
-
 ```
 
 --
@@ -2841,9 +2746,7 @@ Collect the same data, with different arguments
 - using the `owner_user` .yellow-h[and] `slug` arguments
    
 ```{r, eval=FALSE}
-
 lists_subscribers(owner_user = "tweetminster", slug = "UKMPs")
-
 ```
 
 ---
@@ -2862,13 +2765,11 @@ Collect data on the lists a user is subscribed to
 .pull-right[
 
 ```{r, eval=FALSE}
-
 lists_subscriptions(user, 
                     n = 20, 
                     cursor = "-1", 
                     parse = TRUE, 
                     token = NULL)
-
 ```
 
 ]
@@ -2876,7 +2777,6 @@ lists_subscriptions(user,
 ---
 ## Data Collection &mdash; `lists_subscriptions`
 
-.pull-left[
 
 Collect data on the lists that Aimee Paige is subscribed to
 
@@ -2946,7 +2846,6 @@ class: middle, center
 .pull-right[
 
 ```{r, eval=FALSE}
-
 stream_tweets(q = "",
               timeout = 30,
               parse = TRUE,
@@ -2978,10 +2877,8 @@ stream_tweets(q = "",
 
 .pull-right[
 ```{r, eval=FALSE}
-
 stream_tweets(q = "",
               `timeout = Inf`)
-
 ```
 ]
 
@@ -3003,10 +2900,8 @@ stream_tweets(q = "",
 
 .pull-right[
 ```{r, eval=FALSE}
-
 stream_tweets(q = "",
               `timeout = 30`)
-
 ```
 ]
 
@@ -3019,17 +2914,19 @@ stream_tweets(q = "",
 
    - for 30 seconds
    - filtered by .yellow-h[a search query]
+   
+- Note that
+
+   - `q` accepts a comma separated character string
 
 
 ]
 
 .pull-right[
 ```{r, eval=FALSE}
-
 stream_tweets(q = `"switzerland, schweiz,`
                    `suisse, svizzera",`
               timeout = 30)
-
 ```
 ]
 
@@ -3043,17 +2940,21 @@ stream_tweets(q = `"switzerland, schweiz,`
    - for 30 seconds
    - filtered by .yellow-h[usernames]
 
+<br>
+
+- Note that
+
+   - `q` accepts a comma separated list
+
 
 ]
 
 .pull-right[
 
 ```{r, eval=FALSE}
-
-stream_tweets(q = `"UniLuzern, hslu,
-                   `phluzern",`
+stream_tweets(q = `c("UniLuzern", "hslu",`
+                   `"phluzern")`,
               timeout = 30)
-
 ```
 
 ]
@@ -3076,7 +2977,6 @@ stream_tweets(q = `"UniLuzern, hslu,
 stream_tweets(q = `c(6.02, 45.77,` 
                   `10.44, 47.83),`
               timeout = 30)
-
 ```
 ]
 
@@ -3090,18 +2990,14 @@ class: action
     - observe the outcome of each step below as well
 - hint: assign each stream to a different name, so that you can compare
 
-<br>
 
 38) Limit your stream to Switzerland
    - and stream for 60 seconds
-
-<br>
 
 39) Further limit your stream by a popular keyword
 - e.g., "und"
 - stream for 60 more seconds
 
-<br>
 
 40) Further limit your stream to a not so popular word
 - e.g., "Luzern"
@@ -3124,23 +3020,85 @@ class: inverse, center, middle
 ---
 ## Data Preperation &mdash; Overview
 
-- Data preparation on your project
-   - 
+- the `rtweet` package does a very good job to start with
+
+   - returns data frames, with mostly tidy data
+   - although Twitter APIs return nested lists
+   - some variables are still lists
+      - e.g., `hastags`
+
+--
+<br>
+
+- Further data preparation depends on your research project
+
+   - most importantly, on whether you will work with texts or not
+   - we will cover some common preparation steps
+      - first for strings
+      - than the rest
+
+--
+<br>
+
+- In this part, please follow along the examples with actual data
+   
+   - you can use `tweets.rds` or your own dataset
+      
+
+---
+## Data Preperation &mdash; Overview &mdash; Strings
+
+- Most researchers would be interested in textual data on Twitter
+
+   - tweets as a whole, but also specifically hashtags *etc*.
+
+--
+<br>
+
+- There are many components of tweets as texts
+
+   - e.g., mentions, hashtags, emojis, links *etc*.
+   - but also punctuation, white spaces, upper case letters *etc*.
+   - some of these may need to be taken out before analysis
+
+--
+
+<br>
+
+- I use the `stringr` package ([Wickham, 2019](https://cran.r-project.org/web/packages/stringr/index.html)) for string operations
+
+   - part of the `tidyverse` family
+   - you might have a favourite already
+       - no need to change as long as it does the job
+       
+---
+## Data Preperation &mdash; Overview &mdash; Numbers
+
+- There is more to Twitter data than just tweets
+      - e.g., the number of followers, likes *etc*.
+         - see Silva and Proksch ([2020](https://doi.org/10.1017/S0003055420000817)) for a great example
+
+--
+<br>
+
+- I use the `dplyr` package ([Wickham et al, 2020](https://cran.r-project.org/web/packages/dplyr/index.html) for most other data operations
+
+   - part of the `tidyverse` family
+   - you might have a favourite already
+       - no need to change as long as it does the job
 
 ---
 ## Data Preperation &mdash; Remove Mentions
 
-
 ```{r, eval=FALSE}
-
 tweet <- "These from @handle1 are #socool. 👏 A #mustsee, @handle2! 
           👉 t.co/aq7MJJ1
           👉 https://t.co/aq7MJJ2"
+````
 
+```{r, eval=FALSE}
 str_remove_all(string = tweet, pattern = "\\s([@][\\w_-]+)")
-
 ```
-
 
 
 .out-t[
@@ -3151,20 +3109,24 @@ str_remove_all(string = tweet, pattern = "\\s([@][\\w_-]+)")
 
 ]
 
+--
+class: action
+
+`r countdown(minutes = 4, seconds = 00, top = 0)`
+
 ---
 ## Data Preperation &mdash; Remove Hashtags
 
 
 ```{r, eval=FALSE}
-
 tweet <- "These from @handle1 are #socool. 👏 A #mustsee, @handle2! 
           👉 t.co/aq7MJJ1
           👉 https://t.co/aq7MJJ2"
+````
 
+```{r, eval=FALSE}
 str_remove_all(string = tweet, pattern = "\\s([`#`][\\w_-]+)")
-
 ```
-
 
 
 .out-t[
@@ -3175,18 +3137,23 @@ str_remove_all(string = tweet, pattern = "\\s([`#`][\\w_-]+)")
 
 ]
 
+--
+class: action
+
+`r countdown(minutes = 4, seconds = 00, top = 0)`
+
 ---
 ## Data Preperation &mdash; Remove Links
 
 ```{r, eval=FALSE}
-
 tweet <- "These from @handle1 are #socool. 👏 A #mustsee, @handle2! 
           👉 t.co/aq7MJJ1
           👉 https://t.co/aq7MJJ2"
 
+````
 
+```{r, eval=FALSE}
 str_remove_all(string = tweet, pattern = "http\\S+\\s*")
-
 ```
 
 
@@ -3200,6 +3167,11 @@ str_remove_all(string = tweet, pattern = "http\\S+\\s*")
 - Notice that
     - links come in various formats
     - you may need multiple or complicated regular expressions
+    
+--
+class: action
+
+`r countdown(minutes = 4, seconds = 00, top = 0)`
 
 ---
 ## Data Preperation &mdash; Remove Links &mdash; Alternative
@@ -3208,39 +3180,39 @@ str_remove_all(string = tweet, pattern = "http\\S+\\s*")
     - if there are more than one link in a tweet, they are stored as a list in this variable
 
 ```{r, eval=FALSE}
-
 # start with your existing dataset of tweets
 df_tweets <- df_tweets %>%
-
+  
 # limit the operation to within individual tweets  
   group_by(status_id) %>%
-
+  
 # create a new variable of tweets without links  
   mutate(tidy_text = 
-
+           
 # by removing them from the existing variable `text`           
            str_remove_all(string = text, 
  
 # that matches the `urls_t.co` variable, after being collapsed into a string      
            pattern = str_c(unlist(urls_t.co), collapse = "|")))
-
 ```
+
+--
+class: action
+
+`r countdown(minutes = 8, seconds = 00, top = 0)`
 
 ---
 ## Data Preperation &mdash; Remove Emojis
 
 ```{r, eval=FALSE}
-
 tweet <- "These from @handle1 are #socool. 👏 A #mustsee, @handle2! 
           👉 t.co/aq7MJJ1
           👉 https://t.co/aq7MJJ2"
+````
 
-
-
+```{r, eval=FALSE}
 iconv(x = tweet, from = "latin1", to = "ASCII", sub = "")
-
 ```
-
 
 
 .out-t[
@@ -3251,19 +3223,23 @@ iconv(x = tweet, from = "latin1", to = "ASCII", sub = "")
 
 ]
 
+--
+class: action
+
+`r countdown(minutes = 4, seconds = 00, top = 0)`
+
 ---
 ## Data Preperation &mdash; Remove Punctuations
 
 ```{r, eval=FALSE}
-
 tweet <- "These from @handle1 are #socool. 👏 A #mustsee, @handle2! 
           👉 t.co/aq7MJJ1
           👉 https://t.co/aq7MJJ2"
+````
 
+```{r, eval=FALSE}
 str_remove_all(string = tweet, pattern = "[[:punct:]]")
-
 ```
-
 
 
 .out-t[
@@ -3279,20 +3255,21 @@ Notice that
    - if tweets are typed with no spaces after punctuation, this might lead to merged pieces of text
       - alternatively, try the `str_replace` function to replace punctuation with space
       
+--
+class: action
+
+`r countdown(minutes = 4, seconds = 00, top = 0)`
+      
 ---
 ## Data Preperation &mdash; Remove Punctuations &mdash; Alternative
 
-Remove:
+```{r, eval=FALSE}
+tweet <- "This is a sentence.There is no space before this sentence."
+````
 
 ```{r, eval=FALSE}
-
-tweet <- "This is a sentence.There is no space before this sentence."
-
-str_remove_all(string = tweet, pattern = "[[:punct:]]")
-
+str_`remove`_all(string = tweet, pattern = "[[:punct:]]")
 ```
-
-
 
 .out-t[
 
@@ -3300,14 +3277,13 @@ str_remove_all(string = tweet, pattern = "[[:punct:]]")
 
 ]
 
-Replace: 
+--
+
+<br>
+
 
 ```{r, eval=FALSE}
-
-tweet <- "This is a sentence.There is no space before this sentence."
-
-str_replace_all(string = tweet, pattern = "[[:punct:]]", replacement = " ")
-
+str_`replace`_all(string = tweet, pattern = "[[:punct:]]", replacement = " ")
 ```
 
 .out-t[
@@ -3317,15 +3293,37 @@ str_replace_all(string = tweet, pattern = "[[:punct:]]", replacement = " ")
 ]
 
 ---
+class: action
+
+## Data Preperation &mdash; Remove Punctuations &mdash; Alternative
+
+
+```{r, eval=FALSE}
+tweet <- "This is a sentence.There is no space before this sentence."
+````
+
+```{r, eval=FALSE}
+str_replace_all(string = tweet, pattern = "[[:punct:]]", replacement = " ")
+```
+
+.out-t[
+
+[1] "This is a sentence There is no space before this sentence "
+
+]
+
+`r countdown(minutes = 4, seconds = 00, bottom = 0)`
+
+---
 ## Data Preperation &mdash; Remove Repeated Whitespace
 
 
 ```{r, eval=FALSE}
-
 tweet <- "There are too many spaces after this sentence.   This is a new sentence."
+````
 
+```{r, eval=FALSE}
 str_squish(string = tweet)
-
 ```
 
 .out-t[
@@ -3339,15 +3337,20 @@ Note that
    - e.g., removing and/or replacing operations above
    - hence, this function might be useful after other operations
 
+--
+class: action
+
+`r countdown(minutes = 4, seconds = 00, top = 0)`
+
 ---
 ## Data Preperation &mdash; Change Case
 
 ```{r, eval=FALSE}
-
 tweet <- "lower case. Sentence case. Title Case. UPPER CASE."
+````
 
+```{r, eval=FALSE}
 str_to_lower(string = tweet)
-
 ```
 
 .out-t[
@@ -3359,6 +3362,11 @@ str_to_lower(string = tweet)
 Note that
    - there are other functions in this family, including
       - `str_to_sentence`, `str_to_title`, `str_to_upper`
+
+--
+class: action
+
+`r countdown(minutes = 4, seconds = 00, top = 0)`
 
 ---
 ## Data Preperation &mdash; Change Unit of Observation
@@ -3378,18 +3386,23 @@ Research designs might require changing the unit of observation
 
 Aggregate at the level of users
 
-```{r, eval=FALSE}
+- the number of tweets per user
 
+```{r, eval=FALSE}
 # load the tweets dataset
 df <- read_rds("tweets.rds") %>%
-
+  
 # group by users for aggregation  
   group_by(user_id) %>%
-
+  
 # create summary statistics for variables of interest
   summarise(sum_tweets = n())
-
 ```
+
+--
+class: action
+
+`r countdown(minutes = 4, seconds = 00, top = 0)`
 
 ---
 ## Data Preperation &mdash; Change Unit of Observation &mdash; Aggregation
@@ -3400,22 +3413,25 @@ What is aggregated at which level depends on your research design, such as
 
 
 ```{r, eval=FALSE}
-
 # load the tweets dataset
 df <- read_rds("tweets.rds") %>%
-
+  
 # group by users for aggregation  
   group_by(user_id, `source`) %>%
-
+  
 # create summary statistics for variables of interest
   summarise(`merged_tweets = paste0(text, collapse = ". ")`) 
-
 ```
+
+--
+class: action
+
+`r countdown(minutes = 4, seconds = 00, top = 0)`
 
 ---
 ## Data Preperation &mdash; Change Unit of Observation &mdash; Dis-aggregation
 
-Dis-aggregate the tweets, by splitting them into smaller units
+Disaggregate the tweets, by splitting them into smaller units
   - also called .yellow-h[tokenisation]
 
 Note that
@@ -3425,14 +3441,17 @@ Note that
    - all other tweet-level variables are repeated for each observation
 
 ```{r, eval=FALSE}
-
 # load the tweets dataset
 df <- read_rds("tweets.rds") %>%
   
 # split the variable `text`  
     separate_rows(text)
-
 ```
+
+--
+class: action
+
+`r countdown(minutes = 4, seconds = 00, bottom = 0)`
 
 ---
 ## Data Preperation &mdash; Change Unit of Observation &mdash; Dis-aggregation
@@ -3442,13 +3461,17 @@ The `tidytext` has a function that works better with tokenising tweets
    - except that it respects usernames, hashtags, and URLS 
 
 ```{r, eval=FALSE}
-
 # load the tweets dataset
 df <- read_rds("tweets.rds") %>%
   
 # split the variable `text`, create a new variable called `da_tweets`    
     unnest_tokens(output = da_tweets, input = text, token = "tweets")
 ```
+
+--
+class: action
+
+`r countdown(minutes = 4, seconds = 00, bottom = 0)`
 
 ---
 ## Data Preperation &mdash; Change Unit of Observation &mdash; Dis-aggregation
@@ -3457,7 +3480,6 @@ Tokenise variables to levels other than words
 - e.g., characters, words (the default),  sentences, lines
 
 ```{r, eval=FALSE}
-
 # load the tweets dataset
 df <- read_rds("tweets.rds") %>%
   
@@ -3465,6 +3487,10 @@ df <- read_rds("tweets.rds") %>%
     unnest_tokens(output = da_tweets, input = text, `token = "sentences"`)
 ```
 
+--
+class: action
+
+`r countdown(minutes = 4, seconds = 00, bottom = 0)`
 
 ---
 ## Data Preperation &mdash; Change Unit of Observation &mdash; Dis-aggregation
@@ -3474,7 +3500,6 @@ Tokenise variables other than tweets
 
 
 ```{r, eval=FALSE}
-
 # load the tweets dataset
 df <- read_rds("tweets.rds") %>%
   
@@ -3485,6 +3510,11 @@ df <- read_rds("tweets.rds") %>%
 # split the string, create a new variable called `da_tweets`    
   unnest_tokens(output = da_hashtags, input = hashtags, token = "tweets")
 ```
+
+--
+class: action
+
+`r countdown(minutes = 4, seconds = 00, bottom = 0)`
 
 ---
 ## Data Preperation &mdash; Remove Stop Words
@@ -3501,7 +3531,6 @@ Note that
       - e.g., use `tm::stopwords("german")` for German
 
 ```{r, eval=FALSE}
-
 # load the tweets dataset
 df <- read_rds("tweets.rds") %>%
   
@@ -3510,8 +3539,12 @@ df <- read_rds("tweets.rds") %>%
  
 # remove rows that match any of the stop words as stored in the stop_words dataset 
   anti_join(stop_words, by = c("da_tweets" = "word"))
-
 ```
+
+--
+class: action
+
+`r countdown(minutes = 4, seconds = 00, top = 0)`
 
 ---
 name: part5
@@ -3559,13 +3592,19 @@ Sievert, C., Parmer, C.,  Hocking, T., Chamberlain, S., Ram, K., Corvellec, M., 
 
 Silge, J., & Robinson, D. (2017). [Text mining with R: A tidy approach](https://www.tidytextmining.com). O'Reilly. Open access at
 
+Silva, B. C., & Proksch, S. O. (2020). [Fake It 'Til You Make It: A Natural Experiment to Identify European Politicians' Benefit from Twitter Bots](https://doi.org/10.1017/S0003055420000817). American Political Science Review, 1-7.
+
 Sinnenberg, L., Buttenheim, A. M., Padrez, K., Mancheno, C., Ungar, L., & Merchant, R. M. (2017). [Twitter as a tool for health research: A systematic review](https://doi.org/10.2105/AJPH.2016.303512). American Journal of Public Health, 107(1), 1&ndash;8.
 
 Umit, R. (2017). [Strategic communication of EU affairs: An analysis of legislative behaviour on Twitter](https://doi.org/10.1080/13572334.2017.1283166). Journal of Legislative Studies, 23(1), 93&ndash;124.
 
+Wickham, H. (2019). [stringr: Simple, Consistent Wrappers for Common String Operations](https://cran.r-project.org/web/packages/stringr/index.html). R package, version 1.4.0.
+
+Wickham, H., Chang, W., Henry, L., Pedersen, T. L., Takahashi, K., Wilke, C., Woo, K., Yutani, H. and Dunnington, D. (2020). [dplyr: A grammar of data manipulation](https://cran.r-project.org/web/packages/dplyr/index.html). R package, version 0.8.5.
+
 Wickham, H. and Grolemund, G. (2019). [R for data science](https://r4ds.had.co.nz). O'Reilly. Open access at [https://r4ds.had.co.nz](https://r4ds.had.co.nz/).
 
-Wickham, H., RStudio (2020b). [https://cran.r-project.org/web/packages/tidyverse/index.html](tidyverse: Easily Install and Load the 'Tidyverse'). R package, version 3.3.3.
+Wickham, H., RStudio (2019). [https://cran.r-project.org/web/packages/tidyverse/index.html](tidyverse: Easily Install and Load the 'Tidyverse'). R package, version 3.3.3.
 
 Xie, Y. (2020). [xaringan: Presentation Ninja](https://cran.r-project.org/web/packages/xaringan/index.html). R package, version 0.19.
 
