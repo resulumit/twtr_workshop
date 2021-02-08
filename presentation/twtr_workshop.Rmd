@@ -3505,10 +3505,10 @@ df <- read_rds("tweets.rds") %>%
   
 # unlist the lists of hashtags to create strings  
   group_by(status_id) %>%
-  mutate(tidy_text = str_c(unlist(hashtags), collapse = " ")) %>%
+  mutate(tidy_hashtags = str_c(unlist(hashtags), collapse = " ")) %>%
   
 # split the string, create a new variable called `da_tweets`    
-  unnest_tokens(output = da_hashtags, input = hashtags, token = "tweets")
+  unnest_tokens(output = da_hashtags, input = tidy_hashtags, token = "words")
 ```
 
 --

@@ -1,0 +1,217 @@
+# getting ready -----------------------------------------------------------
+
+# load the packages
+library(tidyverse)
+library(tidytext)
+library(dotwhisker)
+library(igraph)
+
+# load the data
+mps <- read.csv("data/mps.csv", na.strings = "")
+twts <- read_rds("data/tweets.rds")
+
+# user-based analyses -----------------------------------------------------
+
+# who has the most followers?
+
+mps_new <- mps %>%
+  filter(!is.na(screen_name))
+
+mps_now <- lookup_users(mps_new$screen_name) %>%
+  select(screen_name, followers_count)
+
+left_join(mps_new, mps_now, by = "screen_name") %>%
+  filter(rank(desc(followers_count)) <= 20) %>%
+  ggplot(aes(y = reorder(name, followers_count),
+             x = followers_count,
+             fill = party)) +
+  geom_bar(stat = "identity") +
+  theme_bw() +
+  ylab("Top 20 MPs\n") + xlab("\nFollowers") +
+  scale_x_continuous(breaks = c(0, 1000000, 2000000, 3000000),
+                     labels = c("0", "1M", "2M", "3M")) +
+  scale_fill_manual(name = "",
+                    breaks = c("Conservative", "Labour", "Green Party",
+                               "Liberal Democrat", "Independent"),
+                    values = c("#0087DC", "#DC241f", "#008066", "#FDBB30", "gray"))
+
+# who do they talk to?
+
+twts %>%
+  filter(screen_name != reply_to_screen_name & is_retweet == FALSE) %>%
+  count(reply_to_screen_name, sort = TRUE) %>%
+  filter(!is.na(reply_to_screen_name) & rank(desc(n)) <= 21) %>%
+  ggplot(aes(y = reorder(reply_to_screen_name, n), x = n)) +
+  geom_bar(stat = "identity") +
+  theme_bw() +
+  ylab("Top 20 Replied to Users\n") + xlab("")
+
+
+# retweet networks
+
+a <- twts %>%
+  filter(is_retweet == TRUE & screen_name != retweet_screen_name) %>%
+  select(screen_name, retweet_screen_name) %>%
+  group_by(screen_name) %>%
+  count(retweet_screen_name)
+
+
+graph_df <- graph_from_data_frame(a, directed = TRUE)
+
+plot(graph_df)
+
+g_degree <- as.data.frame(degree(graph_df))
+
+g_eigen <- as.data.frame(eigen_centrality(graph_df))
+
+# factors correlating with being on twitter
+
+mps_new <- mps %>%
+  mutate(on_twitter = if_else(is.na(screen_name), 0, 1))
+
+m1 <- lm(on_twitter ~ age + electorate + female + majority + term,
+           data = mps_new)
+
+dwplot(m1) +
+  theme_bw() +
+  theme(legend.position = "none") +
+  geom_vline(xintercept = 0, linetype = 2) +
+  scale_x_continuous(breaks = c(-0.1, 0, 0.1))
+
+
+# factors correlating with tweeting more
+
+twts_new <- twts %>%
+  group_by(screen_name) %>%
+  summarise(n_tweets = n())
+
+merged <- left_join(mps_new, twts_new, by = "screen_name") %>%
+  mutate(sum_tweets = if_else(on_twitter == 1 & is.na(n_tweets),
+                              0, as.numeric(n_tweets)))
+
+m2 <- lm(sum_tweets ~ age + electorate + female + majority + term,
+         data = merged)
+
+dwplot(m2) +
+  theme_bw() +
+  theme(legend.position = "none") +
+  geom_vline(xintercept = 0, linetype = 2) +
+  scale_x_continuous(breaks = c(-0.1, 0, 0.1))
+
+# factors correlating with the number of followers right now
+
+mps_new <- mps %>%
+  filter(!is.na(screen_name))
+
+mps_now <- lookup_users(mps_new$screen_name)
+
+merged <- left_join(mps_new, mps_now, by = "screen_name")
+
+m3 <- lm(followers_count ~ age + electorate + female + majority + term,
+         data = merged)
+
+dwplot(m3) +
+  theme_bw() +
+  theme(legend.position = "none") +
+  geom_vline(xintercept = 0, linetype = 2) +
+  scale_x_continuous(breaks = c(-50000, 0, 50000))
+
+# factors correlating with being retweeted more
+
+twts_new <- twts %>%
+  filter(is_retweet == FALSE) %>%
+  group_by(screen_name) %>%
+  summarise(across(c(retweet_count, followers_count), mean))
+
+merged <- left_join(mps, twts_new, by = "screen_name")
+
+m4 <- lm(retweet_count ~ age + electorate + female + majority + term + followers_count,
+         data = merged)
+
+dwplot(m4) +
+  theme_bw() +
+  theme(legend.position = "none") +
+  geom_vline(xintercept = 0, linetype = 2) +
+  scale_x_continuous(breaks = c(-50000, 0, 50000))
+
+
+
+# tweet-based analyses ----------------------------------------------------
+
+# when do they tweet?
+
+twts %>%
+  filter(is_retweet == FALSE) %>%
+  mutate(hour = format(created_at, tz = "GB", "%H")) %>%
+  group_by(hour) %>%
+  summarise(n_tweets = n()) %>%
+  ggplot(aes(hour, n_tweets)) +
+  geom_line(aes(group = 1), size = 1) +
+  theme_bw() +
+  ylab("Number of Tweets\n") + xlab("\nHours")
+
+
+twts %>%
+  filter(is_retweet == FALSE) %>%
+  mutate(day = format(created_at, tz = "GB", "%A"),
+         day =factor(day, levels = c("Monday", "Tuesday", "Wednesday", "Thursday",
+                                     "Friday", "Saturday", "Sunday"))) %>%
+  group_by(day) %>%
+  summarise(n_tweets = n()) %>%
+  ggplot(aes(day, n_tweets)) +
+  geom_line(aes(group = 1), size = 1) +
+  theme_bw() +
+  ylab("Number of Tweets\n") + xlab("\nDays") +
+  scale_x_discrete(breaks = c("Monday", "Tuesday", "Wednesday", "Thursday",
+                            "Friday", "Saturday", "Sunday"))
+
+
+# most frequently used hashtags
+
+twts %>%
+
+  filter(is_retweet == FALSE & !is.na(hashtags)) %>%
+
+  # unlist the lists of hashtags to create strings
+  group_by(status_id) %>%
+  mutate(tidy_hashtags = str_c(unlist(hashtags), collapse = " ")) %>%
+
+  ungroup() %>%
+  # split the string, create a new variable called `da_tweets`
+  unnest_tokens(output = unnested_hashtags, input = tidy_hashtags, token = "words") %>%
+
+  count(unnested_hashtags) %>%
+  filter(rank(desc(n)) <= 20) %>%
+  ggplot(aes(y = reorder(unnested_hashtags, n),
+             x = n)) +
+  geom_bar(stat = "identity") +
+  theme_bw() +
+  ylab("Top 20 Hashtags\n") + xlab("")
+
+
+# average share of retweets from specific accounts
+
+mps_new <- mps %>%
+  select(screen_name, party)
+
+left_join(twts, mps_new, by = "screen_name") %>%
+  filter(!(screen_name %in% c("BorisJohnson", "Keir_Starmer", "EdwardJDavey")) &
+         party %in% c("Conservative", "Labour", "SNP", "LibDem")) %>%
+  mutate(leader_rt = case_when(party == "Conservative" & retweet_screen_name == "BorisJohnson" ~ 1,
+                               party == "Labour" & retweet_screen_name == "Keir_Starmer" ~ 1,
+                               party == "SNP" & retweet_screen_name == "NicolaSturgeon" ~ 1,
+                               party == "LibDem" & retweet_screen_name == "EdwardJDavey" ~ 1,
+                               TRUE ~ 0)) %>%
+  group_by(party) %>%
+  summarise(share_rt = sum(leader_rt) * 100 / n()) %>%
+  ungroup() %>%
+  ggplot(aes(x = reorder(party, -share_rt), y = share_rt)) +
+  geom_bar(stat = "identity") +
+  theme_bw() +
+  ylab("Share of Leader Retweets\n") + xlab("") +
+  scale_y_continuous(labels = function(x) paste0(x, "%"))
+
+
+#
+
+twts %>%
