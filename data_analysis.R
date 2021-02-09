@@ -1,10 +1,15 @@
 # getting ready -----------------------------------------------------------
 
-# load the packages
+# install packages
+install.packages("textdata")
+
+# load packages
 library(tidyverse)
 library(tidytext)
 library(dotwhisker)
-library(igraph)
+library(tidygraph)
+library(ggraph)
+library(doc2concrete)
 
 # load the data
 mps <- read.csv("data/mps.csv", na.strings = "")
@@ -49,20 +54,78 @@ twts %>%
 
 # retweet networks
 
-a <- twts %>%
+twts_new <- twts %>%
   filter(is_retweet == TRUE & screen_name != retweet_screen_name) %>%
+  inner_join(., mps, by = c("retweet_screen_name" = "screen_name")) %>%
   select(screen_name, retweet_screen_name) %>%
   group_by(screen_name) %>%
   count(retweet_screen_name)
 
 
-graph_df <- graph_from_data_frame(a, directed = TRUE)
+rt_network <- as_tbl_graph(twts_new) %>%
+  activate(nodes) %>%
+  left_join(., mps, by = c("name" = "screen_name")) %>%
+  filter(party %in% c("Conservative", "Labour", "SNP", "LibDem"))
 
-plot(graph_df)
+ggraph(rt_network) +
+  geom_edge_link() +
+  geom_node_point(aes(color = party)) +
+  theme_graph() +
+  scale_color_manual(name = "",
+                     breaks = c("Conservative", "Labour", "SNP",
+                                "LibDem"),
+                     values = c("#0087DC", "#DC241f", "#FFFF00", "#FDBB30"))
 
-g_degree <- as.data.frame(degree(graph_df))
 
-g_eigen <- as.data.frame(eigen_centrality(graph_df))
+# reply networks of LibDem MPs
+
+twts_new <- twts %>%
+  filter(!is.na(reply_to_screen_name) & screen_name != reply_to_screen_name) %>%
+  inner_join(., mps, by = c("reply_to_screen_name" = "screen_name")) %>%
+  select(screen_name, reply_to_screen_name) %>%
+  group_by(screen_name) %>%
+  count(reply_to_screen_name)
+
+
+rply_network <- as_tbl_graph(twts_new) %>%
+  activate(nodes) %>%
+  left_join(., mps, by = c("name" = "screen_name")) %>%
+  filter(party %in% c("SNP"))
+
+ggraph(rply_network) +
+  geom_edge_link(aes(size = n)) +
+  geom_node_point() +
+  geom_node_text(aes(label = name)) +
+  theme_graph()
+
+# measures of centredness
+
+# https://www.data-imaginist.com/2017/introducing-tidygraph/
+
+twts_new <- twts %>%
+  filter(is_retweet == TRUE & screen_name != retweet_screen_name) %>%
+  inner_join(., mps, by = c("retweet_screen_name" = "screen_name")) %>%
+  select(screen_name, retweet_screen_name) %>%
+  group_by(screen_name) %>%
+  count(retweet_screen_name) %>%
+  as_tbl_graph()
+
+twts_new %>%
+  mutate(betweenness = centrality_betweenness(),
+         authority = centrality_authority()) %>%
+  as.data.frame() %>%
+  pivot_longer(cols = c("betweenness", "authority"),
+               names_to = "centrality_measure", values_to = "centrality_value") %>%
+  group_by(centrality_measure) %>%
+  filter(rank(desc(centrality_value)) <= 10) %>%
+  ungroup() %>%
+  ggplot(aes(y = reorder(name, centrality_value),
+             x = centrality_value)) +
+  geom_bar(stat = "identity") +
+  theme_bw() +
+  facet_wrap(. ~ centrality_measure, scales = "free") +
+  ylab("") + xlab("")
+
 
 # factors correlating with being on twitter
 
@@ -189,6 +252,29 @@ twts %>%
   ylab("Top 20 Hashtags\n") + xlab("")
 
 
+# most frequently used words
+
+twts %>%
+  unnest_tokens(output = token_tweets, input = text, token = "tweets") %>%
+  anti_join(., stop_words, by = c("token_tweets" = "word")) %>%
+  count(token_tweets) %>%
+  filter(rank(desc(n)) <= 20) %>%
+  ggplot(aes(y = reorder(token_tweets, n),
+             x = n)) +
+  geom_bar(stat = "identity") +
+  theme_bw() +
+  ylab("Top 20 Words\n") + xlab("")
+
+
+twts_new <- twts %>%
+  unnest_tokens(output = token_tweets, input = text, token = "tweets") %>%
+  anti_join(., stop_words, by = c("token_tweets" = "word")) %>%
+  count(token_tweets)
+
+wordcloud(words = twts_new$token_tweets,
+          freq = twts_new$n, max.words = 100)
+
+
 # average share of retweets from specific accounts
 
 mps_new <- mps %>%
@@ -212,6 +298,77 @@ left_join(twts, mps_new, by = "screen_name") %>%
   scale_y_continuous(labels = function(x) paste0(x, "%"))
 
 
-#
+# sentiment analysis
 
-twts %>%
+df_sentiments <- get_sentiments("nrc") %>%
+  mutate(sentiment_value = 1) %>%
+  pivot_wider(names_from = sentiment, values_from = sentiment_value, values_fill = 0)
+
+twts_new <- twts %>%
+  unnest_tokens(output = token_tweets, input = text, token = "tweets") %>%
+  anti_join(stop_words, by = c("token_tweets" = "word")) %>%
+  left_join(., df_sentiments, by = c("token_tweets" = "word"))
+
+tweet_level <- twts_new %>%
+  group_by(status_id) %>%
+  summarise(positive_tone = sum(positive, na.rm = TRUE) -
+                            sum(negative, na.rm = TRUE))
+
+user_level <- twts_new %>%
+  group_by(user_id) %>%
+  summarise(positive_tone = sum(positive, na.rm = TRUE) -
+              sum(negative, na.rm = TRUE))
+
+# sentiments over 15 days, by party
+
+
+left_join(twts_new, mps, by = "screen_name") %>%
+  filter(is_retweet == FALSE &
+         party %in% c("Conservative", "Labour", "SNP", "LibDem")) %>%
+  mutate(date = as.Date(created_at)) %>%
+  group_by(party, date) %>%
+  summarise(positive_tone = (sum(positive, na.rm = TRUE) - sum(negative, na.rm = TRUE)) /
+                            (sum(positive, na.rm = TRUE) + sum(negative, na.rm = TRUE))) %>%
+  ungroup() %>%
+  ggplot(aes(date, positive_tone)) +
+  geom_line(aes(group = 1), size = 1) +
+  theme_bw() +
+  facet_wrap(. ~ party) +
+  ylab("Average Sentiment\n") + xlab("")
+
+
+# are replies more likely to be negative?
+
+twts_new <- left_join(twts, tweet_level, by = "status_id") %>%
+  filter(is_quote == FALSE, is_retweet == FALSE) %>%
+  mutate(is_reply = ifelse(is.na(reply_to_status_id), 0, 1))
+
+summary(lm(positive_tone ~ is_reply, data = twts_new))
+
+
+# concreteness analysis
+
+mturk_list
+
+
+twts_new <- twts %>%
+  unnest_tokens(output = token_tweets, input = text, token = "tweets") %>%
+  anti_join(stop_words, by = c("token_tweets" = "word")) %>%
+  left_join(., mturk_list, by = c("token_tweets" = "Word"))
+
+tweet_level <- twts_new %>%
+  group_by(status_id) %>%
+  summarise(concrete_tone = if_else(all(is.na(Conc.M)), NA_real_, sum(Conc.M, na.rm = TRUE)))
+
+# are tweets less concrete at unsocial times?
+
+twts_new <- left_join(twts, tweet_level, by = "status_id") %>%
+  filter(is_quote == FALSE, is_retweet == FALSE) %>%
+  mutate(hour = format(created_at, tz = "GB", "%H"))
+
+m6 <- lm(concrete_tone ~ hour, data = twts_new)
+
+dwplot(m6) +
+  theme_bw() +
+  theme(legend.position = "none") +
+  geom_vline(xintercept = 0, linetype = 2)
