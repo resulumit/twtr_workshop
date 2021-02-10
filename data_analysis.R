@@ -18,7 +18,7 @@ twts <- read_rds("data/tweets.rds")
 
 # user-based analyses -----------------------------------------------------
 
-# who has the most followers?
+# who has the most followers? DONE
 
 mps_new <- mps %>%
   filter(!is.na(screen_name))
@@ -42,7 +42,7 @@ left_join(mps_new, mps_now, by = "screen_name") %>%
                                "LibDem", "Independent"),
                     values = c("#0087DC", "#DC241f", "#008066", "#FDBB30", "gray"))
 
-# who do they talk to?
+# who do they talk to? DONE
 
 twts %>%
   filter(screen_name != reply_to_screen_name & is_retweet == FALSE &
@@ -130,7 +130,9 @@ twts_new %>%
   ylab("") + xlab("")
 
 
-# factors correlating with being on twitter
+
+
+# factors correlating with being on twitter DONE
 
 mps_new <- mps %>%
   mutate(on_twitter = if_else(is.na(screen_name), 0, 1))
@@ -145,7 +147,20 @@ dwplot(m1) +
   scale_x_continuous(breaks = c(-0.1, 0, 0.1))
 
 
-# factors correlating with tweeting more
+# factors correlating with tweeting more DONE
+
+twts %>%
+  group_by(screen_name) %>%
+  summarise(total_tweets = n()) %>%
+  ungroup() %>%
+
+# choose the 20 mps with highest number of followers
+  arrange(total_tweets, desc = TRUE) %>%
+  top_n(20) %>%
+
+# get the full name and party variable from the mps dataset
+# join by the screen_name variable, which is common in both datasets
+  left_join(., mps, by = "screen_name")
 
 twts_new <- twts %>%
   group_by(screen_name) %>%
@@ -164,7 +179,8 @@ dwplot(m2) +
   geom_vline(xintercept = 0, linetype = 2) +
   scale_x_continuous(breaks = c(-0.1, 0, 0.1))
 
-# factors correlating with the number of followers right now
+
+# factors correlating with the number of followers right now DONE
 
 mps_new <- mps %>%
   filter(!is.na(screen_name))

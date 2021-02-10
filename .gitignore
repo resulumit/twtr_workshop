@@ -11,3 +11,5 @@ presentation/*
 !presentation/twtr_workshop.pdf
 helpers/*
 data/tweets_all.rds
+exercises/tweet_based_answers.html
+exercises/user_based_answers.html

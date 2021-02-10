@@ -281,10 +281,10 @@ name: contents-slide
 
 .pull-right[
    
-[Part 5. Data Anaysis: User-Based](#part5)
+[Part 5. Data Anaysis: Users](#part5)
    - e.g., conducting network analysis
    
-[Part 6. Data Anaysis: Tweet-Based](#part6)
+[Part 6. Data Anaysis: Tweets](#part6)
    - e.g., conducting sentiment analysis
    
 [Part 7. Data Anaysis: Machiene Learning](#part7)
@@ -3437,7 +3437,7 @@ class: action
 name: part5
 class: inverse, center, middle
 
-# Part 5. Data Anaysis: User-Based
+# Part 5. Data Anaysis: Users
 
 .footnote[
 
@@ -3449,7 +3449,7 @@ class: inverse, center, middle
 name: part6
 class: inverse, center, middle
 
-# Part 6. Data Anaysis: Tweet-Based
+# Part 6. Data Anaysis: Tweets
 
 .footnote[
 
