@@ -1,15 +1,16 @@
 # getting ready -----------------------------------------------------------
 
-# install packages
-install.packages("textdata")
+# install packages that does not need to be loaded
+# install.packages("textdata")
 
 # load packages
-library(tidyverse)
 library(tidytext)
+library(rtweet)
 library(dotwhisker)
 library(tidygraph)
 library(ggraph)
 library(doc2concrete)
+library(tidyverse)
 
 # load the data
 mps <- read.csv("data/mps.csv", na.strings = "")
@@ -26,7 +27,8 @@ mps_now <- lookup_users(mps_new$screen_name) %>%
   select(screen_name, followers_count)
 
 left_join(mps_new, mps_now, by = "screen_name") %>%
-  filter(rank(desc(followers_count)) <= 20) %>%
+  arrange(followers_count, desc = TRUE) %>%
+  top_n(20) %>%
   ggplot(aes(y = reorder(name, followers_count),
              x = followers_count,
              fill = party)) +
@@ -37,15 +39,16 @@ left_join(mps_new, mps_now, by = "screen_name") %>%
                      labels = c("0", "1M", "2M", "3M")) +
   scale_fill_manual(name = "",
                     breaks = c("Conservative", "Labour", "Green Party",
-                               "Liberal Democrat", "Independent"),
+                               "LibDem", "Independent"),
                     values = c("#0087DC", "#DC241f", "#008066", "#FDBB30", "gray"))
 
 # who do they talk to?
 
 twts %>%
-  filter(screen_name != reply_to_screen_name & is_retweet == FALSE) %>%
+  filter(screen_name != reply_to_screen_name & is_retweet == FALSE &
+         !is.na(reply_to_screen_name)) %>%
   count(reply_to_screen_name, sort = TRUE) %>%
-  filter(!is.na(reply_to_screen_name) & rank(desc(n)) <= 21) %>%
+  top_n(20) %>%
   ggplot(aes(y = reorder(reply_to_screen_name, n), x = n)) +
   geom_bar(stat = "identity") +
   theme_bw() +

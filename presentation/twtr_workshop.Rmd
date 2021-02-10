@@ -104,18 +104,18 @@ Resul Umit
 
 - interested in representation, elections, and parliaments
     - [a recent publication](https://doi.org/10.1177%2F1478929920967588):
-    Parliamentary communication allowances do not increase electoral turnout or incumbents’ vote share. 
+    Parliamentary communication allowances do not increase electoral turnout or incumbents’ vote share
 
 --
 
 - working with Twitter data
-    - [a publication based on Twitter data](https://doi.org/10.1080/13572334.2017.1283166): The voices of Eurosceptic members of parliament (MPs) echo disproportionately louder on Twitter.
+    - [a publication based on Twitter data](https://doi.org/10.1080/13572334.2017.1283166): The voices of Eurosceptic members of parliament (MPs) echo disproportionately louder on Twitter
     
       - 400,000+ tweets from 1,000+ MPs
       - automated classification, using a bag-of-words approach
       - manual validation
       
-    - [an app based on Twitter data](https://resulumit.shinyapps.io/likewise/): LikeWise &mdash; a *Shiny* app that facilitates searching the tweets that you liked.
+    - [an app based on Twitter data](https://resulumit.shinyapps.io/likewise/): LikeWise &mdash; a *Shiny* app that facilitates searching the tweets a user liked
 
 --
 
@@ -126,7 +126,7 @@ Resul Umit
 
 - Two days, on how to collect, process, and analyse data from Twitter
 
-  - 150+ slides, 50+ exercises
+  - 150+ slides, 75+ exercises
   - support for applications to Twitter, developing real projects
 
 --
@@ -146,7 +146,8 @@ Resul Umit
 
 - Twitter provides attractive opportunities for academic research
 
-  - at the end of 2020, a simple search for "twitter data" returns 55,000+ results on Google Scholar
+  - a simple search for "twitter data" returns 55,000+ results on Google Scholar
+     - by the end of 2020
 
 --
 
@@ -220,8 +221,8 @@ Resul Umit
 
 - Research based on Twitter data requires certain skills
 
-  - e.g., availability of API is meaningless for researchers who cannot write code yet
-  - processing and analysing are no less challenging without programming skills
+  - e.g., availability of API is meaningless for researchers who cannot code yet
+  - processing and analysing data are no less challenging without programming skills
 
 --
 
@@ -233,7 +234,7 @@ Resul Umit
   - but help is available elsewhere, including        
 <br>
       - collaboration with researchers with the skills
-         - sacrificing some control over your research and research agenda   
+         - at the cost of sacrificing some control over your research and research agenda   
 <br>
       - acquiring the skills through individual effort
          - e.g., workshops such as this one
@@ -273,15 +274,24 @@ name: contents-slide
 [Part 3. Data Collection](#part3)
    - e.g., acquiring a user's tweets
    
+[Part 4. Data Preperation](#part4)
+   - e.g., creating a tidy dataset of tweets
+   
 ]
 
 .pull-right[
    
-[Part 4. Data Preperation](#part4)
-   - e.g., creating a tidy dataset of tweets
+[Part 5. Data Anaysis: User-Based](#part5)
+   - e.g., conducting network analysis
    
-[Part 5. Data Anaysis](#part5)
+[Part 6. Data Anaysis: Tweet-Based](#part6)
    - e.g., conducting sentiment analysis
+   
+[Part 7. Data Anaysis: Machiene Learning](#part7)
+   - *To be added*
+   
+[Part 8. Next Steps](#part8)
+   - e.g., applying for a developer account  
    
 ]
 
@@ -294,10 +304,10 @@ name: contents-slide
 ---
 ## The Workshop &mdash; Organisation
 
-- ~~Sit in groups of two~~
+- Sit in groups of two
 
   - participants learn as much from their partner as from instructors
-  - ~~switch partners after every part~~
+  - switch partners after every part
 
 <br> 
 - Type, rather than copy and paste, the code that you will find on these slides
@@ -307,9 +317,9 @@ name: contents-slide
 <br> 
 - When you have a question
 
-  - ~~ask your partner~~
-  - ~~google together~~
-  - ask ~~me~~ us
+  - ask your partner
+  - google together
+  - ask me
 
 ---
 class: action
@@ -323,7 +333,7 @@ Slides with this background colour indicate that your action is required, for
     
 - completing the exercises
     - e.g., downloading tweets
-    - there are 40+ exercises
+    - there are 75+ exercises
     - these slides have countdown timers
         - as a guide, not to be followed strictly
     
@@ -340,7 +350,7 @@ Slides with this background colour indicate that your action is required, for
 # read in  the tweets dataset
 df <- read_rds("tweets.rds") %>%
   
-# split the variable `text`, create a new variable called `da_tweets`    
+# split the variable text, create a new variable called da_tweets   
   unnest_tokens(output = da_tweets, input = text, token = "tweets") %>%
  
 # remove rows that match any of the stop words as stored in the stop_words dataset 
@@ -356,7 +366,7 @@ df <- read_rds("tweets.rds") %>%
 
 <br>
 
-- Results that come out in output files .out-t[appear as such &mdash; in the same font, on green background]    
+- Results that come out as output .out-t[appear as such &mdash; in the same font, on green background]    
 
     - except very obvious results, such as figures and tables
     
@@ -408,12 +418,12 @@ class: inverse, center, middle
 
   - see relevant literature for what works, what does not
      - e.g., for political science, the review by [Jungherr (2016)](https://doi.org/10.1080/19331681.2015.1132401)
-     - e.g., for public health, the review by [Sinnenberg et al. (2017)](https://doi.org/10.2105/AJPH.2016.303512)
+        - for public health, the review by [Sinnenberg et al. (2017)](https://doi.org/10.2105/AJPH.2016.303512)
 
 ---
 ## Considerations &mdash; Potential Biases
 
-There are two potential sources of bias in Twitter data
+There are at least two potential sources of bias in Twitter data
 
 - sampling
 
@@ -430,7 +440,7 @@ name: potential-biases
 - mediation
 
   - the behaviour on Twitter is mediated through written and unwritten rules
-     - e.g., the function to like, but no dislike
+     - e.g., there is a button to like, but no dislike
          - might systematically bias the replies towards negative   
 <br>
      - e.g., the common use of the like function as a bookmark
@@ -447,16 +457,16 @@ name: potential-biases
 --
 <br>
 
-- These restrictions vary across API types, a lot
+- These restrictions vary across API types
 
-  - e.g., [Standard v1.1](https://developer.twitter.com/en/docs/twitter-api/v1) is the most restrictive first generation APIs
-      - others are [Premium v1.1](https://developer.twitter.com/en/products/twitter-api/premium-apis) and [Enterprise: Gnip 2.0](https://developer.twitter.com/en/products/twitter-api/enterprise) V1.1 APIs, with paid subscriptions, and
-      - the second generation APIs, including the newly announced [Academic Research product track](https://blog.twitter.com/developer/en_us/topics/tips/2021/enabling-the-future-of-academic-research-with-the-twitter-api.html)
+  - e.g., [Standard v1.1](https://developer.twitter.com/en/docs/twitter-api/v1) is the most restrictive APIs
+      - others first generation APIs are the [Premium v1.1](https://developer.twitter.com/en/products/twitter-api/premium-apis) and [Enterprise: Gnip 2.0](https://developer.twitter.com/en/products/twitter-api/enterprise) APIs &mdash; both with paid subscriptions
+      - there are also the second generation APIs, including the newly announced [Academic Research product track](https://blog.twitter.com/developer/en_us/topics/tips/2021/enabling-the-future-of-academic-research-with-the-twitter-api.html)
 
 --
 <br>
 
-- These restrictions also vary within API types, across different operations
+- These restrictions also vary within APIs types, across different operations
 
   - e.g., collecting tweets in real time *vs*. collecting historical tweets
      - but also, collecting historical tweets from a specific user *vs*. tweets from any user
@@ -466,8 +476,8 @@ name: potential-biases
 
 - Twitter restricts content redistribution
 
-   - only tweet and/or user IDs can be made publicly available in datasets over 50,000 observations
-      - i.e., not the tweets themselves
+   - e.g., only the tweet and/or user IDs can be made publicly available in datasets over 50,000 observations
+      - e.g., not the tweets themselves
       - and no more than 1.5M IDs
          - with some exceptions for academic research   
 <br>
@@ -482,12 +492,12 @@ name: potential-biases
   - technically, they can retrieve the same tweets with IDs
       - very demanding on reproducers
       - may even be impossible
-          - e.g., tweets, or whole accounts, might be deleted in time
+          - e.g., some tweets, or whole accounts, might be deleted in time
 
 ---
 ## Considerations &mdash; Changes in the Twitter APIs
 
-- Twitter is currently switching to a new generation APIs
+- Twitter is currently switching to a new generation of APIs
 
   - replacing APIs v1 with v2
       - each with various types of APIs   
@@ -500,7 +510,7 @@ name: potential-biases
 
 - Twitter might change the rules of the APIs game at any anytime, again
 
-  - making the existing restrictions more or less stricter
+  - making the existing restrictions more or less strict
      - e.g., while you are in the middle of data collection     
 <br>
   - breaking your plans, code
@@ -511,11 +521,11 @@ name: potential-biases
 
 - Existing codes to collect tweets may or may not be affected, depending on
 
-   - how the APIs V2 will look in the end
+   - how the APIs v2 will look in the end
        - it is still a work in progress   
 <br>
    - whether and how the `rtweet` package<sup>*</sup> will adopt
-       - personal communication: it will support V2
+       - personal communication: it will support v2
 
 
 .footnote[
@@ -539,7 +549,7 @@ name: potential-biases
 
 - Not all changes are bad
 
-   - among others, APIs V2 promises the [Academic Research product track](https://blog.twitter.com/developer/en_us/topics/tips/2021/enabling-the-future-of-academic-research-with-the-twitter-api.html)    
+   - among others, APIs v2 introduces the [Academic Research product track](https://blog.twitter.com/developer/en_us/topics/tips/2021/enabling-the-future-of-academic-research-with-the-twitter-api.html)    
 <br>
        - 'to serve the unique needs and challenges of academic researchers'
            - ranging from master's students to professors    
@@ -555,9 +565,10 @@ name: potential-biases
   - i.e., for collecting and analysing their data on Twitter    
 <br>
   - Twitter itself has no problem with it, but others might disagree
-      - e.g., your country, (funding and/or research) institution, subjects
+      - e.g., your law makers, (funding and/or research) institution, subjects, conscience
     
 --
+
 <br>
 
 - Check the rules that apply to your case
@@ -565,6 +576,7 @@ name: potential-biases
   - rules and regulations in your country, at your institution
   
 --
+
 <br>
 
 - Reflect on whether using Twitter data for research is ethical
@@ -597,17 +609,20 @@ Twitter data frequently requires
 - Some tools of text analysis are developed for a specific language and/or context
 
    - e.g., dictionaries for sentiment analysis
-       - might be, e.g., for English, political texts, only
-   - these may not be useful, valid for different languages, and context
+       - might be in English, political texts, only
+       
+   - these may not be useful, valid for different languages, and contexts
    
 --
+
 <br>
 
-- Some tools of text analysis are developed for general context
+- Some tools of text analysis are developed for general use
 
-   - e.g., a dictionary for sentiment analysis in general
+   - e.g., a dictionary for sentiments in everyday language
+   
    - these may not be useful, valid for a specific context
-      - e.g., political science
+      - e.g., political texts
 
 ---
 name: part2
@@ -631,10 +646,13 @@ class: action
   - flexibility to go back and forward on your own
   - ability to scroll across long codes on some slides
 
+<br>
+
 - Access at <https://resulumit.com/teaching/twtr_workshop.html>
 
   - will remain accessible after the workshop
-  
+  - might crash for some Safari users
+      - if using a different browser application is not an option, view the [PDF version of the slides](https://github.com/resulumit/twtr_workshop/blob/master/presentation/twtr_workshop.pdf) on GitHub
   
 .footnote[
 
@@ -675,12 +693,19 @@ class: action
 ## RStudio &mdash; Download from the Internet and Install
 
 - Optional, but highly recommended
+
   - facilitates working with Twitter data in R
 
+<br>
+
 - A popular integrated development environment (IDE) for R
+
   - an alternative: [GNU Emacs](https://www.gnu.org/software/emacs/)
 
+<br>
+
 - Download RStudio from [https://rstudio.com/products/rstudio/download](https://rstudio.com/products/rstudio/download)
+
   - choose the free version
   - consider updating your copy, if it is not up to date, following from the RStudio menu:
 
@@ -702,8 +727,11 @@ name: rstudio-project
 
 > `File -> New Project -> New Directory -> New Project`
 
-- An unsynced directory is recommended
-     - e.g., perhaps Documents, but not Dropbox
+<br>
+
+- A  non-synced directory is recommended
+
+  - e.g., perhaps Documents, but not Dropbox
 
 ---
 class: action
@@ -859,103 +887,7 @@ Sign up for Twitter at [https://twitter.com/](twitter.com)
       - or choose one carefully &mdash; they become a part of users' online presence
         
 ---
-class: action
 
-## Twitter &mdash; Apply for a Developer Account
-
-- On [developer.twitter.com](https://developer.twitter.com/), click `Apply`
-   - at the top-right corner of the page<sup>*</sup>
-   - follow the instructions on consecutive pages    
-
-.footnote[
-
-<sup>*</sup>It takes a few days for Twitter to review and hopefully approve your request to have an account. You might have created an account before. In that case, you will see `Developer Portal` instead of `Apply`. 
-
-]
-
----
-class: action
-
-## Twitter &mdash; Apply for a Developer Account
-
-- On [developer.twitter.com](https://developer.twitter.com/), click `Apply`
-   - at the top-right corner of the page<sup>*</sup>
-   - follow the instructions on consecutive pages    
-
-<br>
-
-- Write a detailed case for your intended use of Twitter APIs
-       - not just that you are attending this workshop
-       - a quick application is likely to slow the review process
-          - as Twitter often asks for more details via email
-       - rejection is also a possibility    
-
-<br>
-
-- Carefully review the Twitter's [Developer Agreement and Policy](https://developer.twitter.com/en/developer-terms/agreement-and-policy)
-       - especially important if you will develop an app that
-           - others will use
-           - will write as well as read Twitter data
-
----
-class: action
-
-## Twitter &mdash; Register an App
-
-- On [developer.twitter.com/en/portal/projects-and-apps](https://developer.twitter.com/en/portal/projects-and-apps), click `+ Create App`
-   - follow the instructions on consecutive pages
-       - you will need a unique name for your app
-       
-  - note that, once the app is registered, you are provided with keys and tokens
-      - you will use these for authentication
-          - if you choose not to authenticate through `rtweet`'s own app, called `rstats2twitter`
-          - more on this in [Part 3](#part3)
-          
-- does not mean you have to create an actual app
-    - e.g., an app for smart phones
-
----
-## Twitter &mdash; Keys and Tokens &mdash; Notes          
-      
-- Keys and tokens are personal
-   - should not be shared with others
-      - e.g., through replication files, when asking a question on [Stack Overflow](https://stackoverflow.com/) 
-
---
-          
-- Keys and tokens can be re-generated anytime
-  - on your applications page, under the `Keys and tokens` tab
-  - this requires updating your R script with the new tokens as well
-  
---
-
-- Twitter allows for further, optional settings involving keys and tokens
-   - relevant, mostly, for apps to do more than just collecting tweets
-   - e.g., settings for 3-legged OAuth
-      - like `rstats2twitter`, to allow for other users to authenticate through a browser pop up
-   - not covered in this workshop
-   
----
-## Twitter &mdash; Keys and Tokens &mdash; Notes &mdash; Definitions
-
-- Consumer key and Consumer secret
-
-  - identifiers for an application
-  - provide .yellow-h[project authorization]
-     - identify the application
-     - check whether the application has been granted access
-  - like your application's username and password
-
---
-
-- Access token and Access token secret
-
-  - identifier for users of an application
-     - this may or may not include anyone other than the owner
-     - e.g., for `rstats2twitter`, there are many users
-  - provide .yellow-h[user authentication] 
-     - identify the user
-     - check whether the user should have access to a request
 
 ---
 ## Other Resources<sup>*</sup>
@@ -3550,7 +3482,7 @@ class: action
 name: part5
 class: inverse, center, middle
 
-# Part 5. Data Analysis
+# Part 5. Data Anaysis: User-Based
 
 .footnote[
 
@@ -3559,6 +3491,142 @@ class: inverse, center, middle
 ]
 
 ---
+name: part6
+class: inverse, center, middle
+
+# Part 6. Data Anaysis: Tweet-Based
+
+.footnote[
+
+[Back to the contents slide](#contents-slide).
+
+]
+
+---
+name: part7
+class: inverse, center, middle
+
+# Part 7. Data Anaysis: Machiene Learning
+
+.footnote[
+
+[Back to the contents slide](#contents-slide).
+
+]
+
+---
+name: part8
+class: inverse, center, middle
+
+# Part 8. Next Steps
+
+.footnote[
+
+[Back to the contents slide](#contents-slide).
+
+]
+
+---
+class: action
+
+## Twitter &mdash; Apply for a Developer Account
+
+- On [developer.twitter.com](https://developer.twitter.com/), click `Apply`
+   - at the top-right corner of the page<sup>*</sup>
+   - follow the instructions on consecutive pages    
+
+.footnote[
+
+<sup>*</sup>It takes a few days for Twitter to review and hopefully approve your request to have an account. You might have created an account before. In that case, you will see `Developer Portal` instead of `Apply`. 
+
+]
+
+---
+class: action
+
+## Twitter &mdash; Apply for a Developer Account
+
+- On [developer.twitter.com](https://developer.twitter.com/), click `Apply`
+   - at the top-right corner of the page<sup>*</sup>
+   - follow the instructions on consecutive pages    
+
+<br>
+
+- Write a detailed case for your intended use of Twitter APIs
+       - not just that you are attending this workshop
+       - a quick application is likely to slow the review process
+          - as Twitter often asks for more details via email
+       - rejection is also a possibility    
+
+<br>
+
+- Carefully review the Twitter's [Developer Agreement and Policy](https://developer.twitter.com/en/developer-terms/agreement-and-policy)
+       - especially important if you will develop an app that
+           - others will use
+           - will write as well as read Twitter data
+
+---
+class: action
+
+## Twitter &mdash; Register an App
+
+- On [developer.twitter.com/en/portal/projects-and-apps](https://developer.twitter.com/en/portal/projects-and-apps), click `+ Create App`
+   - follow the instructions on consecutive pages
+       - you will need a unique name for your app
+       
+  - note that, once the app is registered, you are provided with keys and tokens
+      - you will use these for authentication
+          - if you choose not to authenticate through `rtweet`'s own app, called `rstats2twitter`
+          - more on this in [Part 3](#part3)
+          
+- does not mean you have to create an actual app
+    - e.g., an app for smart phones
+
+---
+## Twitter &mdash; Keys and Tokens &mdash; Notes          
+      
+- Keys and tokens are personal
+   - should not be shared with others
+      - e.g., through replication files, when asking a question on [Stack Overflow](https://stackoverflow.com/) 
+
+--
+          
+- Keys and tokens can be re-generated anytime
+  - on your applications page, under the `Keys and tokens` tab
+  - this requires updating your R script with the new tokens as well
+  
+--
+
+- Twitter allows for further, optional settings involving keys and tokens
+   - relevant, mostly, for apps to do more than just collecting tweets
+   - e.g., settings for 3-legged OAuth
+      - like `rstats2twitter`, to allow for other users to authenticate through a browser pop up
+   - not covered in this workshop
+   
+---
+## Twitter &mdash; Keys and Tokens &mdash; Notes &mdash; Definitions
+
+- Consumer key and Consumer secret
+
+  - identifiers for an application
+  - provide .yellow-h[project authorization]
+     - identify the application
+     - check whether the application has been granted access
+  - like your application's username and password
+
+--
+
+- Access token and Access token secret
+
+  - identifier for users of an application
+     - this may or may not include anyone other than the owner
+     - e.g., for `rstats2twitter`, there are many users
+  - provide .yellow-h[user authentication] 
+     - identify the user
+     - check whether the user should have access to a request
+     
+---
+name: reference-slide
 class: inverse, center, middle
 
 # References
@@ -3570,7 +3638,6 @@ class: inverse, center, middle
 ]
 
 ---
-name: reference-slide
 ## References
 
 Benoit, K., Watanabe, K., Wang, H., Nulty, P., Obeng, A., Müller, S., Matsuo, A., Lua, J. W., Kuha, J., & Lowe, W. (2020). [quanteda: Quantitative Analysis of Textual Data](https://cran.r-project.org/web/packages/quanteda/index.html). R package, version 2.1.2.
