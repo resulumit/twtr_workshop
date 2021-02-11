@@ -3446,6 +3446,62 @@ class: inverse, center, middle
 ]
 
 ---
+## Analysing Users &mdash;
+
+```{r, echo = FALSE, out.width = "50%"}
+knitr::include_graphics("../exercises/users_answers_files/figure-html/exercise_52-1.png")
+```
+
+---
+## Analysing Users &mdash;
+
+```{r, echo = FALSE, out.width = "50%"}
+knitr::include_graphics("../exercises/users_answers_files/figure-html/exercise_53-1.png")
+```
+
+---
+## Analysing Users &mdash;
+
+```{r, echo = FALSE, out.width = "50%"}
+knitr::include_graphics("../exercises/users_answers_files/figure-html/exercise_54-1.png")
+```
+
+---
+## Analysing Users &mdash;
+
+```{r, echo = FALSE, out.width = "50%"}
+knitr::include_graphics("../exercises/users_answers_files/figure-html/exercise_55-1.png")
+```
+
+---
+## Analysing Users &mdash;
+
+```{r, echo = FALSE, out.width = "50%"}
+knitr::include_graphics("../exercises/users_answers_files/figure-html/exercise_56-1.png")
+```
+
+---
+## Analysing Users &mdash;
+
+```{r, echo = FALSE, out.width = "50%"}
+knitr::include_graphics("../exercises/users_answers_files/figure-html/exercise_57-1.png")
+```
+
+---
+## Analysing Users &mdash;
+
+```{r, echo = FALSE, out.width = "50%"}
+knitr::include_graphics("../exercises/users_answers_files/figure-html/exercise_58-1.png")
+```
+
+---
+## Analysing Users &mdash;
+
+```{r, echo = FALSE, out.width = "50%"}
+knitr::include_graphics("../exercises/users_answers_files/figure-html/exercise_59-1.png")
+```
+
+---
 name: part6
 class: inverse, center, middle
 

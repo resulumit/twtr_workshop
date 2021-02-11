@@ -7,6 +7,7 @@ Afzal Khan,Afzal4Gorton,0,61,2,Labour,0,"Manchester, Gorton",North West,England,
 Alan Brown,AlanBrownSNP,0,51,3,SNP,0,Kilmarnock and Loudoun,Scotland,Scotland,County,74517,63.9196425,26.57722912
 Alan Campbell,alancampbellmp,0,64,7,Labour,0,Tynemouth,North East,England,Borough,77261,72.52559506,8.667951601
 Alan Mak,AlanMakMP,0,38,3,Conservative,1,Havant,South East,England,Borough,72103,63.74075975,47.41617529
+Alan Whitehead,alanwhiteheadmp,0,71,7,Labour,0,"Southampton, Test",South East,England,Borough,70116,64.17080267,13.8085078
 Alberto Costa,AlbertoCostaMP,0,50,3,Conservative,1,South Leicestershire,East Midlands,England,County,80520,71.37232986,41.76860568
 Alec Shelbrooke,AlecShelbrooke,0,45,4,Conservative,1,Elmet and Rothwell,Yorkshire and The Humber,England,County,80957,71.92089628,29.80334908
 Alex Burghart,alexburghart,0,44,2,Conservative,1,Brentwood and Ongar,East,England,County,75255,70.35944456,54.89244367
@@ -37,6 +38,7 @@ Andrew Gwynne,GwynneMP,0,47,5,Labour,0,Denton and Reddish,North West,England,Bor
 Andrew Jones,AJonesMP,0,58,4,Conservative,1,Harrogate and Knaresborough,Yorkshire and The Humber,England,County,77941,73.05141068,16.99246536
 Andrew Lewer,ALewerMBE,0,50,2,Conservative,1,Northampton South,East Midlands,England,Borough,62163,65.69020157,11.50238766
 Andrew Mitchell,,0,65,9,Conservative,1,Sutton Coldfield,West Midlands,England,Borough,75638,69.17819086,36.83134257
+Andrew Murrison,AWMurrison,0,60,6,Conservative,1,South West Wiltshire,South West,England,County,77969,70.40618707,39.40249567
 Andrew Percy,,0,44,4,Conservative,1,Brigg and Goole,Yorkshire and The Humber,England,County,65939,65.82144103,50.55296991
 Andrew Rosindell,AndrewRosindell,0,55,6,Conservative,1,Romford,London,England,Borough,72350,65.2812716,37.88401685
 Andrew Selous,AndrewSelous,0,59,6,Conservative,1,South West Bedfordshire,East,England,County,79926,66.69544329,34.86033729
@@ -86,6 +88,7 @@ Carla Lockhart,carlalockhart,1,36,1,DUP,0,Upper Bann,Northern Ireland,Northern I
 Carol Monaghan,CMonaghanSNP,1,49,3,SNP,0,Glasgow North West,Scotland,Scotland,Borough,63402,62.67152456,21.03686926
 Caroline Ansell,Caroline_Ansell,1,50,3,Conservative,1,Eastbourne,South East,England,Borough,79307,69.51971453,7.855406827
 Caroline Dinenage,cj_dinenage,1,50,4,Conservative,1,Gosport,South East,England,Borough,73541,65.88569641,48.04243287
+Caroline Johnson,drcarolinej,1,43,3,Conservative,1,Sleaford and North Hykeham,East Midlands,England,County,94761,70.23353489,48.93019202
 Caroline Lucas,CarolineLucas,1,61,4,Green,0,"Brighton, Pavilion",South East,England,Borough,79057,73.36225761,34.38049588
 Caroline Nokes,carolinenokes,1,49,4,Conservative,1,Romsey and Southampton North,South East,England,County,68228,75.32098259,21.1558669
 Carolyn Harris,carolynharris24,1,61,3,Labour,0,Swansea East,Wales,Wales,Borough,58450,57.4491018,23.73507252
@@ -173,14 +176,6 @@ Diane Abbott,HackneyAbbott,1,68,9,Labour,0,Hackney North and Stoke Newington,Lon
 Dominic Raab,DominicRaab,0,47,4,Conservative,1,Esher and Walton,South East,England,Borough,81184,77.7049665,4.348170693
 Douglas Chapman,DougChapmanSNP,0,66,3,SNP,0,Dunfermline and West Fife,Scotland,Scotland,County,76652,69.77247821,20.00486145
 Douglas Ross,Douglas4Moray,0,38,2,Conservative,1,Moray,Scotland,Scotland,County,71035,68.73372281,1.050691244
-Dr Alan Whitehead,alanwhiteheadmp,0,71,7,Labour,0,"Southampton, Test",South East,England,Borough,70116,64.17080267,13.8085078
-Dr Andrew Murrison,AWMurrison,0,60,6,Conservative,1,South West Wiltshire,South West,England,County,77969,70.40618707,39.40249567
-Dr Caroline Johnson,drcarolinej,1,43,3,Conservative,1,Sleaford and North Hykeham,East Midlands,England,County,94761,70.23353489,48.93019202
-Dr Liam Fox,LiamFox,0,60,8,Conservative,1,North Somerset,South West,England,County,80194,77.38110083,28.25880268
-Dr Philippa Whitford,Dr_PhilippaW,1,63,3,SNP,0,Central Ayrshire,Scotland,Scotland,County,69742,66.72306501,11.39811751
-Dr Rosena Allin-Khan,DrRosena,1,44,3,Labour,0,Tooting,London,England,Borough,76954,75.98435429,24.46770304
-Dr Rupa Huq,RupaHuq,1,49,3,Labour,0,Ealing Central and Acton,London,England,Borough,75510,72.58243941,24.2669732
-Dr Thérèse Coffey,theresecoffey,1,50,4,Conservative,1,Suffolk Coastal,East,England,County,81910,71.18544744,35.21472182
 Drew Hendry,drewhendrySNP,0,57,3,SNP,0,"Inverness, Nairn, Badenoch and Strathspey",Scotland,Scotland,County,78059,70.21611858,19.04761905
 Duncan Charles Baker,duncancbaker,0,42,1,Conservative,1,North Norfolk,East,England,County,70729,71.85595725,28.32379041
 Eddie Hughes,EddieHughes4WN,0,53,2,Conservative,1,Walsall North,West Midlands,England,Borough,67177,54.41743454,32.7306051
@@ -217,7 +212,7 @@ Gavin Newlands,GavNewlandsSNP,0,41,3,SNP,0,Paisley and Renfrewshire North,Scotla
 Gavin Robinson,GRobinsonDUP,0,37,3,DUP,0,Belfast East,Northern Ireland,Northern Ireland,Borough,66245,64.07276021,4.285546001
 Gavin Williamson,GavinWilliamson,0,45,4,Conservative,1,South Staffordshire,West Midlands,England,County,73668,67.87886192,56.49435056
 Geoffrey Clifton-Brown,,0,68,8,Conservative,1,The Cotswolds,South West,England,County,81939,74.66041812,33.04236956
-Geoffrey Cox QC,Geoffrey_Cox,0,61,5,Conservative,1,Torridge and West Devon,South West,England,County,80403,74.28827283,41.84162063
+Geoffrey Cox,Geoffrey_Cox,0,61,5,Conservative,1,Torridge and West Devon,South West,England,County,80403,74.28827283,41.84162063
 George Eustice,,0,50,4,Conservative,1,Camborne and Redruth,South West,England,County,70250,71.69679715,17.2732146
 George Freeman,GeorgeFreemanMP,0,54,4,Conservative,1,Mid Norfolk,East,England,County,82203,68.35030352,40.21286441
 George Howarth,,0,72,10,Labour,0,Knowsley,North West,England,Borough,84082,65.33859804,72.70377516
@@ -239,7 +234,7 @@ Greg Smith,gregsmith_uk,0,42,1,Conservative,1,Buckingham,South East,England,Coun
 Gregory Campbell,,0,68,6,DUP,0,East Londonderry,Northern Ireland,Northern Ireland,County,69246,56.757069,24.44404865
 Guy Opperman,GuyOpperman,0,56,4,Conservative,1,Hexham,North East,England,County,61324,75.25601722,22.85807151
 Hannah Bardell,HannahB4LiviMP,1,38,3,SNP,0,Livingston,Scotland,Scotland,County,82285,66.34502036,24.60983294
-Harriet Harman QC,HarrietHarman,1,71,11,Labour,0,Camberwell and Peckham,London,England,Borough,88971,63.49484664,59.79607732
+Harriet Harman,HarrietHarman,1,71,11,Labour,0,Camberwell and Peckham,London,England,Borough,88971,63.49484664,59.79607732
 Harriett Baldwin,hbaldwin,1,61,4,Conservative,1,West Worcestershire,West Midlands,England,County,76241,75.45808686,42.5847384
 Heather Wheeler,HeatherWheeler,1,62,4,Conservative,1,South Derbyshire,East Midlands,England,County,79331,67.28895388,36.2207527
 Helen Grant,HelenGrantMP,1,60,4,Conservative,1,Maidstone and The Weald,South East,England,County,76109,67.90261336,42.12848297
@@ -304,7 +299,7 @@ Jim Shannon,JimShannonMP,0,66,4,DUP,0,Strangford,Northern Ireland,Northern Irela
 Jo Churchill,Jochurchill4,1,57,3,Conservative,1,Bury St Edmunds,East,England,County,89644,69.11449735,40.33119744
 Jo Gideon,jogideon,1,69,1,Conservative,1,Stoke-on-Trent Central,West Midlands,England,Borough,55419,57.86824013,2.089179919
 Jo Stevens,JoStevensLabour,1,55,3,Labour,0,Cardiff Central,Wales,Wales,Borough,64037,65.30911817,41.07646693
-Joanna Cherry QC,joannaccherry,1,55,3,SNP,0,Edinburgh South West,Scotland,Scotland,Borough,73501,70.92556564,22.98440467
+Joanna Cherry,joannaccherry,1,55,3,SNP,0,Edinburgh South West,Scotland,Scotland,Borough,73501,70.92556564,22.98440467
 John Baron,,0,62,6,Conservative,1,Basildon and Billericay,East,England,Borough,69906,63.12476754,46.25634518
 John Cryer,JohnCryerMP,0,57,7,Labour,0,Leyton and Wanstead,London,England,County,64852,68.69024857,46.71021618
 John Finucane,johnfinucane,0,121,1,SF,0,Belfast North,Northern Ireland,Northern Ireland,Borough,72225,67.89477328,3.962314171
@@ -377,6 +372,7 @@ Lee Benjamin Rowley,Lee4NED,0,41,2,Conservative,1,North East Derbyshire,East Mid
 Leo Docherty,LeoDochertyUK,0,45,2,Conservative,1,Aldershot,South East,England,Borough,72617,66.00658248,34.83685221
 Lia Nici,lia_nici,1,52,1,Conservative,1,Great Grimsby,Yorkshire and The Humber,England,Borough,61409,53.87972447,22.1567383
 Liam Byrne,liambyrnemp,0,51,6,Labour,0,"Birmingham, Hodge Hill",West Midlands,England,Borough,78295,57.4787662,63.67353288
+Liam Fox,LiamFox,0,60,8,Conservative,1,North Somerset,South West,England,County,80194,77.38110083,28.25880268
 Lilian Greenwood,LilianGreenwood,1,55,4,Labour,0,Nottingham South,East Midlands,England,Borough,79485,60.55733786,26.11044168
 Lindsay Hoyle,LindsayHoyle_MP,0,64,7,Speaker,0,Chorley,North West,England,County,77072,51.73084908,43.62177075
 Lisa Cameron,DrLisaCameronMP,1,49,3,SNP,0,"East Kilbride, Strathaven and Lesmahagow",Scotland,Scotland,County,81224,69.36004137,23.64698156
@@ -480,7 +476,7 @@ Nigel Huddleston,HuddlestonNigel,0,51,3,Conservative,1,Mid Worcestershire,West M
 Nigel Mills,nigelmills,0,47,4,Conservative,1,Amber Valley,East Midlands,England,County,69976,65.11804047,37.0575197
 Nusrat Ghani,Nus_Ghani,1,49,3,Conservative,1,Wealden,South East,England,County,82998,73.38369599,42.12159522
 Oliver Dowden,OliverDowden,0,43,3,Conservative,1,Hertsmere,East,England,County,73971,70.57225129,40.82715553
-Oliver Heald QC,OliverHealdUK,0,67,8,Conservative,1,North East Hertfordshire,East,England,County,76123,72.68105566,32.8754496
+Oliver Heald,OliverHealdUK,0,67,8,Conservative,1,North East Hertfordshire,East,England,County,76123,72.68105566,32.8754496
 Olivia Frances Blake,_OliviaBlake,1,31,1,Labour,0,"Sheffield, Hallam",Yorkshire and The Humber,England,County,72763,78.17846983,1.251648062
 Orfhlaith Begley,OrfhlaithBegley,1,30,2,SF,0,West Tyrone,Northern Ireland,Northern Ireland,County,66259,62.15910291,18.15665517
 Owen Paterson,OwenPaterson,0,65,7,Conservative,1,North Shropshire,West Midlands,England,County,83258,67.87696077,40.6083556
@@ -511,6 +507,7 @@ Peter Kyle,peterkyle,0,51,3,Labour,0,Hove,South East,England,Borough,74313,75.88
 Philip Davies,PhilipDaviesUK,0,49,5,Conservative,1,Shipley,Yorkshire and The Humber,England,County,74029,72.94978995,11.55840308
 Philip Dunne,Dunne4Ludlow,0,63,5,Conservative,1,Ludlow,West Midlands,England,County,69444,72.32446288,47.08412145
 Philip Hollobone,,0,57,5,Conservative,1,Kettering,East Midlands,England,County,73164,67.46624023,33.9640607
+Philippa Whitford,Dr_PhilippaW,1,63,3,SNP,0,Central Ayrshire,Scotland,Scotland,County,69742,66.72306501,11.39811751
 Preet Gill,PreetKGillMP,1,49,2,Labour,0,"Birmingham, Edgbaston",West Midlands,England,Borough,68828,61.49822747,13.26308826
 Priti Patel,pritipatel,1,49,4,Conservative,1,Witham,East,England,County,70402,70.08891793,48.80431258
 Rachael Maskell,RachaelMaskell,1,49,3,Labour,0,York Central,Yorkshire and The Humber,England,Borough,74899,66.09567551,27.36087264
@@ -545,10 +542,12 @@ Robin John Millar,RobinMillarMP,0,121,1,Conservative,1,Aberconwy,Wales,Wales,Cou
 Robin Walker,WalkerWorcester,0,43,4,Conservative,1,Worcester,West Midlands,England,Borough,73485,69.26311492,13.27753546
 Roger Gale,SirRogerGale,0,78,10,Conservative,1,North Thanet,South East,England,County,72756,66.21859366,35.67811034
 Ronnie Cowan,ronniecowan,0,62,3,SNP,0,Inverclyde,Scotland,Scotland,County,60622,65.82263865,18.82565221
+Rosena Allin-Khan,DrRosena,1,44,3,Labour,0,Tooting,London,England,Borough,76954,75.98435429,24.46770304
 Rosie Cooper,rosie4westlancs,1,71,5,Labour,0,West Lancashire,North West,England,County,73347,71.79980095,15.82895012
 Rosie Duffield,RosieDuffield1,1,50,2,Labour,0,Canterbury,South East,England,County,80203,74.95106168,3.054247833
 Rosie Winterton,,1,63,7,Labour,0,Doncaster Central,Yorkshire and The Humber,England,Borough,71389,58.2456681,5.478463721
 Royston Smith,Royston_Smith,0,57,3,Conservative,1,"Southampton, Itchen",South East,England,Borough,72299,65.59011881,9.485249151
+Rupa Huq,RupaHuq,1,49,3,Labour,0,Ealing Central and Acton,London,England,Borough,75510,72.58243941,24.2669732
 Rushanara Ali,rushanaraali,1,46,4,Labour,0,Bethnal Green and Bow,London,England,Borough,88262,68.61616551,61.95964466
 Ruth Cadbury,RuthCadbury,1,62,3,Labour,0,Brentford and Isleworth,London,England,Borough,85775,67.99883416,18.02626616
 Ruth Edwards,RuthEdwardsMP,1,121,1,Conservative,1,Rushcliffe,East Midlands,England,County,77047,78.52998819,12.63201388
@@ -615,6 +614,7 @@ Thangam Debbonaire,ThangamMP,1,55,3,Labour,0,Bristol West,South West,England,Bor
 Theo Clarke,theodoraclarke,1,36,1,Conservative,1,Stafford,West Midlands,England,County,72572,70.48035055,28.1080764
 Theresa May,theresa_may,1,65,7,Conservative,1,Maidenhead,South East,England,County,76668,73.68393593,33.36047582
 Theresa Villiers,,1,53,5,Conservative,1,Chipping Barnet,London,England,Borough,79960,71.99724862,2.105299727
+Therese Coffey,theresecoffey,1,50,4,Conservative,1,Suffolk Coastal,East,England,County,81910,71.18544744,35.21472182
 Tim Farron,timfarron,0,51,5,LibDem,0,Westmorland and Lonsdale,North West,England,County,67789,77.75892844,3.668993778
 Tim Loughton,timloughton,0,59,7,Conservative,1,East Worthing and Shoreham,South East,England,County,75194,70.6545735,14.06791146
 Tobias Ellwood,Tobias_Ellwood,0,55,5,Conservative,1,Bournemouth East,South West,England,Borough,74125,66.47419899,17.87149409
