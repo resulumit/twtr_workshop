@@ -217,10 +217,19 @@ dwplot(m4) +
 
 # tweet-based analyses ----------------------------------------------------
 
-# when do they tweet?
+# when do they tweet? DONE
 
 twts %>%
-  filter(is_retweet == FALSE) %>%
+  mutate(date = as.Date(created_at)) %>%
+  count(date) %>%
+  ggplot(aes(x = date, y = n)) +
+  geom_line() +
+  theme_bw() +
+  ylab("Number of Tweets\n") + xlab("\nDate")
+
+
+
+twts %>%
   mutate(hour = format(created_at, tz = "GB", "%H")) %>%
   group_by(hour) %>%
   summarise(n_tweets = n()) %>%
@@ -233,16 +242,19 @@ twts %>%
 twts %>%
   filter(is_retweet == FALSE) %>%
   mutate(day = format(created_at, tz = "GB", "%A"),
-         day =factor(day, levels = c("Monday", "Tuesday", "Wednesday", "Thursday",
-                                     "Friday", "Saturday", "Sunday"))) %>%
+         day = factor(day, levels = c("Monday", "Tuesday", "Wednesday", "Thursday",
+                                      "Friday", "Saturday", "Sunday")),
+         week = format(created_at, tz = "GB", "%W")) %>%
+  group_by(week, day) %>%
+  summarise(by_day = n()) %>%
   group_by(day) %>%
-  summarise(n_tweets = n()) %>%
-  ggplot(aes(day, n_tweets)) +
+  summarise(mean_tweets = mean(by_day)) %>%
+  ggplot(aes(day, mean_tweets)) +
   geom_line(aes(group = 1), size = 1) +
   theme_bw() +
   ylab("Number of Tweets\n") + xlab("\nDays") +
   scale_x_discrete(breaks = c("Monday", "Tuesday", "Wednesday", "Thursday",
-                            "Friday", "Saturday", "Sunday"))
+                              "Friday", "Saturday", "Sunday"))
 
 
 # most frequently used hashtags
