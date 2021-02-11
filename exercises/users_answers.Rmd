@@ -29,19 +29,19 @@ twts <- read_rds("../data/tweets.rds")
 
 ## How to use this document
 
-This R Markdown document includes the exercises for Part 5 of the workshop, [Working with Twitter Data in R](https://resulumit.com/teaching/twtr_workshop.html#1). It introduces each exercise with a subtitle, followed by a code chunk. Type your code into these chunks to complete the exercises. 
+This R Markdown document includes the exercises for Part 5 of the workshop, [Working with Twitter Data in R](https://resulumit.com/teaching/twtr_workshop.html#1). It introduces each exercise with a subtitle, followed by some explanations and a code chunk. Type your code into these chunks to complete the exercises.
+
+If these exercises are too easy for you, I recommend analysing your own dataset or conducting additional analyses on the same dataset in parallel. If they are on the other hand too hard, the comments in the chunks might help you. If they are still too inaccessible to you, you may wish to follow on with the `users_answers.Rmd` instead, which include the code.
 
 If you have the `rmarkdown` package installed, you can see the results in two ways:
 
-- by clicking on the *Knit* button on the RStudio menu
+1) by clicking on the *Knit* button on the RStudio menu
     - this runs the codes in all chunks   
     - the results will appear in a separate HTML document that will pop up
     
-- by clicking on the green arrow on the top-right corner of any chunk
+2) by clicking on the green arrow on the top-right corner of any chunk
     - this runs the code in that chunk only    
     - the result will appear immediately under the relevant chunk
-
-If these exercises are too easy for you, I recommend analysing your own data in parallel. If they are too hard, the comments in the chunks might help you. If they are still too inaccesile for you, you may wish to follow on with the `user_based_answers.Rmd` instead, which include the come with the code.
 
 
 ### Correlates of being on Twitter
@@ -363,89 +363,80 @@ ggraph(rt_network) +
 
 ```
 
-### Who is more central in the retweet networks?
+### Who are more central in the retweet networks?
 
 Centrality is one of the main concepts in network theory, measuring importance of `nodes` (e.g., the MPs) in a network. There are many different ways to measure centrality --- the `tidygraph` package offers numerous functions to calculate centality, including `centrality_betweenness` and `centrality_authority`.
 
 Using these two measures, visualise the most central MPs in the retweet networks.
 
-
-```{r, echo=FALSE}
+```{r, exercise_60, echo=FALSE}
 
 # create a temporary tweets dataframe about who retweets whom, how often
 twts_temp <- twts %>%
   
-# filter to retweets only, filter out self retweets
+  # filter to retweets only, filter out self retweets
   filter(is_retweet == TRUE & screen_name != retweet_screen_name) %>%
   
-# filter out those retweeted who are not mps themselves
-# by using the inner_join function, with the mps dataset
+  # filter out those retweeted who are not mps themselves
+  # by using the inner_join function, with the mps dataset
   inner_join(., mps, by = c("retweet_screen_name" = "screen_name")) %>%
   
-# reduce to the dataset to two variables only: who retweets whom
+  # reduce to the dataset to two variables only: who retweets whom
   select(screen_name, retweet_screen_name) %>%
   
-# calculate the retweet counts by mp
+  # calculate the retweet counts by mp
   group_by(screen_name) %>%
   count(retweet_screen_name)
-
-
 
 
 # turn that temporary dataframe into a data structure for tidy graph
 # using the `as_tbl_graph` function
 rt_network <- as_tbl_graph(twts_temp) %>%
   
-# add the `party` variable to the nodes
+# add the `party` and centrality variables to the nodes
 # by first activating the nodes
   activate(nodes) %>%
   
-# and then merging the `mps` dataset
+# merge with the `mps` dataset for the party variable
   left_join(., mps, by = c("name" = "screen_name")) %>%
 
-# filter down to the four main parties: Conservative, Labour, SNP, LibDem
-  filter(party %in% c("Conservative", "Labour", "SNP", "LibDem"))
-
-twts_new <- twts %>%
-  filter(is_retweet == TRUE & screen_name != retweet_screen_name) %>%
-  inner_join(., mps, by = c("retweet_screen_name" = "screen_name")) %>%
-  select(screen_name, retweet_screen_name) %>%
-  group_by(screen_name) %>%
-  count(retweet_screen_name) %>%
-  as_tbl_graph()
-
-twts_new %>%
+# add the centrality variables with the `mutate` function
   mutate(betweenness = centrality_betweenness(),
-         authority = centrality_authority()) %>%
-  as.data.frame() %>%
-  pivot_longer(cols = c("betweenness", "authority"),
+         power = centrality_power())
+
+# turn that tidy graph structure into a data frame for further manipulations
+# using the `as.data.frame` function
+rt_network_df <- as.data.frame(rt_network) %>%
+  
+  pivot_longer(cols = c("betweenness", "power"),
                names_to = "centrality_measure", values_to = "centrality_value") %>%
   group_by(centrality_measure) %>%
-  filter(rank(desc(centrality_value)) <= 10) %>%
-  ungroup() %>%
-  ggplot(aes(y = reorder(name, centrality_value),
-             x = centrality_value)) +
+  
+  # choose the 20 mps with highest number of followers
+  arrange(centrality_value, desc = TRUE) %>%
+  top_n(20) %>%
+  ungroup()
+
+# plot the resulting dataframe
+ggplot(rt_network_df, aes(y = reorder(name.y, centrality_value),
+                         x = centrality_value, fill = party)) +
   geom_bar(stat = "identity") +
   theme_bw() +
   facet_wrap(. ~ centrality_measure, scales = "free") +
-  ylab("") + xlab("")
-
-
-```
-
-```{r, echo=FALSE}
-
-
+  ylab("") + xlab("") +
+  scale_fill_manual(name = "",
+                    breaks = c("Conservative", "Labour", "LibDem", "SNP"),
+                    values = c("#0087DC", "#DC241f", "#FDBB30", "#FFFF00"))
 
 ```
 
-```{r, echo=FALSE}
+
+### Something else interesting
+
+Conduct another user-based analysis of Twitter data --- something that interests you. Work in groups of two, on the same datasets of one that you might have. Present your results to the class.
 
 
-
-```
-
-```{r, echo=FALSE}
+```{r, exercise_61, echo=FALSE}
 
 
 

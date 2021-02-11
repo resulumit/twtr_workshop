@@ -1,28 +1,443 @@
 ---
-title: 'Data Analysis: Tweet Based'
+title: 'Data Analysis: Tweets'
 output: html_document
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+```{r, setup, include=FALSE}
+
+# setup for this document
+knitr::opts_chunk$set(echo = FALSE, cache = TRUE)
+
+# install packages that does not need to be loaded
+# install.packages("rmakdown")   # running this document   
+# install.packages("textdata")   # sentiment dictionary
+
+# load packages
+library(rtweet)        # collecting tweets
+library(tidytext)      # working with texts, sentiment analysis
+library(doc2concrete)  # concreteness scores
+library(dotwhisker)    # visualising regression results
+library(tidygraph)     # network analysis
+library(ggraph)        # network analysis
+library(tidyverse)     # most other operations
+
+# load data
+mps <- read.csv("../data/mps.csv", na.strings = "")
+twts <- read_rds("../data/tweets.rds")
+
 ```
 
-## R Markdown
+## How to use this document
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+This R Markdown document includes the exercises for Part 6 of the workshop, [Working with Twitter Data in R](https://resulumit.com/teaching/twtr_workshop.html#1). It introduces each exercise with a subtitle, followed by some explanations and a code chunk. Type your code into these chunks to complete the exercises.
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+If these exercises are too easy for you, I recommend analysing your own dataset or conducting additional analyses on the same dataset in parallel. If they are on the other hand too hard, the comments in the chunks might help you. If they are still too inaccessible to you, you may wish to follow on with the `tweets_answers.Rmd` instead, which include the code.
 
-```{r cars}
-summary(cars)
+If you have the `rmarkdown` package installed, you can see the results in two ways:
+
+1) by clicking on the *Knit* button on the RStudio menu
+    - this runs the codes in all chunks   
+    - the results will appear in a separate HTML document that will pop up
+    
+2) by clicking on the green arrow on the top-right corner of any chunk
+    - this runs the code in that chunk only    
+    - the result will appear immediately under the relevant chunk
+
+
+### Correlates of being on Twitter
+
+Looking at the `mps` dataset, we can see that not all MPs have an account on Twitter. Specifically, 588 out of 650 MPs use Twitter. How can we explain that some of them are not on Twitter?
+
+Use the variables from the `mps` dataset to explore.
+
+```{r, exercise_52, echo=FALSE}
+
+# create a new binary variable with `mutate`, coded as 1 for MPs with an account
+mps_temp <- mps %>% 
+  mutate(on_twitter = if_else(is.na(screen_name), 0, 1))
+
+# run a regression model
+m <- lm(on_twitter ~ female + age + term + government + electorate + majority,
+         data = mps_temp)
+
+# plot the regression results with the `dwplot` function
+dwplot(m) +
+  theme_bw() +
+  theme(legend.position = "none") +
+  geom_vline(xintercept = 0, linetype = 2) +
+  scale_x_continuous(breaks = c(-0.1, 0, 0.1)) 
+
+
 ```
 
-## Including Plots
+### Who has the most followers?
 
-You can also embed plots, for example:
+Recall that the `tweets` dataset includes a variable called `followers_count`, measuring the number of followers that MPs have, at the time of data collection. Based on this variable, visualise the top 20 MPs with the highest number of followers.
 
-```{r pressure, echo=FALSE}
-plot(pressure)
+Optionally, use the `name` and `party` variables from the `mps` dataset to improve the graph. 
+
+```{r, exercise_53, echo=FALSE}
+
+# reduce the dataset to mp-level, with the distinct() function
+twts %>%
+  distinct(screen_name, followers_count) %>%
+
+# choose the 20 mps with highest number of followers
+  arrange(followers_count, desc = TRUE) %>%
+  top_n(20) %>%
+
+# get the full name and party variable from the mps dataset
+# join by the screen_name variable, which is common in both datasets
+  left_join(., mps, by = "screen_name") %>% 
+
+# plot the data with geom_bar
+  ggplot(aes(y = reorder(name, followers_count),
+             x = followers_count,
+             fill = party)) +
+  geom_bar(stat = "identity") +
+  theme_bw() +
+  ylab("Top 20 MPs\n") + xlab("\nNumber of followers") +
+  scale_x_continuous(breaks = c(0, 1000000, 2000000, 3000000),
+                     labels = c("0", "1M", "2M", "3M")) +
+  scale_fill_manual(name = "",
+                    breaks = c("Conservative", "Labour", "Green",
+                               "LibDem", "Independent"),
+                    values = c("#0087DC", "#DC241f", "#008066", "#FDBB30", "gray"))
+
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+### Correlates of having more followers
+
+How can we explain that some MPs have more followers than others? Looking at the MP-level correlates of followers might be informative. Use the variables from the `mps` dataset as independent variables, to run a regression model with the number of followers being the dependent variable.
+
+```{r, exercise_54, echo=FALSE}
+
+# reduce the dataset to mp-level, with the distinct() function
+mps_temp <- twts %>%
+  distinct(screen_name, followers_count) %>%
+
+# get the full name and party variable from the mps dataset
+# join by the screen_name variable, which is common in both datasets
+  left_join(., mps, by = "screen_name")
+
+# run a regression model
+ m <- lm(followers_count ~ female + age + term + government + electorate + majority,
+         data = mps_temp)
+
+# plot the regression results with the `dwplot` function
+dwplot(m) +
+  theme_bw() +
+  theme(legend.position = "none") +
+  geom_vline(xintercept = 0, linetype = 2) +
+  scale_x_continuous(breaks = c(-50000, 0, 50000)) 
+
+```
+
+### Who tweets the most often?
+
+Some are more active than others on Twitter. Visualise the top 20 MPs with the highest number of followers, to see the most active ones.
+
+Optionally, use the `name` and `party` variables from the `mps` dataset to improve the graph. 
+
+```{r, exercise_55, echo=FALSE}
+
+# calculate the total number of tweets by mp
+twts %>%
+  group_by(screen_name) %>%
+  summarise(total_tweets = n()) %>%
+  ungroup() %>% 
+
+# choose the 20 mps with highest number of followers
+  arrange(total_tweets, desc = TRUE) %>%
+  top_n(20) %>%
+
+# get the full name and party variable from the mps dataset
+# join by the screen_name variable, which is common in both datasets
+  left_join(., mps, by = "screen_name") %>% 
+
+# plot the data with geom_bar
+  ggplot(aes(y = reorder(name, total_tweets),
+             x = total_tweets,
+             fill = party)) +
+  geom_bar(stat = "identity") +
+  theme_bw() +
+  ylab("Top 20 MPs\n") + xlab("\nNumber of tweets, 15-31 January 2021") +
+  scale_fill_manual(name = "",
+                    breaks = c("Conservative", "Labour", "SNP"),
+                    values = c("#0087DC", "#DC241f", "#FFFF00"))
+
+```
+
+### Correlates of having more tweets
+
+How can we explain that some MPs tweet more often than others?  Looking at the MP-level correlates of the number of tweets might be informative. Use the variables from the `mps` dataset as independent variables, to run a regression model with the number of tweets posted being the dependent variable.
+
+```{r, exercise_56, echo=FALSE}
+
+mps_temp <- twts %>%
+  group_by(screen_name) %>%
+  summarise(total_tweets = n()) %>%
+  ungroup() %>%
+
+# get the full name and party variable from the mps dataset
+# join by the screen_name variable, which is common in both datasets
+  left_join(., mps, by = "screen_name")
+
+# run a regression model
+m <- lm(total_tweets ~ female + age + term + government + electorate + majority,
+        data = mps_temp)
+
+# plot the regression results with the `dwplot` function
+dwplot(m) +
+  theme_bw() +
+  theme(legend.position = "none") +
+  geom_vline(xintercept = 0, linetype = 2) +
+  scale_x_continuous(breaks = c(-50000, 0, 50000)) 
+
+```
+
+### Who do they talk to?
+
+Conventional wisdom suggests that MPs are more likely to interact with MPs from their own party. Does this hold on Twitter, in terms of who MPs reply to? What is the share of in- and out-party replies on Twitter? 
+
+```{r, exercise_57, echo=FALSE}
+
+# create a temporary, reduced dataset of mps and their parties
+
+mps_temp <- mps %>% 
+  select(screen_name, party)
+
+
+
+# use the `filter` function to select replies, exclude replies to self
+twts %>%
+  filter(!is.na(reply_to_screen_name) & screen_name != reply_to_screen_name) %>%
+  
+# use the `inner_join` function to make sure those replied to are MPs as well
+# and to get the party variable for the replied to
+  inner_join(., mps_temp, by = c("reply_to_screen_name" = "screen_name")) %>%
+  
+# use the `left_join` function to get the party variable for the screen_name
+  left_join(., mps_temp, by = "screen_name") %>%
+  
+# code a new binary variable for in-party replies with `mutate`
+  mutate(in_party = if_else(party.x == party.y, 1, 0)) %>%
+  
+# reduce the observations to the top two party
+  filter(party.x %in% c("Conservative", "Labour")) %>% 
+  
+# calculate the group percentages
+  group_by(party.x, in_party) %>%
+  summarise(n = n()) %>%
+  mutate(freq = n * 100 / sum(n)) %>%
+  
+# plot the shares, in a faceted bar graph
+  ggplot(aes(x = factor(in_party), y = freq, fill = party.x,
+             alpha = factor(in_party))) +
+  geom_bar(stat = "identity") +
+  theme_bw() +
+  theme(legend.position = "none") +
+  facet_wrap(. ~ party.x) +
+  scale_x_discrete(breaks = c("0", "1"),
+                   labels = c("Out-Party", "In-Party")) +
+  scale_y_continuous(labels = function(x) paste0(x, "%")) +
+  scale_fill_manual(values = c("#0087DC", "#DC241f")) +
+  scale_alpha_manual(values = c(0.5, 1)) +
+  ylab("Replies to\n") + xlab("")
+
+```
+
+### Reply networks
+
+We can think about "who replies to whom, how often" on Twitter as a network. In this sense, MPs would be the `nodes` while the replies would be the `edges`. We could also argue that this would be a `directed` network, from those who reply towards those who are replied to.
+
+Visualise the directed network of replies, among the SNP MPs.
+
+```{r, exercise_58, echo=FALSE}
+
+# create a temporary tweets dataframe about who retweets whom, how often
+twts_temp <- twts %>%
+  
+# filter to replies only, filter out self replies
+  filter(!is.na(reply_to_screen_name) & screen_name != reply_to_screen_name) %>%
+
+# filter out those replied to, who are not mps themselves
+# by using the inner_join function, with the mps dataset
+  inner_join(., mps, by = c("reply_to_screen_name" = "screen_name")) %>%
+  
+# reduce to the dataset to two variables only: who replies to whom
+  select(screen_name, reply_to_screen_name) %>%
+  
+# calculate the retweet counts by mp
+  group_by(screen_name) %>%
+  count(reply_to_screen_name)
+
+
+
+# turn that temporary dataframe into a data structure for tidy graph
+# using the `as_tbl_graph` function
+rply_network <- as_tbl_graph(twts_temp) %>%
+  
+# add the `party` variable to the nodes
+# by first activating the nodes
+  activate(nodes) %>%
+  
+# and then merging the `mps` dataset
+  left_join(., mps, by = c("name" = "screen_name")) %>%
+
+# create a new variable with surnames only with the `str_extract` function
+# this will make graph easier to read
+  mutate(surname = str_extract(name.y, pattern = "\\w+$")) %>%
+
+# filter down to the SNP MPs only
+  filter(party %in% c("SNP"))
+
+
+
+# plot the tidy graph data with the `ggraph` function
+ggraph(rply_network) +
+  geom_edge_link(aes(size = n),
+                 arrow = arrow(length = unit(2, "mm")), 
+                 end_cap = circle(3, "mm")) +
+  geom_node_point() +
+  geom_node_text(aes(label = surname)) +
+  theme_graph()
+
+
+```
+
+### Retweet networks
+
+We can think about "who retweets whom, how often" on Twitter as a network as well . In this sense, MPs would be the `nodes` while the retweets would be the `edges`.
+
+Visualise the network of retweets, among the MPs from four main parties: Conservative, Labour, SNP, and LibDem.
+
+```{r, exercise_59, echo=FALSE}
+
+# create a temporary tweets dataframe about who retweets whom, how often
+twts_temp <- twts %>%
+  
+# filter to retweets only, filter out self retweets
+  filter(is_retweet == TRUE & screen_name != retweet_screen_name) %>%
+  
+# filter out those retweeted who are not mps themselves
+# by using the inner_join function, with the mps dataset
+  inner_join(., mps, by = c("retweet_screen_name" = "screen_name")) %>%
+  
+# reduce to the dataset to two variables only: who retweets whom
+  select(screen_name, retweet_screen_name) %>%
+  
+# calculate the retweet counts by mp
+  group_by(screen_name) %>%
+  count(retweet_screen_name)
+
+
+
+
+# turn that temporary dataframe into a data structure for tidy graph
+# using the `as_tbl_graph` function
+rt_network <- as_tbl_graph(twts_temp) %>%
+  
+# add the `party` variable to the nodes
+# by first activating the nodes
+  activate(nodes) %>%
+  
+# and then merging the `mps` dataset
+  left_join(., mps, by = c("name" = "screen_name")) %>%
+
+# filter down to the four main parties: Conservative, Labour, SNP, LibDem
+  filter(party %in% c("Conservative", "Labour", "SNP", "LibDem"))
+
+
+
+
+# plot the tidy graph data with the `ggraph` function
+ggraph(rt_network) +
+  geom_edge_link() +
+  geom_node_point(aes(color = party)) +
+  theme_graph() +
+  scale_color_manual(name = "",
+                     breaks = c("Conservative", "Labour", "SNP",
+                                "LibDem"),
+                     values = c("#0087DC", "#DC241f", "#FFFF00", "#FDBB30"))
+
+```
+
+### Who are more central in the retweet networks?
+
+Centrality is one of the main concepts in network theory, measuring importance of `nodes` (e.g., the MPs) in a network. There are many different ways to measure centrality --- the `tidygraph` package offers numerous functions to calculate centality, including `centrality_betweenness` and `centrality_authority`.
+
+Using these two measures, visualise the most central MPs in the retweet networks.
+
+```{r, exercise_60, echo=FALSE}
+
+# create a temporary tweets dataframe about who retweets whom, how often
+twts_temp <- twts %>%
+  
+  # filter to retweets only, filter out self retweets
+  filter(is_retweet == TRUE & screen_name != retweet_screen_name) %>%
+  
+  # filter out those retweeted who are not mps themselves
+  # by using the inner_join function, with the mps dataset
+  inner_join(., mps, by = c("retweet_screen_name" = "screen_name")) %>%
+  
+  # reduce to the dataset to two variables only: who retweets whom
+  select(screen_name, retweet_screen_name) %>%
+  
+  # calculate the retweet counts by mp
+  group_by(screen_name) %>%
+  count(retweet_screen_name)
+
+
+# turn that temporary dataframe into a data structure for tidy graph
+# using the `as_tbl_graph` function
+rt_network <- as_tbl_graph(twts_temp) %>%
+  
+# add the `party` and centrality variables to the nodes
+# by first activating the nodes
+  activate(nodes) %>%
+  
+# merge with the `mps` dataset for the party variable
+  left_join(., mps, by = c("name" = "screen_name")) %>%
+
+# add the centrality variables with the `mutate` function
+  mutate(betweenness = centrality_betweenness(),
+         power = centrality_power())
+
+# turn that tidy graph structure into a data frame for further manipulations
+# using the `as.data.frame` function
+rt_network_df <- as.data.frame(rt_network) %>%
+  
+  pivot_longer(cols = c("betweenness", "power"),
+               names_to = "centrality_measure", values_to = "centrality_value") %>%
+  group_by(centrality_measure) %>%
+  
+  # choose the 20 mps with highest number of followers
+  arrange(centrality_value, desc = TRUE) %>%
+  top_n(20) %>%
+  ungroup()
+
+# plot the resulting dataframe
+ggplot(rt_network_df, aes(y = reorder(name.y, centrality_value),
+                         x = centrality_value, fill = party)) +
+  geom_bar(stat = "identity") +
+  theme_bw() +
+  facet_wrap(. ~ centrality_measure, scales = "free") +
+  ylab("") + xlab("") +
+  scale_fill_manual(name = "",
+                    breaks = c("Conservative", "Labour", "LibDem", "SNP"),
+                    values = c("#0087DC", "#DC241f", "#FDBB30", "#FFFF00"))
+
+```
+
+
+### Something else interesting
+
+Conduct another user-based analysis of Twitter data --- something that interests you. Work in groups of two, on the same datasets of one that you might have. Present your results to the class.
+
+
+```{r, exercise_61, echo=FALSE}
+
+
+
+```

@@ -3446,60 +3446,68 @@ class: inverse, center, middle
 ]
 
 ---
-## Analysing Users &mdash;
+## Analysing Users &mdash; Correlates of being on Twitter
 
 ```{r, echo = FALSE, out.width = "50%"}
 knitr::include_graphics("../exercises/users_answers_files/figure-html/exercise_52-1.png")
 ```
 
 ---
-## Analysing Users &mdash;
+## Analysing Users &mdash; Who has the most followers?
 
 ```{r, echo = FALSE, out.width = "50%"}
 knitr::include_graphics("../exercises/users_answers_files/figure-html/exercise_53-1.png")
 ```
 
 ---
-## Analysing Users &mdash;
+## Analysing Users &mdash; Correlates of having more followers
 
 ```{r, echo = FALSE, out.width = "50%"}
 knitr::include_graphics("../exercises/users_answers_files/figure-html/exercise_54-1.png")
 ```
 
 ---
-## Analysing Users &mdash;
+## Analysing Users &mdash; Who tweets the most often?
 
 ```{r, echo = FALSE, out.width = "50%"}
 knitr::include_graphics("../exercises/users_answers_files/figure-html/exercise_55-1.png")
 ```
 
 ---
-## Analysing Users &mdash;
+## Analysing Users &mdash; Correlates of having more tweets
 
 ```{r, echo = FALSE, out.width = "50%"}
 knitr::include_graphics("../exercises/users_answers_files/figure-html/exercise_56-1.png")
 ```
 
 ---
-## Analysing Users &mdash;
+## Analysing Users &mdash; Who do they talk to?
 
 ```{r, echo = FALSE, out.width = "50%"}
 knitr::include_graphics("../exercises/users_answers_files/figure-html/exercise_57-1.png")
 ```
 
 ---
-## Analysing Users &mdash;
+## Analysing Users &mdash; Reply networks
 
 ```{r, echo = FALSE, out.width = "50%"}
 knitr::include_graphics("../exercises/users_answers_files/figure-html/exercise_58-1.png")
 ```
 
 ---
-## Analysing Users &mdash;
+## Analysing Users &mdash; Retweet networks
 
 ```{r, echo = FALSE, out.width = "50%"}
 knitr::include_graphics("../exercises/users_answers_files/figure-html/exercise_59-1.png")
 ```
+
+---
+## Analysing Users &mdash; Who are more central in the retweet networks?
+
+```{r, echo = FALSE, out.width = "50%"}
+knitr::include_graphics("../exercises/users_answers_files/figure-html/exercise_60-1.png")
+```
+
 
 ---
 name: part6

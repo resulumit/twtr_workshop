@@ -55,7 +55,7 @@ twts %>%
   ylab("Top 20 Replied to Users\n") + xlab("")
 
 
-# retweet networks
+# retweet networks DONE
 
 twts_new <- twts %>%
   filter(is_retweet == TRUE & screen_name != retweet_screen_name) %>%
@@ -80,7 +80,7 @@ ggraph(rt_network) +
                      values = c("#0087DC", "#DC241f", "#FFFF00", "#FDBB30"))
 
 
-# reply networks of LibDem MPs
+# reply networks of SNP MPs DONE
 
 twts_new <- twts %>%
   filter(!is.na(reply_to_screen_name) & screen_name != reply_to_screen_name) %>%
@@ -101,7 +101,7 @@ ggraph(rply_network) +
   geom_node_text(aes(label = name)) +
   theme_graph()
 
-# measures of centredness
+# measures of centredness DONE
 
 # https://www.data-imaginist.com/2017/introducing-tidygraph/
 
@@ -128,8 +128,6 @@ twts_new %>%
   theme_bw() +
   facet_wrap(. ~ centrality_measure, scales = "free") +
   ylab("") + xlab("")
-
-
 
 
 # factors correlating with being on twitter DONE
@@ -215,7 +213,6 @@ dwplot(m4) +
   theme(legend.position = "none") +
   geom_vline(xintercept = 0, linetype = 2) +
   scale_x_continuous(breaks = c(-50000, 0, 50000))
-
 
 
 # tweet-based analyses ----------------------------------------------------
