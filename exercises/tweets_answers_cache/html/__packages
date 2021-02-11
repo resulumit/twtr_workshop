@@ -1,11 +1,8 @@
 base
-rtweet
 tidytext
 doc2concrete
 ggplot2
 dotwhisker
-tidygraph
-ggraph
 tidyverse
 tibble
 tidyr
@@ -14,3 +11,6 @@ purrr
 dplyr
 stringr
 forcats
+quanteda
+RColorBrewer
+wordcloud

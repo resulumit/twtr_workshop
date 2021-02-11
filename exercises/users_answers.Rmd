@@ -9,13 +9,9 @@ output: html_document
 knitr::opts_chunk$set(echo = FALSE, cache = TRUE)
 
 # install packages that does not need to be loaded
-# install.packages("rmakdown")   # running this document   
-# install.packages("textdata")   # sentiment dictionary
+# install.packages("rmakdown")   # running this document
 
 # load packages
-library(rtweet)        # collecting tweets
-library(tidytext)      # working with texts, sentiment analysis
-library(doc2concrete)  # concreteness scores
 library(dotwhisker)    # visualising regression results
 library(tidygraph)     # network analysis
 library(ggraph)        # network analysis
@@ -31,7 +27,7 @@ twts <- read_rds("../data/tweets.rds")
 
 This R Markdown document includes the exercises for Part 5 of the workshop, [Working with Twitter Data in R](https://resulumit.com/teaching/twtr_workshop.html#1). It introduces each exercise with a subtitle, followed by some explanations and a code chunk. Type your code into these chunks to complete the exercises.
 
-If these exercises are too easy for you, I recommend analysing your own dataset or conducting additional analyses on the same dataset in parallel. If they are on the other hand too hard, the comments in the chunks might help you. If they are still too inaccessible to you, you may wish to follow on with the `users_answers.Rmd` instead, which include the code.
+If these exercises are too easy for you, I recommend analysing your own dataset or conducting additional analyses on the same dataset in parallel. If they are on the other hand too hard, you may wish to follow on with the `users_answers.Rmd` instead, which include the code. In that case, try to adopt the code to your data as well.
 
 If you have the `rmarkdown` package installed, you can see the results in two ways:
 
@@ -61,11 +57,12 @@ m <- lm(on_twitter ~ female + age + term + government + electorate + majority,
          data = mps_temp)
 
 # plot the regression results with the `dwplot` function
-dwplot(m) +
+dwplot(m, dot_args = list(size = 3.2), whisker_args = list(size = 1.5)) +
   theme_bw() +
   theme(legend.position = "none") +
   geom_vline(xintercept = 0, linetype = 2) +
-  scale_x_continuous(breaks = c(-0.1, 0, 0.1)) 
+  scale_x_continuous(breaks = c(-0.1, 0, 0.1)) +
+  xlab("Regression Coefficient")
 
 
 ```
@@ -125,11 +122,12 @@ mps_temp <- twts %>%
          data = mps_temp)
 
 # plot the regression results with the `dwplot` function
-dwplot(m) +
+dwplot(m, dot_args = list(size = 3.2), whisker_args = list(size = 1.5)) +
   theme_bw() +
   theme(legend.position = "none") +
   geom_vline(xintercept = 0, linetype = 2) +
-  scale_x_continuous(breaks = c(-50000, 0, 50000)) 
+  scale_x_continuous(breaks = c(-50000, 0, 50000)) +
+  xlab("Regression Coefficient")
 
 ```
 
@@ -188,11 +186,12 @@ m <- lm(total_tweets ~ female + age + term + government + electorate + majority,
         data = mps_temp)
 
 # plot the regression results with the `dwplot` function
-dwplot(m) +
+dwplot(m, dot_args = list(size = 3.2), whisker_args = list(size = 1.5)) +
   theme_bw() +
   theme(legend.position = "none") +
   geom_vline(xintercept = 0, linetype = 2) +
-  scale_x_continuous(breaks = c(-50000, 0, 50000)) 
+  scale_x_continuous(breaks = c(-50000, 0, 50000)) +
+  xlab("Regression Coefficient")
 
 ```
 
@@ -431,12 +430,23 @@ ggplot(rt_network_df, aes(y = reorder(name.y, centrality_value),
 ```
 
 
-### Something else interesting
+### Something else interesting about MPs
 
-Conduct another user-based analysis of Twitter data --- something that interests you. Work in groups of two, on the same datasets of one that you might have. Present your results to the class.
+Conduct another user-based analysis of the `tweets` dataset --- something that interests you. Work in groups of two, on the same datasets of one that you might have. Present your results to the class.
 
 
 ```{r, exercise_61, echo=FALSE}
+
+
+
+```
+
+
+### Something interesting from your own data
+
+Conduct another user-based analysis of the dataset that you have collected. Work on your own. Present your results to the class.
+
+```{r, exercise_62, echo=FALSE}
 
 
 

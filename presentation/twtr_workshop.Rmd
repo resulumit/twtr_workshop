@@ -3446,68 +3446,338 @@ class: inverse, center, middle
 ]
 
 ---
+## Analysing Users &mdash; Overview
+
+- Twitter analysis might focus on users
+
+  - e.g., members of parliaments
+  - as opposed to their tweets on Twitter
+      - not always mutually exclusive
+  - might be supplemented with non-Twitter data
+      - e.g., `data/mps.csv`
+
+--
+
+<br>
+
+- There are at least two types of user-based analysis
+
+   - count things, and describe or correlate
+      - e.g., who has the most followers
+         - are female MPs more or less likely to have large number of followers?
+    - network analysis
+      - e.g., who retweets whom, how often?
+
+---
 ## Analysing Users &mdash; Correlates of being on Twitter
 
-```{r, echo = FALSE, out.width = "50%"}
-knitr::include_graphics("../exercises/users_answers_files/figure-html/exercise_52-1.png")
+```{r, echo = FALSE, out.width = "70%", fig.align = "center"}
+knitr::include_graphics("twtr_workshop_files/figure-html/exercise_52-1.png")
 ```
 
 ---
 ## Analysing Users &mdash; Who has the most followers?
 
-```{r, echo = FALSE, out.width = "50%"}
-knitr::include_graphics("../exercises/users_answers_files/figure-html/exercise_53-1.png")
+```{r, echo = FALSE, out.width = "70%", fig.align = "center"}
+knitr::include_graphics("twtr_workshop_files/figure-html/exercise_53-1.png")
 ```
 
 ---
 ## Analysing Users &mdash; Correlates of having more followers
 
-```{r, echo = FALSE, out.width = "50%"}
-knitr::include_graphics("../exercises/users_answers_files/figure-html/exercise_54-1.png")
+```{r, echo = FALSE, out.width = "70%", fig.align = "center"}
+knitr::include_graphics("twtr_workshop_files/figure-html/exercise_54-1.png")
 ```
 
 ---
 ## Analysing Users &mdash; Who tweets the most often?
 
-```{r, echo = FALSE, out.width = "50%"}
-knitr::include_graphics("../exercises/users_answers_files/figure-html/exercise_55-1.png")
+```{r, echo = FALSE, out.width = "70%", fig.align = "center"}
+knitr::include_graphics("twtr_workshop_files/figure-html/exercise_55-1.png")
 ```
 
 ---
-## Analysing Users &mdash; Correlates of having more tweets
+## Analysing Users &mdash; Correlates of tweeting more often
 
-```{r, echo = FALSE, out.width = "50%"}
-knitr::include_graphics("../exercises/users_answers_files/figure-html/exercise_56-1.png")
+```{r, echo = FALSE, out.width = "70%", fig.align = "center"}
+knitr::include_graphics("twtr_workshop_files/figure-html/exercise_56-1.png")
 ```
 
 ---
 ## Analysing Users &mdash; Who do they talk to?
 
-```{r, echo = FALSE, out.width = "50%"}
-knitr::include_graphics("../exercises/users_answers_files/figure-html/exercise_57-1.png")
+```{r, echo = FALSE, out.width = "70%", fig.align = "center"}
+knitr::include_graphics("twtr_workshop_files/figure-html/exercise_57-1.png")
+```
+
+---
+class: action
+
+## Exercises
+
+On `users.Rmd`, complete the following exercises
+
+52) Correlates of being on Twitter
+
+53) Who has the most followers?
+
+54) Correlates of having more followers
+
+55) Who tweets the most often?
+
+56) Correlates of tweeting more often
+
+57) Who do they talk to?
+
+`r countdown(minutes = 45, seconds = 00, top = 0)`
+
+---
+class: center, middle
+
+# Network Analysis
+
+---
+## Analysing Users &mdash; Network Analysis &mdash; Overview
+
+- Twitter data is suitable for network analysis
+
+  - a social network
+  - studying the relations between users
+
+<br>
+
+- There are at least four networks
+
+   - networks of followers
+       - directed, .yellow-h[not] reoccurring 
+       - e.g., who is following whom     
+<br>
+   - networks of retweeters, quoters, and/or repliers
+       - directed, reoccurring
+       - e.g., who is replying to whom, .yellow-h[how often]
+
+---
+## Analysing Users &mdash; Network Analysis &mdash; Basics
+
+- Networks are composed of nodes and edges
+   
+   - e.g., who (a node) replies (an edge) to whom (another node), how often (the strength of the edge)
+   
+--
+
+<br>
+
+- The nodes and edges are often kept separate for analysis
+    
+  - e.g., in separate datasets, frames
+  - nodes are given an ID number
+  
+--
+
+<br>
+
+- We will use two pacakges for network analysis
+   
+   - `tidygraph` for data manipulation
+   - `ggraph` for visualisation
+  
+---
+## Analysing Users &mdash; Network Analysis &mdash; `tidygraph`
+
+.pull-left[
+```{r, eval=FALSE}
+read_rds("data/tweets.rds") %>%
+  filter(is_retweet == TRUE) %>% 
+  group_by(screen_name, retweet_screen_name) %>%
+  summarise(replies = n()) %>% 
+  head()
+
+```
+
+]
+
+.pull-right[
+
+.out-t[
+
+<pre class="tab">
+&#x23; A tibble: 6 x 3    
+&#x23; Groups:   screen_name [1]     
+  screen_name  retweet_screen_name   rts
+  <chr>        <chr>               <int>
+1 _OliviaBlake AlexDaviesJones         1
+2 _OliviaBlake CommonsPAC              2
+3 _OliviaBlake DanJarvisMP             3
+4 _OliviaBlake DrRosena                1
+5 _OliviaBlake EmmaHardyMP             1
+6 _OliviaBlake FriendsLoxley           2
+</pre>        
+
+]
+
+]
+---
+## Analysing Users &mdash; Network Analysis &mdash; `tidygraph`
+
+.pull-left[
+
+Use the `as_tbl_graph` function transform data frames
+
+```{r, eval=FALSE}
+read_rds("data/tweets.rds") %>%
+  filter(is_retweet == TRUE) %>% 
+  group_by(screen_name, retweet_screen_name) %>%
+  summarise(replies = n()) %>% 
+  `as_tbl_graph()`
+
+```
+
+]
+
+.pull-right[
+
+.out-t[
+
+<pre class="tab">
+&#x23; A tbl_graph: 7377 nodes and 16131 edges
+&#x23;
+&#x23; A directed multigraph with 5 components
+&#x23;
+&#x23; Node Data: 7,377 x 1 (active)
+  name         
+  <chr>        
+1 _OliviaBlake 
+2 _RobbieMoore 
+3 AaronBell4NUL
+4 ab4scambs    
+5 abenaopp     
+6 ABridgen     
+&#x23; ... with 7,371 more rows
+&#x23;
+&#x23; Edge Data: 16,131 x 3
+   from    to   rts
+  <int> <int> <int>
+1     1    19     1
+2     1   550     2
+3     1   119     3
+&#x23; ... with 16,128 more rows
+</pre>        
+
+]
+
+]
+
+---
+## Analysing Users &mdash; Network Analysis &mdash; `tidygraph`
+
+.pull-left[
+
+Use the `activate` function manipulate the nodes or edges
+
+```{r, eval=FALSE}
+read_rds("data/tweets.rds") %>%
+  filter(is_retweet == TRUE) %>% 
+  group_by(screen_name, retweet_screen_name) %>%
+  summarise(rts = n()) %>% 
+  as_tbl_graph() %>% 
+  `activate(edges)` %>%
+  `mutate(multi_rts = if_else(rts > 1, 1, 0))`
+
+```
+
+]
+
+.pull-right[
+
+.out-t[
+
+<pre class="tab">
+&#x23; A tbl_graph: 7377 nodes and 16131 edges
+&#x23;
+&#x23; A directed multigraph with 5 components
+&#x23;
+&#x23; Edge Data: 16,131 x 4 (active)
+   from    to   rts multi_rts
+  <int> <int> <int>    <dbl>
+1     1    19     1        0
+2     1   550     2        1
+3     1   119     3        1
+4     1   154     1        0
+5     1   167     1        0
+6     1   551     2        1
+&#x23; ... with 16,125 more rows
+&#x23;
+&#x23; Node Data: 7,377 x 1
+  name         
+  <chr>        
+1 _OliviaBlake 
+2 _RobbieMoore 
+3 AaronBell4NUL
+&#x23; ... with 7,374 more rows
+
+</pre>        
+
+]
+
+]
+
+---
+## Analysing Users &mdash; Network Analysis &mdash; `ggraph`
+
+
+Once the nodes and edges are ready, use the `ggraph` package to visualise
+
+   - an extension of `ggplot2`
+   - many verbs are intuitively similar
+
+```{r, eval=FALSE}
+
+ggraph(rt_network) +
+  geom_edge_link() +
+  geom_node_point(aes(color = party)) +
+  theme_graph()
+
 ```
 
 ---
 ## Analysing Users &mdash; Reply networks
 
-```{r, echo = FALSE, out.width = "50%"}
-knitr::include_graphics("../exercises/users_answers_files/figure-html/exercise_58-1.png")
+```{r, echo = FALSE, out.width = "70%", fig.align = "center"}
+knitr::include_graphics("twtr_workshop_files/figure-html/exercise_58-1.png")
 ```
 
 ---
 ## Analysing Users &mdash; Retweet networks
 
-```{r, echo = FALSE, out.width = "50%"}
-knitr::include_graphics("../exercises/users_answers_files/figure-html/exercise_59-1.png")
+```{r, echo = FALSE, out.width = "70%", fig.align = "center"}
+knitr::include_graphics("twtr_workshop_files/figure-html/exercise_59-1.png")
 ```
 
 ---
 ## Analysing Users &mdash; Who are more central in the retweet networks?
 
-```{r, echo = FALSE, out.width = "50%"}
-knitr::include_graphics("../exercises/users_answers_files/figure-html/exercise_60-1.png")
+```{r, echo = FALSE, out.width = "70%", fig.align = "center"}
+knitr::include_graphics("twtr_workshop_files/figure-html/exercise_60-1.png")
 ```
 
+---
+class: action
+
+## Exercises
+
+On `users.Rmd`, complete the following exercises
+
+58) Reply networks
+
+59) Retweet networks
+
+60) Who are more central in the retweet networks?
+
+61) Something else interesting about MPs
+
+63) Something interesting from your own data
+
+`r countdown(minutes = 45, seconds = 00, top = 0)`
 
 ---
 name: part6
@@ -3520,6 +3790,187 @@ class: inverse, center, middle
 [Back to the contents slide](#contents-slide).
 
 ]
+
+---
+## Analysing Tweets &mdash; Overview
+
+- Twitter analysis often focuses on tweets
+
+  - e.g., text in the tweets, but also hashtags
+  - as opposed to users who tweet them
+      - not always mutually exclusive
+  - hard to supplement ordinary users with non-Twitter data
+
+--
+
+<br>
+
+- There are at least two types of tweet-based analysis
+
+   - count things, and describe or correlate
+      - e.g., how often a hashtag is tweeted
+         - are shorter hashtags more likely to be tweeted than longer ones?
+    - categorising tweets
+      - e.g., with dictionaries
+         - but also with other techniques such as machiene learning
+
+---
+## Analysing Tweets &mdash; When were the tweets posted?
+
+```{r, echo = FALSE, out.width = "70%", fig.align = "center"}
+knitr::include_graphics("twtr_workshop_files/figure-html/exercise_63-1.png")
+```
+
+---
+## Analysing Tweets &mdash; What day of the week?
+
+```{r, echo = FALSE, out.width = "70%", fig.align = "center"}
+knitr::include_graphics("twtr_workshop_files/figure-html/exercise_64-1.png")
+```
+
+---
+## Analysing Tweets &mdash; What time of the day?
+
+```{r, echo = FALSE, out.width = "70%", fig.align = "center"}
+knitr::include_graphics("twtr_workshop_files/figure-html/exercise_65-1.png")
+```
+
+---
+## Analysing Tweets &mdash; Which hastags were the most frequent?
+
+```{r, echo = FALSE, out.width = "70%", fig.align = "center"}
+knitr::include_graphics("twtr_workshop_files/figure-html/exercise_66-1.png")
+```
+
+---
+## Analysing Tweets &mdash; Which words were the most frequent?
+
+```{r, echo = FALSE, out.width = "70%", fig.align = "center"}
+knitr::include_graphics("twtr_workshop_files/figure-html/exercise_67-1.png")
+```
+
+---
+## Analysing Tweets &mdash; Sentiments by Hours of the Day
+
+```{r, echo = FALSE, out.width = "70%", fig.align = "center"}
+knitr::include_graphics("twtr_workshop_files/figure-html/exercise_68-1.png")
+```
+
+---
+class: action
+
+## Exercises
+
+On `tweets.Rmd`, complete the following exercises
+
+63) When were the tweets posted?
+
+64) What day of the week?
+
+65) What time of the day?
+
+66) Which hastags were the most frequent?
+
+67) Which words were the most frequent?
+
+68) Sentiments by Hours of the Day
+
+`r countdown(minutes = 45, seconds = 00, top = 0)`
+
+
+---
+class: center, middle
+
+# Dictionary Methods
+
+---
+## Analysing Users &mdash; Dictionary Methods &mdash; Overview
+
+- Dictionary methods are based on pre-categorisation of words
+
+  - e.g., the word happy might be categorised as positive
+      - sad would be negative
+      
+  - e.g., the word happy might be categorised as 0.2 sophisticated
+      - contented might be 0.4 sophisticated
+
+--
+
+<br>
+
+- These catagories are than matched with the text we have
+   
+  - to calculate scores for, e.g., each tweet
+
+---
+## Analysing Users &mdash; Dictionary Methods &mdash; Notes
+
+- There are many ways to calculate scores
+
+   - depending on your research design
+
+<br>
+
+- Positive score could be
+
+   - `sum(positive)`
+   - `sum(positive) - sum(negative)`
+   - `(sum(positive) - sum(negative)) / (sum(positive) + sum(negative))`
+   
+- We will use 
+   
+  - the sentiment dictionary stored at `tidytext::get_sentiments("nrc")`
+  - the concreteness dictionary stored at `doc2concrete::mturk_list`
+
+---
+
+## Analysing Tweets &mdash; Sentiments across the time frame
+
+```{r, echo = FALSE, out.width = "70%", fig.align = "center"}
+knitr::include_graphics("twtr_workshop_files/figure-html/exercise_69-1.png")
+```
+
+---
+## Analysing Tweets &mdash; Sentiments in different types of tweets
+
+```{r, echo = FALSE, out.width = "70%", fig.align = "center"}
+knitr::include_graphics("twtr_workshop_files/figure-html/exercise_70-1.png")
+```
+
+---
+## Analysing Tweets &mdash; Concreteness in different types of tweets
+
+```{r, echo = FALSE, out.width = "70%", fig.align = "center"}
+knitr::include_graphics("twtr_workshop_files/figure-html/exercise_71-1.png")
+```
+
+---
+## Analysing Tweets &mdash; Concreteness by Hours of the Day
+
+```{r, echo = FALSE, out.width = "70%", fig.align = "center"}
+knitr::include_graphics("twtr_workshop_files/figure-html/exercise_72-1.png")
+```
+
+---
+class: action
+
+## Exercises
+
+On `tweets.Rmd`, complete the following exercises
+
+69) Sentiments across the time frame
+
+70) Sentiments in different types of tweets
+
+71) Concreteness in different types of tweets
+
+72) Concreteness by Hours of the Day
+
+73) Something else interesting about MPs
+
+74) Something interesting from your own data
+
+`r countdown(minutes = 45, seconds = 00, top = 0)`
 
 ---
 name: part7

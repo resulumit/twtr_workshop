@@ -257,7 +257,7 @@ twts %>%
                               "Friday", "Saturday", "Sunday"))
 
 
-# most frequently used hashtags
+# most frequently used hashtags DONE
 
 twts %>%
 
@@ -280,7 +280,7 @@ twts %>%
   ylab("Top 20 Hashtags\n") + xlab("")
 
 
-# most frequently used words
+# most frequently used words DONE
 
 twts %>%
   unnest_tokens(output = token_tweets, input = text, token = "tweets") %>%
@@ -299,8 +299,8 @@ twts_new <- twts %>%
   anti_join(., stop_words, by = c("token_tweets" = "word")) %>%
   count(token_tweets)
 
-wordcloud(words = twts_new$token_tweets,
-          freq = twts_new$n, max.words = 100)
+wordcloud::wordcloud(words = twts_new$token_tweets,
+          freq = twts_new$n, max.words = 50)
 
 
 # average share of retweets from specific accounts
