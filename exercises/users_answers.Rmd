@@ -145,7 +145,7 @@ twts %>%
   summarise(total_tweets = n()) %>%
   ungroup() %>% 
 
-# choose the 20 mps with highest number of followers
+# choose the 20 mps with highest number of tweets
   arrange(total_tweets, desc = TRUE) %>%
   top_n(20) %>%
 
@@ -254,7 +254,7 @@ Visualise the directed network of replies, among the SNP MPs.
 
 ```{r, exercise_58, echo=FALSE}
 
-# create a temporary tweets dataframe about who retweets whom, how often
+# create a temporary tweets dataframe about who replies to whom, how often
 twts_temp <- twts %>%
   
 # filter to replies only, filter out self replies

@@ -1,0 +1,223 @@
+---
+title: 'Data Analysis: Users'
+output: html_document
+---
+
+```{r, setup, include=FALSE}
+
+# setup for this document
+knitr::opts_chunk$set(echo = FALSE, cache = TRUE)
+
+# install packages that does not need to be loaded
+# install.packages("rmakdown")   # running this document
+
+# load packages
+library(dotwhisker)    # visualising regression results
+library(tidygraph)     # network analysis
+library(ggraph)        # network analysis
+library(tidyverse)     # most other operations
+
+# load data
+mps <- read.csv("../data/mps.csv", na.strings = "")
+twts <- read_rds("../data/tweets.rds")
+
+```
+
+## How to use this document
+
+This R Markdown document includes the exercises for Part 5 of the workshop, [Working with Twitter Data in R](https://resulumit.com/teaching/twtr_workshop.html#1). It introduces each exercise with a subtitle, followed by some explanations and a code chunk. Type your code into these chunks to complete the exercises.
+
+If these exercises are too easy for you, I recommend analysing your own dataset or conducting additional analyses on the same dataset in parallel. If they are on the other hand too hard, you may wish to follow on with the `users_answers.Rmd` instead, which include the code. In that case, try to adopt the code to your data as well.
+
+If you have the `rmarkdown` package installed, you can see the results in two ways:
+
+1) by clicking on the *Knit* button on the RStudio menu
+    - this runs the codes in all chunks   
+    - the results will appear in a separate HTML document that will pop up
+    
+2) by clicking on the green arrow on the top-right corner of any chunk
+    - this runs the code in that chunk only    
+    - the result will appear immediately under the relevant chunk
+
+
+### Correlates of being on Twitter
+
+Looking at the `mps` dataset, we can see that not all MPs have an account on Twitter. Specifically, 588 out of 650 MPs use Twitter. How can we explain that some of them are not on Twitter?
+
+Use the variables from the `mps` dataset to explore.
+
+```{r, exercise_52, echo=FALSE}
+
+# working with the mps dataset
+# add a binary variable, coded as 1 for MPs with an account 0 otherwise
+# using that binary variable as the dependent variable, run an ols regression
+# using some other variables from the same dataset as independent variables
+# visualise the results with the `dwplot` function
+
+
+
+
+```
+
+### Who has the most followers?
+
+Recall that the `tweets` dataset includes a variable called `followers_count`, measuring the number of followers that MPs have, at the time of data collection. Based on this variable, visualise the top 20 MPs with the highest number of followers.
+
+Optionally, use the `name` and `party` variables from the `mps` dataset to improve the graph. 
+
+```{r, exercise_53, echo=FALSE}
+
+# working with the tweets dataset
+# get usernames and follower counts
+# merge with the mps dataset, to get full names and party variables
+# visualise the top 20 MPs with a barplot
+# using the party variable as the added color
+
+
+
+
+```
+
+### Correlates of having more followers
+
+How can we explain that some MPs have more followers than others? Looking at the MP-level correlates of followers might be informative. Use the variables from the `mps` dataset as independent variables, to run a regression model with the number of followers being the dependent variable.
+
+```{r, exercise_54, echo=FALSE}
+
+# working with the merged dataframe from the previous exercise
+# run an ols regression
+# visualise the results with the `dwplot` function
+
+
+
+```
+
+### Who tweets the most often?
+
+Some are more active than others on Twitter. Visualise the top 20 MPs with the highest number of followers, to see the most active ones.
+
+Optionally, use the `name` and `party` variables from the `mps` dataset to improve the graph. 
+
+```{r, exercise_55, echo=FALSE}
+
+# working with the tweets dataset
+# aggregate to the user level, calculating the total number of tweets posted
+# merge with the mps dataset, to get full names and party variables
+# visualise the top 20 MPs with a barplot
+# using the party variable as the added color
+
+
+
+```
+
+### Correlates of having more tweets
+
+How can we explain that some MPs tweet more often than others?  Looking at the MP-level correlates of the number of tweets might be informative. Use the variables from the `mps` dataset as independent variables, to run a regression model with the number of tweets posted being the dependent variable.
+
+```{r, exercise_56, echo=FALSE}
+
+# working with the merged dataframe from the previous exercise
+# run an ols regression
+# visualise the results with the `dwplot` function
+
+
+
+```
+
+### Who do they talk to?
+
+Conventional wisdom suggests that MPs are more likely to interact with MPs from their own party. Does this hold on Twitter, in terms of who MPs reply to? What is the share of in- and out-party replies on Twitter? 
+
+```{r, exercise_57, echo=FALSE}
+
+# working with the tweets dataset
+# filter out anything but replies, replies to MPs only
+# using the mps dataset to identify MPs (among the replied to) and their parties
+# add a binary variable to identify in and out party replies
+# calculate the percentages for in and out party replies
+# visualise the results, using the party variable for faceting 
+
+
+
+```
+
+### Reply networks
+
+We can think about "who replies to whom, how often" on Twitter as a network. In this sense, MPs would be the `nodes` while the replies would be the `edges`. We could also argue that this would be a `directed` network, from those who reply towards those who are replied to.
+
+Visualise the directed network of replies, among the SNP MPs.
+
+```{r, exercise_58, echo=FALSE}
+
+# working with the tweets dataset
+# filter out anything but replies, replies to other mps only
+# create a dataframe about who replies to whom, how often (these three variables only)
+# using the `as_tbl_graph` function, turn that temporary dataframe into a data structure for tidy graph
+# activating the nodes, join in the mps dataset, filtering out anyone but snp mps
+# plot the resulting structure with the `ggraph` function
+
+
+
+```
+
+### Retweet networks
+
+We can think about "who retweets whom, how often" on Twitter as a network as well . In this sense, MPs would be the `nodes` while the retweets would be the `edges`.
+
+Visualise the network of retweets, among the MPs from four main parties: Conservative, Labour, SNP, and LibDem.
+
+```{r, exercise_59, echo=FALSE}
+
+# working with the tweets dataset
+# filter out anything but retweets, retweets to other mps only
+# create a dataframe about who retweets whom, how often (these three variables only)
+# using the `as_tbl_graph` function, turn that temporary dataframe into a data structure for tidy graph
+# activating the nodes, join in the mps dataset, filtering out anyone but mps from the four parties
+# plot the resulting structure with the `ggraph` function
+
+
+
+```
+
+### Who are more central in the retweet networks?
+
+Centrality is one of the main concepts in network theory, measuring importance of `nodes` (e.g., the MPs) in a network. There are many different ways to measure centrality --- the `tidygraph` package offers numerous functions to calculate centality, including `centrality_betweenness` and `centrality_authority`.
+
+Using these two measures, visualise the most central MPs in the retweet networks.
+
+```{r, exercise_60, echo=FALSE}
+
+# using the tweets dataset
+# filter out self retweets, retweets of users who are not mps themselves
+# create a dataframe about who retweets whom, how often (these three variables only)
+# using the `as_tbl_graph` function, turn that temporary dataframe into a data structure for tidy graph
+# activating the nodes, add the party and centrality variables to the nodes
+# using the `as.data.frame` function, turn that tidy graph structure into a data frame so that you can identify the top 20 MPs in each category of centrality
+# visualise the resulting dataframe
+
+
+
+```
+
+
+### Something else interesting about MPs
+
+Conduct another user-based analysis of the `tweets` dataset --- something that interests you. Work in groups of two, on the same datasets of one that you might have. Present your results to the class.
+
+
+```{r, exercise_61, echo=FALSE}
+
+
+
+```
+
+
+### Something interesting from your own data
+
+Conduct another user-based analysis of the dataset that you have collected. Work on your own. Present your results to the class.
+
+```{r, exercise_62, echo=FALSE}
+
+
+
+```

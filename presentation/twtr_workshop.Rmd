@@ -3546,13 +3546,13 @@ class: center, middle
 
 <br>
 
-- There are at least four networks
+- There are at least five networks
 
    - networks of followers
        - directed, .yellow-h[not] reoccurring 
        - e.g., who is following whom     
 <br>
-   - networks of retweeters, quoters, and/or repliers
+   - networks of retweeters, quoters, repliers, and likers
        - directed, reoccurring
        - e.g., who is replying to whom, .yellow-h[how often]
 
