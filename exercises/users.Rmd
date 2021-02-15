@@ -18,6 +18,7 @@ library(ggraph)        # network analysis
 library(tidyverse)     # most other operations
 
 # load data
+# change the strings if necessary, depending on the structure of your directory
 mps <- read.csv("../data/mps.csv", na.strings = "")
 twts <- read_rds("../data/tweets.rds")
 
@@ -49,13 +50,12 @@ Use the variables from the `mps` dataset to explore.
 ```{r, exercise_52, echo=FALSE}
 
 # working with the mps dataset
-# add a binary variable, coded as 1 for MPs with an account 0 otherwise
+# add a binary variable, coded as 1 for mps with an account 0 otherwise
 # using that binary variable as the dependent variable, run an ols regression
 # using some other variables from the same dataset as independent variables
 # visualise the results with the `dwplot` function
 
-
-
+head(mps)
 
 ```
 

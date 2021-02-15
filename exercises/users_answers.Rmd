@@ -18,6 +18,7 @@ library(ggraph)        # network analysis
 library(tidyverse)     # most other operations
 
 # load data
+# change the strings if necessary, depending on the structure of your directory
 mps <- read.csv("../data/mps.csv", na.strings = "")
 twts <- read_rds("../data/tweets.rds")
 
@@ -62,6 +63,7 @@ dwplot(m, dot_args = list(size = 3.2), whisker_args = list(size = 1.5)) +
   theme(legend.position = "none") +
   geom_vline(xintercept = 0, linetype = 2) +
   scale_x_continuous(breaks = c(-0.1, 0, 0.1)) +
+  scale_y_discrete(labels = function(x) stringr::str_to_title(x))
   xlab("Regression Coefficient")
 
 
@@ -127,6 +129,7 @@ dwplot(m, dot_args = list(size = 3.2), whisker_args = list(size = 1.5)) +
   theme(legend.position = "none") +
   geom_vline(xintercept = 0, linetype = 2) +
   scale_x_continuous(breaks = c(-50000, 0, 50000)) +
+  scale_y_discrete(labels = function(x) stringr::str_to_title(x))
   xlab("Regression Coefficient")
 
 ```
@@ -191,6 +194,7 @@ dwplot(m, dot_args = list(size = 3.2), whisker_args = list(size = 1.5)) +
   theme(legend.position = "none") +
   geom_vline(xintercept = 0, linetype = 2) +
   scale_x_continuous(breaks = c(-50000, 0, 50000)) +
+  scale_y_discrete(labels = function(x) stringr::str_to_title(x))
   xlab("Regression Coefficient")
 
 ```
@@ -351,7 +355,7 @@ rt_network <- as_tbl_graph(twts_temp) %>%
 
 
 # plot the tidy graph data with the `ggraph` function
-ggraph(rt_network) +
+ggraph(rt_network, layout = "lgl") +
   geom_edge_link() +
   geom_node_point(aes(color = party)) +
   theme_graph() +
@@ -415,6 +419,7 @@ rt_network_df <- as.data.frame(rt_network) %>%
   arrange(centrality_value, desc = TRUE) %>%
   top_n(20) %>%
   ungroup()
+
 
 # plot the resulting dataframe
 ggplot(rt_network_df, aes(y = reorder(name.y, centrality_value),

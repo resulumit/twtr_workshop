@@ -1,0 +1,250 @@
+---
+title: 'Data Analysis: Tweets'
+output: html_document
+---
+
+```{r, setup, include=FALSE}
+
+# setup for this document
+knitr::opts_chunk$set(echo = FALSE, cache = TRUE)
+
+# install packages that does not need to be loaded
+# install.packages("rmakdown")   # running this document   
+# install.packages("textdata")   # sentiment dictionary
+
+# load packages
+library(tidytext)      # working with texts, sentiment analysis
+library(wordcloud)     # creating wordclouds
+library(doc2concrete)  # concreteness scores
+library(dotwhisker)    # visualising regression results
+library(tidyverse)     # most other operations
+
+# load data
+# change the strings if necessary, depending on the structure of your directory
+mps <- read.csv("../data/mps.csv", na.strings = "")
+twts <- read_rds("../data/tweets.rds")
+
+```
+
+## How to use this document
+
+This R Markdown document includes the exercises for Part 6 of the workshop, [Working with Twitter Data in R](https://resulumit.com/teaching/twtr_workshop.html#1). It introduces each exercise with a subtitle, followed by some explanations and a code chunk. Type your code into these chunks to complete the exercises.
+
+If these exercises are too easy for you, I recommend analysing your own dataset or conducting additional analyses on the same dataset in parallel. If they are on the other hand too hard,  you may wish to follow on with the `tweets_answers.Rmd` instead, which include the code. In that case, try to adopt the code to your data as well.
+
+If you have the `rmarkdown` package installed, you can see the results in two ways:
+
+1) by clicking on the *Knit* button on the RStudio menu
+    - this runs the codes in all chunks   
+    - the results will appear in a separate HTML document that will pop up
+    
+2) by clicking on the green arrow on the top-right corner of any chunk
+    - this runs the code in that chunk only    
+    - the result will appear immediately under the relevant chunk
+
+
+### When were the tweets posted?
+
+The dataset covers the second half of January 2021, from the 15^th^ to the 31^st^ of the month. However, it is likely that MPs were not equally active on Twitter on very day in this period. Visualise the number tweets sent on each date to find out. 
+
+```{r, exercise_63, echo=FALSE}
+
+# working with the tweets dataset
+# add a date variable, for the date of tweets posted
+# count how many tweets posted on each date
+# visualise the results
+
+
+
+```
+
+### What day of the week?
+
+The previous graph shows regular dips. Do those dips occur on  specific days of the week, such as on the weekend? Visualise the average number tweets sent on each day of the week to find out. 
+
+```{r, exercise_64, echo=FALSE}
+
+# working with the tweets dataset
+# add a day (e.g., Monday, Tuesday) and a week variable (e.g., 02, 03), because some days are in the dataset multiple times
+# calculate the average number of tweets posted on days of the week
+# visualise the results
+
+
+```
+
+### What time of the day?
+
+Similarly, we could explore the time of the day that MPs tweet. Visualise the average number tweets sent on each hour of the day to explore. 
+
+```{r, exercise_65, echo=FALSE}
+
+# working with the tweets dataset
+# add an hour variable, for the hour of tweets posted (e.g., 01 AM, 02 AM)
+# calculate the average number of tweets posted at each hour
+# visualise the results
+
+
+
+```
+
+
+### Which hastags were the most frequent?
+
+Hastags categorise the content on Twitter. As such, they can be informative about what the tweets are about. What do MPs tweet about? To explore, visualise the top 20 most used hashtags in the dataset.
+
+Recall that the hashtag variable includes lists of hastags if a tweet itself has more than one hashtag. This requires tokenising them first. 
+
+```{r, exercise_66, echo=FALSE}
+
+# working with the tweets dataset
+# unnest and count the hashtags, if there are any
+# visualise the top 20 hashtags with a barplot
+
+
+
+```
+
+
+### Which words were the most frequent?
+
+One could also look at the most frequently used words in tweets, again with a barplot. A popular alternative is a wordcloud. Create a wordcloud with top 50 most frequently used words. 
+
+Note that you may or may not wish to clean the text first, with the operations covered in Part 4 of the workshop, before you proceed.
+
+Use the `wordcloud` function from the package with the same name to visualise the data.
+
+```{r, exercise_67, echo=FALSE}
+
+# working with the tweets dataset
+# unnest the tweets and count the words
+# visualise the top 50 words in a wordcloud, using the `wordcloud` function
+
+
+
+```
+
+### Sentiments by Hours of the Day
+
+Do the tone of the tweets change with time of the day? To explore, visualise the average sentiments across different hours of the day. 
+
+```{r, exercise_68, echo=FALSE}
+
+# using the `get_sentiments` function, get the positive and negative sentiments from the nrc dictionary
+# pivot your data wider, so that every new word is a new row
+
+# using the tweets dataset
+# filter out retweets
+# unnest the remaining tweets into words
+# join the sentiments dataframe in
+# add a positivity score at the level of tweets
+# calculate the average score by hour
+# visualise the results
+
+
+
+```
+
+### Sentiments across the time frame
+
+Sentiments can also change depending on the day. To explore, visualise the average sentiments across the time frame under analysis. Optionally, conduct your analysis for each of the four main parties: Conservative, Labour, SNP, and LibDem.  
+
+
+```{r, exercise_69, echo=FALSE}
+
+# using the `get_sentiments` function, get the positive and negative sentiments from the nrc dictionary
+# pivot your data wider, so that every new word is a new row
+
+# using the tweets dataset
+# join the mps dataframe in
+# filter out retweets, mps from smaller parties
+# unnest the remaining tweets into words
+# join the sentiments dataframe in
+# add a date variable, and group by date and party
+# calculate the positivity score for these groups
+# visualise the results, faceting by party
+
+
+
+```
+
+### Sentiments in different types of tweets
+
+Do the tone change from regular tweets to replies and quotes? Recall our discussion that there is a like button but there is no button to dislike, which could bias the sentiments in replies towards negative. There are also the quotes tweets, which some users prefer to direct replies. To explore whether the sentiments differ between these types of tweets, conduct a simple correlation analysis.
+
+```{r, exercise_70, echo=FALSE}
+
+# using the `get_sentiments` function, get the positive and negative sentiments from the nrc dictionary
+# pivot your data wider, so that every new word is a new row
+
+# using the tweets dataset
+# filter out retweets
+# create binary variables for replies, quotes
+# unnest the remaining tweets into words
+# join the sentiments dataframe in
+# add a positivity score at the level of tweets
+# run a regression model, with positivity score as the dependent variable and tweet types (tweets, replies, quotes) as independent variables
+# visualise the results, with the `dwplot` function
+
+
+
+```
+
+### Concreteness in different types of tweets
+
+Conduct the same compassion, this time for the concreteness of tweets.
+
+```{r, exercise_71, echo=FALSE}
+
+# using the tweets dataset
+# filter out retweets
+# create binary variables for replies, quotes
+# unnest the remaining tweets into words
+# join the mturk_list dataframe in
+# aggregate the `Conc.M` variable to the level of tweets
+# run a regression model, with concreteness score as the dependent variable and tweet types (tweets, replies, quotes) as independent variables
+# visualise the results, with the `dwplot` function
+
+
+
+```
+
+### Concreteness by Hours of the Day
+
+Could it be that how concrete we are changes with the passing of the day? To explore, run a simple regression model, with the average concreteness of tweets as the dependent variable, and hours as the independent variable. 
+
+```{r, exercise_72, echo=FALSE}
+
+# using the tweets dataset
+# filter out retweets
+# create binary variables for replies, quotes
+# unnest the remaining tweets into words
+# join the mturk_list dataframe in
+# aggregate the Conc.M variable to the level of hours
+# run a regression model, with concreteness score as the dependent variable and hours as independent variable
+# visualise the results, with the `dwplot` function
+
+
+
+```
+
+
+### Something else interesting about MPs
+
+Conduct another tweet-based analysis of the `tweets` dataset --- something that interests you. Work in groups of two, on the same datasets of one that you might have. Present your results to the class.
+
+
+```{r, exercise_73, echo=FALSE}
+
+
+```
+
+
+### Something interesting from your own data
+
+Conduct another tweet-based analysis of the dataset that you have collected. Work on your own. Present your results to the class.
+
+```{r, exercise_74, echo=FALSE}
+
+
+
+```

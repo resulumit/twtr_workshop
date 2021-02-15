@@ -3549,12 +3549,12 @@ class: center, middle
 - There are at least five networks
 
    - networks of followers
-       - directed, .yellow-h[not] reoccurring 
+       - directed, not reoccurring 
        - e.g., who is following whom     
 <br>
    - networks of retweeters, quoters, repliers, and likers
        - directed, reoccurring
-       - e.g., who is replying to whom, .yellow-h[how often]
+       - e.g., who is replying to whom, how often
 
 ---
 ## Analysing Users &mdash; Network Analysis &mdash; Basics
@@ -3589,7 +3589,7 @@ class: center, middle
 read_rds("data/tweets.rds") %>%
   filter(is_retweet == TRUE) %>% 
   group_by(screen_name, retweet_screen_name) %>%
-  summarise(replies = n()) %>% 
+  summarise(rts = n()) %>% 
   head()
 
 ```
@@ -3627,7 +3627,7 @@ Use the `as_tbl_graph` function transform data frames
 read_rds("data/tweets.rds") %>%
   filter(is_retweet == TRUE) %>% 
   group_by(screen_name, retweet_screen_name) %>%
-  summarise(replies = n()) %>% 
+  summarise(rts = n()) %>% 
   `as_tbl_graph()`
 
 ```

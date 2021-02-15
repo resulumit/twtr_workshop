@@ -20,6 +20,7 @@ library(dotwhisker)    # visualising regression results
 library(tidyverse)     # most other operations
 
 # load data
+# change the strings if necessary, depending on the structure of your directory
 mps <- read.csv("../data/mps.csv", na.strings = "")
 twts <- read_rds("../data/tweets.rds")
 
@@ -50,8 +51,11 @@ The dataset covers the second half of January 2021, from the 15^th^ to the 31^st
 
 # start with the `tweets` dataset 
 twts %>%
+  
+# filter out retweets
+  filter(is_retweet == FALSE) %>%
 
-# turn the the created_at variable into a date variable, with the as.Date function 
+# turn the created_at variable into a date variable, with the `as.Date` function 
   mutate(date = as.Date(created_at)) %>%
 
 # calculate how many tweets posted on each date
@@ -72,16 +76,26 @@ The previous graph shows regular dips. Do those dips occur on  specific days of 
 
 ```{r, exercise_64, echo=FALSE}
 
+# start with the `tweets` dataset 
 twts %>%
+  
+# filter out retweets
   filter(is_retweet == FALSE) %>%
+
+# add a day variable, for the day of tweets posted (e.g., Monday, Tuesday), and make sure R know the order
+# and a week variable, becuase some days are in the dataset multiple times
   mutate(day = format(created_at, tz = "GB", "%A"),
          day = factor(day, levels = c("Monday", "Tuesday", "Wednesday", "Thursday",
                                       "Friday", "Saturday", "Sunday")),
          week = format(created_at, tz = "GB", "%W")) %>%
+  
+# calculate the average number of tweets per day of the week
   group_by(week, day) %>% 
   summarise(by_day = n()) %>%
   group_by(day) %>% 
   summarise(mean_tweets = mean(by_day)) %>%
+  
+# plot the dataset
   ggplot(aes(day, mean_tweets)) +
   geom_line(aes(group = 1), size = 1) +
   theme_bw() +
@@ -97,10 +111,20 @@ Similarly, we could explore the time of the day that MPs tweet. Visualise the av
 
 ```{r, exercise_65, echo=FALSE}
 
+# start with the `tweets` dataset 
 twts %>%
+  
+# filter out retweets
+  filter(is_retweet == FALSE) %>%
+  
+# add an hour variable, for the hour of tweets posted (e.g., 01 AM, 02 AM)
   mutate(hour = format(created_at, tz = "GB", "%H")) %>%
+  
+# calculate the average number of tweets posted at each hour
   group_by(hour) %>%
   summarise(n_tweets = n()) %>%
+  
+# plot the dataset
   ggplot(aes(hour, n_tweets)) +
   geom_line(aes(group = 1), size = 1) +
   theme_bw() +
@@ -117,8 +141,10 @@ Recall that the hashtag variable includes lists of hastags if a tweet itself has
 
 ```{r, exercise_66, echo=FALSE}
 
+# start with the `tweets` dataset 
 twts %>%
 
+# filter out retweets, tweets with no hastags
   filter(is_retweet == FALSE & !is.na(hashtags)) %>%
 
 # unlist the lists of hashtags to create strings
@@ -127,11 +153,16 @@ twts %>%
 
   ungroup() %>%
   
-# split the string, create a new variable called `da_tweets`
+# unnest the hashtags
   unnest_tokens(output = unnested_hashtags, input = tidy_hashtags, token = "words") %>%
 
+# count the number of times each hashtag is used
   count(unnested_hashtags) %>%
+
+# limit the analysis to top 20 hashtags
   top_n(20) %>%
+  
+# plot the results
   ggplot(aes(y = reorder(unnested_hashtags, n),
              x = n)) +
   geom_bar(stat = "identity") +
@@ -151,12 +182,22 @@ Use the `wordcloud` function from the package with the same name to visualise th
 
 ```{r, exercise_67, echo=FALSE}
 
+# create a temporary dataframe, based on the 'tweets' dataset
 twts_temp <- twts %>%
+
+# unnest tweets into tweet-words
   unnest_tokens(output = token_tweets, input = text, token = "tweets") %>%
+
+# remove stopwords
   anti_join(., stop_words, by = c("token_tweets" = "word")) %>%
+
+# remove the text for the sign `&`
   filter(token_tweets != "amp") %>%
+
+# count how many times each word is used
   count(token_tweets)
 
+# plot the temporary dataframe with the `wordcloud` function
 wordcloud(words = twts_temp$token_tweets,
           freq = twts_temp$n, max.words = 50)
 
@@ -190,26 +231,45 @@ twts %>%
 
 ### Sentiments across the time frame
 
-Sentiments can also change depending on the day. To explore, visualise the average sentiments across the time frame under analysis. Optionally, conduct your analysis for each of the four main parties: Conservative, Labour, SNP,- and LibDem.  
+Sentiments can also change depending on the day. To explore, visualise the average sentiments across the time frame under analysis. Optionally, conduct your analysis for each of the four main parties: Conservative, Labour, SNP, and LibDem.  
 
 
 ```{r, exercise_69, echo=FALSE}
 
+# using the `get_sentiments` function, get the positive and negative sentiments from the nrc dictionary
 df_sentiments <- get_sentiments("nrc") %>%
+  
+# pivot your data wider, so that every new word is a new row
   mutate(sentiment_value = 1) %>%
   pivot_wider(names_from = sentiment, values_from = sentiment_value, values_fill = 0)
 
+
+# using the tweets dataset
 twts %>%
+  
+# join the mps dataframe in
   left_join(., mps, by = "screen_name") %>% 
+  
+# filter out retweets, mps from smaller parties 
   filter(is_retweet == FALSE &
          party %in% c("Conservative", "Labour", "SNP", "LibDem")) %>% 
+  
+# unnest the remaining tweets into words
   unnest_tokens(output = token_tweets, input = text, token = "tweets") %>%
+  
+# join the sentiments dataframe in
   left_join(., df_sentiments, by = c("token_tweets" = "word")) %>%
+  
+# add a date variable, and group by date and party
   mutate(date = as.Date(created_at)) %>%
   group_by(party, date) %>%
+  
+# calculate the positivity score for these groups
   summarise(positive_tone = (sum(positive, na.rm = TRUE) - sum(negative, na.rm = TRUE)) /
                             (sum(positive, na.rm = TRUE) + sum(negative, na.rm = TRUE))) %>%
   ungroup() %>%
+  
+# visualise the results, faceting by party
   ggplot(aes(date, positive_tone)) +
   geom_line(aes(group = 1), size = 1) +
   theme_bw() +
@@ -221,60 +281,119 @@ twts %>%
 
 ### Sentiments in different types of tweets
 
-Do the tone change from regular tweets to replies and quotes? Recall our discussion that there is a like button but there is no button to dislike, which could bias the sentiments in replies towards negative. There are also the quotes tweets, which some users prefer to direct replies. To explore whether the sentiments differ between these types of tweets, conduct a simple correlation analysis.
+Do the tone change with the types of tweets, such as those mention another user, reply, or quote them? To explore whether the sentiments differ between these types of tweets, conduct a simple correlation analysis.
+
 
 ```{r, exercise_70, echo=FALSE}
 
+# using the `get_sentiments` function, get the positive and negative sentiments from the nrc dictionary
 df_sentiments <- get_sentiments("nrc") %>%
+  
+# pivot your data wider, so that every new word is a new row
   mutate(sentiment_value = 1) %>%
   pivot_wider(names_from = sentiment, values_from = sentiment_value, values_fill = 0)
 
-twts_temp <- twts %>%
-  filter(is_retweet == FALSE) %>% 
-  mutate(replies = ifelse(is.na(reply_to_status_id), 1, 0),
-         quotes = ifelse(is_quote == TRUE, 1, 0)) %>%
+# calculate the positivity score for each tweet
+df_tone <- twts %>%
+  
+  # unnest to tweet-words
   unnest_tokens(output = token_tweets, input = text, token = "tweets") %>%
-  anti_join(stop_words, by = c("token_tweets" = "word")) %>%
+  
+# join the sentiments dataframe in
   left_join(., df_sentiments, by = c("token_tweets" = "word")) %>%
-  group_by(status_id, replies, quotes) %>%
+  
+# calculate the positivity score for each tweet
+  group_by(status_id) %>%
   summarise(positive_tone = (sum(positive, na.rm = TRUE) - sum(negative, na.rm = TRUE)) /
-              (sum(positive, na.rm = TRUE) + sum(negative, na.rm = TRUE)))
+                            (sum(positive, na.rm = TRUE) + sum(negative, na.rm = TRUE))) %>%
+  ungroup()
+  
 
-m <- lm(positive_tone ~ replies + quotes, data = twts_temp)
+# create a temporary dataframe, from the `tweets` dataset
+twts_temp <- twts %>%
+  
+# filter out retweets
+  filter(is_retweet == FALSE) %>% 
+  
+# filter out self replies
+  filter(!(screen_name == reply_to_screen_name) | is.na(reply_to_screen_name)) %>% 
+  
+# create a categorical variable for the remaining types of tweets
+  mutate(mentions = case_when(is.na(mentions_screen_name) ~ 0,
+                              !is.na(reply_to_screen_name) & mentions_screen_name == reply_to_screen_name ~ 0,
+                              !is.na(mentions_screen_name) ~ 1),
+         quotes = if_else(is_quote == TRUE, 1, 0),
+         replies = if_else(!is.na(reply_to_screen_name), 1, 0)) %>% 
+  
+# join in the positivit scores
+  left_join(., df_tone, by = "status_id")
+  
+
+# run a regression model, with positivity score as the dependent variable and tweet types (tweets, replies, quotes) as independent variables
+m <- lm(positive_tone ~ mentions + quotes + replies, data = twts_temp)
 
 # plot the regression results with the `dwplot` function
 dwplot(m, dot_args = list(size = 3.2), whisker_args = list(size = 1.5)) +
   theme_bw() +
   theme(legend.position = "none") +
   geom_vline(xintercept = 0, linetype = 2) +
-  xlab("Regression Coefficient")
+  xlab("Regression Coefficient") +
+  scale_y_discrete(labels = function(x) stringr::str_to_title(x))
 
 ```
 
 ### Concreteness in different types of tweets
 
-Conduct the same compassion, this time for the concreteness of tweets.
+Conduct the same comparision, this time for the concreteness of tweets.
 
 ```{r, exercise_71, echo=FALSE}
 
-twts_temp <- twts %>%
-  filter(is_retweet == FALSE) %>% 
-  mutate(replies = ifelse(is.na(reply_to_status_id), 1, 0),
-         quotes = ifelse(is_quote == TRUE, 1, 0)) %>%
+# calculate the positivity score for each tweet
+df_concreteness <- twts %>%
+  
+# unnest to tweet-words
   unnest_tokens(output = token_tweets, input = text, token = "tweets") %>%
-  anti_join(stop_words, by = c("token_tweets" = "word")) %>%
+  
+# join the concreteness dataframe in
   left_join(., mturk_list, by = c("token_tweets" = "Word")) %>%
-  group_by(status_id, replies, quotes) %>%
-  summarise(concrete_tone = if_else(all(is.na(Conc.M)), NA_real_, sum(Conc.M, na.rm = TRUE)))
+  
+  group_by(status_id) %>%
+  
+  summarise(concrete_tone = if_else(all(is.na(Conc.M)), NA_real_, sum(Conc.M, na.rm = TRUE))) %>%
+  ungroup()
 
-m <- lm(concrete_tone ~ replies + quotes, data = twts_temp)
+
+# create a temporary dataframe, from the `tweets` dataset
+twts_temp <- twts %>%
+  
+# filter out retweets
+  filter(is_retweet == FALSE) %>% 
+  
+# filter out self replies
+  filter(!(screen_name == reply_to_screen_name) | is.na(reply_to_screen_name)) %>% 
+  
+# create a categorical variable for the remaining types of tweets
+  mutate(mentions = case_when(is.na(mentions_screen_name) ~ 0,
+                              !is.na(reply_to_screen_name) & mentions_screen_name == reply_to_screen_name ~ 0,
+                              !is.na(mentions_screen_name) ~ 1),
+         quotes = if_else(is_quote == TRUE, 1, 0),
+         replies = if_else(!is.na(reply_to_screen_name), 1, 0)) %>% 
+  
+# join in the positivit scores
+  left_join(., df_concreteness, by = "status_id")
+  
+
+# run a regression model, with positivity score as the dependent variable and tweet types (tweets, replies, quotes) as independent variables
+m <- lm(concrete_tone ~ Mentions + Quotes + Replies, data = twts_temp)
 
 # plot the regression results with the `dwplot` function
 dwplot(m, dot_args = list(size = 3.2), whisker_args = list(size = 1.5)) +
   theme_bw() +
   theme(legend.position = "none") +
   geom_vline(xintercept = 0, linetype = 2) +
-  xlab("Regression Coefficient")
+  xlab("Regression Coefficient")+
+  scale_y_discrete(labels = function(x) stringr::str_to_title(x))
+
 
 ```
 
@@ -293,6 +412,7 @@ twts_temp <- twts %>%
   group_by(status_id, hour) %>%
   summarise(concrete_tone = if_else(all(is.na(Conc.M)), NA_real_, sum(Conc.M, na.rm = TRUE)))
 
+# run a regression model, with concreteness score as the dependent variable and hours as independent variable
 m <- lm(concrete_tone ~ hour, data = twts_temp)
 
 # plot the regression results with the `dwplot` function
