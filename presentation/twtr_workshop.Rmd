@@ -93,7 +93,10 @@ library(countdown)
 
 .footnote[
 
-[Skip intro &mdash; To the contents slide](#contents-slide).]
+[Skip intro &mdash; To the contents slide](#contents-slide).
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="mailto:resuluy@uio.no?subject=Twitter workshop">I can teach this workshop at your institution &mdash; Email me</a>.
+
+]
 
 ---
 ## Who am I?
@@ -126,7 +129,7 @@ Resul Umit
 
 - Two days, on how to collect, process, and analyse data from Twitter
 
-  - 150+ slides, 75+ exercises
+  - 200+ slides, 75+ exercises
   - support for applications to Twitter, developing real projects
 
 --
@@ -139,6 +142,7 @@ Resul Umit
       - e.g., writing functions    
 <br>
   - existing ability to work with data in R will be very helpful
+      - especially while processing and analysing data
       - but not absolutely necessary &mdash; this ability can be developed during and after the workshop as well
         
 ---
@@ -147,7 +151,7 @@ Resul Umit
 - Twitter provides attractive opportunities for academic research
 
   - a simple search for "twitter data" returns 55,000+ results on Google Scholar
-     - by the end of 2020
+     - at the end of 2020
 
 --
 
@@ -307,7 +311,7 @@ name: contents-slide
 - Sit in groups of two
 
   - participants learn as much from their partner as from instructors
-  - switch partners after every part
+  - switch partners after every other part
 
 <br> 
 - Type, rather than copy and paste, the code that you will find on these slides
@@ -460,7 +464,7 @@ name: potential-biases
 - These restrictions vary across API types
 
   - e.g., [Standard v1.1](https://developer.twitter.com/en/docs/twitter-api/v1) is the most restrictive APIs
-      - others first generation APIs are the [Premium v1.1](https://developer.twitter.com/en/products/twitter-api/premium-apis) and [Enterprise: Gnip 2.0](https://developer.twitter.com/en/products/twitter-api/enterprise) APIs &mdash; both with paid subscriptions
+      - other first generation APIs are the [Premium v1.1](https://developer.twitter.com/en/products/twitter-api/premium-apis) and [Enterprise: Gnip 2.0](https://developer.twitter.com/en/products/twitter-api/enterprise) APIs &mdash; both with paid subscriptions
       - there are also the second generation APIs, including the newly announced [Academic Research product track](https://blog.twitter.com/developer/en_us/topics/tips/2021/enabling-the-future-of-academic-research-with-the-twitter-api.html)
 
 --
@@ -490,9 +494,9 @@ name: potential-biases
 
   - i.e., reproducibility after publication, by others
   - technically, they can retrieve the same tweets with IDs
-      - very demanding on reproducers
+      - demanding for reproducers
       - may even be impossible
-          - e.g., some tweets, or whole accounts, might be deleted in time
+          - e.g., some tweets, or whole accounts, might be deleted before replication attempts
 
 ---
 ## Considerations &mdash; Changes in the Twitter APIs
@@ -524,8 +528,8 @@ name: potential-biases
    - how the APIs v2 will look in the end
        - it is still a work in progress   
 <br>
-   - whether and how the `rtweet` package<sup>*</sup> will adopt
-       - personal communication: it will support v2
+   - how the `rtweet` package<sup>*</sup> will adopt
+       - it is currently going through a major revision
 
 
 .footnote[
@@ -543,7 +547,7 @@ name: potential-biases
        - it is still a work in progress   
 <br>
    - whether and how the `rtweet` package will adopt
-       - personal communication: it will support V2
+       - it is currently going through a major revision
 
 <br>
 
@@ -609,9 +613,9 @@ Twitter data frequently requires
 - Some tools of text analysis are developed for a specific language and/or context
 
    - e.g., dictionaries for sentiment analysis
-       - might be in English, political texts, only
+       - might be in English, for political texts, only
        
-   - these may not be useful, valid for different languages, and contexts
+   - these may not be useful, valid for different languages, and/or contexts
    
 --
 
@@ -677,7 +681,7 @@ class: action
 - Unzip and rename the folder
 
   - unzip to a location that is not synced
-     - e.g., perhaps Documents, but not Dropbox
+     - e.g., perhaps to *Documents*, but not Dropbox
 
 ---
 ## Course Materials &mdash; Overview
@@ -789,6 +793,7 @@ class: action
   - consider updating your copy, if it is not up to date, following from the RStudio menu:
 
 > `Help -> Check for Updates`
+
 ---
 class: action
 name: rstudio-project
