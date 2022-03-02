@@ -6,9 +6,6 @@
 *.Rproj
 *.pdf
 *.txt
-presentation/*
-!presentation/twtr_workshop.Rmd
-!presentation/twtr_workshop.pdf
 helpers/*
 data/tweets_all.rds
 exercises/*.html

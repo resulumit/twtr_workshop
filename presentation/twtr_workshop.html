@@ -1,33 +1,23 @@
----
-title: "Working with Twitter Data in R"
-subtitle: "Resul Umit"
-institute: ""
-date: "March 2022"
-output:
-  xaringan::moon_reader:
-    lib_dir: libs
-    nature:
-      highlightStyle: github
-      highlightLines: true
-      highlightSpans: true
-      countIncrementalSlides: false
-      ratio: "16:9"
-    seal: false
----
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Working with Twitter Data in R</title>
+    <meta charset="utf-8" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/remark-css/default-fonts.css" rel="stylesheet" />
+    <link href="libs/countdown/countdown.css" rel="stylesheet" />
+    <script src="libs/countdown/countdown.js"></script>
+  </head>
+  <body>
+    <textarea id="source">
+
 
 class: inverse, center, middle
 
-```{r setup, include=FALSE}
-options(htmltools.dir.version = FALSE, crayon.enabled = TRUE)
-library(crayon)
-library(fansi)
-library(dplyr)
-library(ggplot2)
-library(stargazer)
-library(countdown)
-```
 
-<style type="text/css">
+
+&lt;style type="text/css"&gt;
 
 .hljs-github .hljs {
     background: #e5e5e5;
@@ -80,12 +70,12 @@ library(countdown)
 }
 
 
-</style>
+&lt;/style&gt;
 
 
 # Working with Twitter Data in R
 
-<br>
+&lt;br&gt;
 
 ### Resul Umit
 
@@ -93,8 +83,8 @@ library(countdown)
 
 .footnote[
 
-[Skip intro &mdash; To the contents slide](#contents-slide).
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="mailto:resuluy@uio.no?subject=Twitter workshop">I can teach this workshop at your institution &mdash; Email me</a>.
+[Skip intro &amp;mdash; To the contents slide](#contents-slide).
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; &lt;a href="mailto:resuluy@uio.no?subject=Twitter workshop"&gt;I can teach this workshop at your institution &amp;mdash; Email me&lt;/a&gt;.
 
 ]
 
@@ -118,14 +108,14 @@ Resul Umit
       - automated classification, using a bag-of-words approach
       - manual validation
       
-    - [an app based on Twitter data](https://resulumit.shinyapps.io/likewise/): LikeWise &mdash; a *Shiny* app that facilitates searching the tweets a user liked
+    - [an app based on Twitter data](https://resulumit.shinyapps.io/likewise/): LikeWise &amp;mdash; a *Shiny* app that facilitates searching the tweets a user liked
 
 --
 
 - more information available at [resulumit.com](https://resulumit.com/)
 
 ---
-## The Workshop &mdash; Overview
+## The Workshop &amp;mdash; Overview
 
 - Two days, on how to collect, process, and analyse data from Twitter
 
@@ -134,19 +124,19 @@ Resul Umit
 
 --
 
-<br>
+&lt;br&gt;
 
 - Designed for researchers with basic knowledge of R programming language
 
   - does not cover programming with R
       - e.g., writing functions    
-<br>
+&lt;br&gt;
   - existing ability to work with data in R will be very helpful
       - especially while processing and analysing data
-      - but not absolutely necessary &mdash; this ability can be developed during and after the workshop as well
+      - but not absolutely necessary &amp;mdash; this ability can be developed during and after the workshop as well
         
 ---
-## The Workshop &mdash; Motivation
+## The Workshop &amp;mdash; Motivation
 
 - Twitter provides attractive opportunities for academic research
 
@@ -155,7 +145,7 @@ Resul Umit
 
 --
 
-<br>
+&lt;br&gt;
 
 - Research based on Twitter data requires a set of skills 
 
@@ -163,7 +153,7 @@ Resul Umit
 
 
 ---
-## The Workshop &mdash; Motivation &mdash; Opportunities
+## The Workshop &amp;mdash; Motivation &amp;mdash; Opportunities
 
 - Popularity of the network
 
@@ -172,30 +162,30 @@ Resul Umit
      - e.g., for me, members of parliament
 
 ---
-## The Workshop &mdash; Motivation &mdash; Opportunities
+## The Workshop &amp;mdash; Motivation &amp;mdash; Opportunities
 
 - Popularity of the network
 
-  - about 220 million users, more than three quarters are daily active<sup>*</sup>
+  - about 220 million users, more than three quarters are daily active&lt;sup&gt;*&lt;/sup&gt;
   - your subjects are likely Twitter users
      - e.g., for me, members of parliament
 
-<br>
+&lt;br&gt;
 
 - Richness of the data
 
-  - about 500 million tweets per day<sup>*</sup>
+  - about 500 million tweets per day&lt;sup&gt;*&lt;/sup&gt;
   - with up to 90 variables for each tweet
 
 
 .footnote[
 
-<sup>*</sup> These statistics are compiled at the end of 2021, by [BusinessOfApps](https://www.businessofapps.com/data/twitter-statistics).
+&lt;sup&gt;*&lt;/sup&gt; These statistics are compiled at the end of 2021, by [BusinessOfApps](https://www.businessofapps.com/data/twitter-statistics).
 
 ]
 
 ---
-## The Workshop &mdash; Motivation &mdash; Opportunities
+## The Workshop &amp;mdash; Motivation &amp;mdash; Opportunities
 
 - Popularity of the network
 
@@ -203,25 +193,25 @@ Resul Umit
   - your subjects are likely Twitter users
      - e.g., for me, members of parliament
 
-<br>
+&lt;br&gt;
 
 - Richness of the data
 
   - about 500 million tweets per day
   - with up to 90 variables for each tweet
 
-<br>
+&lt;br&gt;
 
 - Accessibility of the data
 
   - most Twitter data are public
      - i.e., relatively few private profiles   
-<br>
+&lt;br&gt;
   - APIs (application programming interfaces) enable programmatic access to Twitter
      - e.g., downloading tweets with R, as opposed to viewing tweets as visualised via browsers
 
 ---
-## The Workshop &mdash; Motivation &mdash; Challenges
+## The Workshop &amp;mdash; Motivation &amp;mdash; Challenges
 
 - Research based on Twitter data requires certain skills
 
@@ -230,32 +220,32 @@ Resul Umit
 
 --
 
-<br>
+&lt;br&gt;
 
 - The required skills are often uncovered in the academic training of social scientists
 
   - e.g., methodology courses
   - but help is available elsewhere, including        
-<br>
+&lt;br&gt;
       - collaboration with researchers with the skills
          - at the cost of sacrificing some control over your research and research agenda   
-<br>
+&lt;br&gt;
       - acquiring the skills through individual effort
          - e.g., workshops such as this one
 
 ---
-## The Workshop &mdash; Motivation &mdash; Aims
+## The Workshop &amp;mdash; Motivation &amp;mdash; Aims
 
 - To provide you with an understanding of what is possible
 
   - we will cover a large breath of issues, not all of it is for long-term memory
       - hence the slides are designed for self study as well    
-<br>
+&lt;br&gt;
   - awareness of what is possible, `Google`, and perseverance are all you need
 
 --
 
-<br>
+&lt;br&gt;
 
 - To start you with acquiring and practicing the skills needed 
 
@@ -265,7 +255,7 @@ Resul Umit
 ---
 name: contents-slide
 
-## The Workshop &mdash; Contents
+## The Workshop &amp;mdash; Contents
 
 .pull-left[
 
@@ -306,21 +296,21 @@ name: contents-slide
 ] 
 
 ---
-## The Workshop &mdash; Organisation
+## The Workshop &amp;mdash; Organisation
 
 - I will go through a number of slides...
 
   - introducing things
   - demonstrating how-to do things
 
-<br> 
+&lt;br&gt; 
 
 - ... and then pause, for you to use/do those things
 
   - e.g., prepare your computer for the workshop, and/or
   - complete a number of exercises
     
-<br> 
+&lt;br&gt; 
 
 - We are here to help
 
@@ -331,7 +321,7 @@ name: contents-slide
 ---
 class: action
 
-## The Workshop &mdash; Organisation &mdash; Slides
+## The Workshop &amp;mdash; Organisation &amp;mdash; Slides
 
 Slides with this background colour indicate that your action is required, for
 
@@ -344,51 +334,54 @@ Slides with this background colour indicate that your action is required, for
     - these slides have countdown timers
         - as a guide, not to be followed strictly
     
-`r countdown(minutes = 3, seconds = 00, top = 0)`
+<div class="countdown" id="timer_621f7bd7" style="top:0;right:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">03</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
 
 ---
-## The Workshop &mdash; Organisation &mdash; Slides
+## The Workshop &amp;mdash; Organisation &amp;mdash; Slides
 
-- Codes and texts that go in R console or scripts .inline-c[appear as such &mdash; in a different font, on gray background]    
+- Codes and texts that go in R console or scripts .inline-c[appear as such &amp;mdash; in a different font, on gray background]    
 
     - long codes and texts will have their own line(s)
 
-```{r, demonstration, eval=FALSE}
+
+```r
 # read in  the tweets dataset
-df <- read_rds("tweets.rds") %>%
+df &lt;- read_rds("tweets.rds") %&gt;%
   
 # split the variable text, create a new variable called da_tweets   
-  unnest_tokens(output = da_tweets, input = text, token = "tweets") %>%
+  unnest_tokens(output = da_tweets, input = text, token = "tweets") %&gt;%
  
 # remove rows that match any of the stop words as stored in the stop_words dataset 
   anti_join(stop_words, by = c("da_tweets" = "word")) 
 ```
 
 ---
-## The Workshop &mdash; Organisation &mdash; Slides
+## The Workshop &amp;mdash; Organisation &amp;mdash; Slides
 
-- Codes and texts that go in R console or scripts .inline-c[appear as such &mdash; in a different font, on gray background]    
+- Codes and texts that go in R console or scripts .inline-c[appear as such &amp;mdash; in a different font, on gray background]    
 
     - long codes and texts will have their own line(s)
 
-<br>
+&lt;br&gt;
 
-- Results that come out as output .out-t[appear as such &mdash; in the same font, on green background]    
+- Results that come out as output .out-t[appear as such &amp;mdash; in the same font, on green background]    
 
     - except very obvious results, such as graphs
     
 --
 
-<br>
+&lt;br&gt;
 
     
 - Specific sections are .yellow-h[highlighted yellow as such] for emphasis
 
-    - these could be for anything &mdash; codes and texts in input, results in output, and/or texts on slides
+    - these could be for anything &amp;mdash; codes and texts in input, results in output, and/or texts on slides
     
 --
 
-<br>
+&lt;br&gt;
 
 - The slides are designed for self-study as much as for the workshop
 
@@ -407,19 +400,19 @@ class: inverse, center, middle
 ]
 
 ---
-## Considerations &mdash; Research Questions & Hypotheses
+## Considerations &amp;mdash; Research Questions &amp; Hypotheses
 
 - Ideally, we have one or more research questions, hypotheses
 
   - developed prior to data collection, analysis
      - based on, e.g., theory, claims, observations   
-<br>
+&lt;br&gt;
   - perhaps, even pre-registered
      - e.g., at [OSF Registries](https://osf.io/registries)
 
 --
 
-<br>
+&lt;br&gt;
 
 - Not all questions can be answered with Twitter data
 
@@ -428,7 +421,7 @@ class: inverse, center, middle
         - for public health, the review by [Sinnenberg et al. (2017)](https://doi.org/10.2105/AJPH.2016.303512)
 
 ---
-## Considerations &mdash; Potential Biases
+## Considerations &amp;mdash; Potential Biases
 
 There are at least two potential sources of bias in Twitter data
 
@@ -436,7 +429,7 @@ There are at least two potential sources of bias in Twitter data
 
   - Twitter users are not representative of the people out there
      - see, for example, [Mellon and Prosser (2017)](https://doi.org/10.1177%2F2053168017720008)    
-<br>
+&lt;br&gt;
   - Tweeting behaviour has a strategic component 
      - see, for example, [Umit (2017)](https://doi.org/10.1080/13572334.2017.1283166)
 
@@ -449,12 +442,12 @@ name: potential-biases
   - the behaviour on Twitter is mediated through written and unwritten rules
      - e.g., there is a button to like, but no dislike
          - might systematically bias the replies towards negative   
-<br>
+&lt;br&gt;
      - e.g., the common use of the like function as a bookmark
          - what would a study of Twitter likes be measuring?
 
 ---
-## Considerations &mdash; Constraints over Data Access
+## Considerations &amp;mdash; Constraints over Data Access
 
 - Twitter has restrictions on data access
 
@@ -462,16 +455,16 @@ name: potential-biases
   - how quickly, how frequently, how far dating back *etc*.
      
 --
-<br>
+&lt;br&gt;
 
 - These restrictions vary across API types
 
   - e.g., [Standard v1.1](https://developer.twitter.com/en/docs/twitter-api/v1) is the most restrictive APIs
-      - other first generation APIs are the [Premium v1.1](https://developer.twitter.com/en/products/twitter-api/premium-apis) and [Enterprise: Gnip 2.0](https://developer.twitter.com/en/products/twitter-api/enterprise) APIs &mdash; both with paid subscriptions
+      - other first generation APIs are the [Premium v1.1](https://developer.twitter.com/en/products/twitter-api/premium-apis) and [Enterprise: Gnip 2.0](https://developer.twitter.com/en/products/twitter-api/enterprise) APIs &amp;mdash; both with paid subscriptions
       - there are also the second generation APIs, including the newly announced [Academic Research product track](https://blog.twitter.com/developer/en_us/topics/tips/2021/enabling-the-future-of-academic-research-with-the-twitter-api.html)
 
 --
-<br>
+&lt;br&gt;
 
 - These restrictions also vary within APIs types, across different operations
 
@@ -479,7 +472,7 @@ name: potential-biases
      - but also, collecting historical tweets from a specific user *vs*. tweets from any user
 
 ---
-## Considerations &mdash; Constraints over Data Redistribution
+## Considerations &amp;mdash; Constraints over Data Redistribution
 
 - Twitter restricts content redistribution
 
@@ -487,11 +480,11 @@ name: potential-biases
       - e.g., not the tweets themselves
       - and no more than 1.5M IDs
          - with some exceptions for academic research   
-<br>
+&lt;br&gt;
    - see [Twitter Developer terms](https://developer.twitter.com/en/developer-terms/agreement-and-policy) for further details   
 
 --
-<br>
+&lt;br&gt;
 
 - Reproducibility of research based on Twitter data is limited in practice
 
@@ -502,81 +495,81 @@ name: potential-biases
           - e.g., some tweets, or whole accounts, might be deleted before replication attempts
 
 ---
-## Considerations &mdash; Changes in the Twitter APIs
+## Considerations &amp;mdash; Changes in the Twitter APIs
 
 - Twitter is currently switching to a new generation of APIs
 
   - replacing APIs v1 with v2
       - each with various types of APIs   
-<br>
+&lt;br&gt;
   - the switch is not complete, outcome is not clear
      - see the [early access](https://developer.twitter.com/en/docs/twitter-api/early-access) options
      
 --
-<br>
+&lt;br&gt;
 
 - Twitter might change the rules of the APIs game at any anytime, again
 
   - making the existing restrictions more or less strict
      - e.g., while you are in the middle of data collection     
-<br>
+&lt;br&gt;
   - breaking your plans, code
 
   
 ---
-## Considerations &mdash; Changes in the Twitter APIs &mdash; Notes
+## Considerations &amp;mdash; Changes in the Twitter APIs &amp;mdash; Notes
 
 - Existing codes to collect tweets may or may not be affected, depending on
 
    - how the APIs v2 will look in the end
        - it is still a work in progress   
-<br>
-   - how the `rtweet` package<sup>*</sup> will adopt
+&lt;br&gt;
+   - how the `rtweet` package&lt;sup&gt;*&lt;/sup&gt; will adopt
        - it is currently going through a major revision
 
 
 .footnote[
 
-<sup>*</sup> This is the R package that we will use to collect tweets. More details are in [Part 2](#part2). 
+&lt;sup&gt;*&lt;/sup&gt; This is the R package that we will use to collect tweets. More details are in [Part 2](#part2). 
 
 ]   
 
 ---
-## Considerations &mdash; Changes in the Twitter APIs &mdash; Notes
+## Considerations &amp;mdash; Changes in the Twitter APIs &amp;mdash; Notes
 
 - Existing codes to collect tweets may or may not be affected, depending on
 
    - how the APIs V2 will look in the end
        - it is still a work in progress   
-<br>
+&lt;br&gt;
    - whether and how the `rtweet` package will adopt
        - it is currently going through a major revision
 
-<br>
+&lt;br&gt;
 
 - Not all changes are bad
 
    - among others, APIs v2 introduces the [Academic Research product track](https://blog.twitter.com/developer/en_us/topics/tips/2021/enabling-the-future-of-academic-research-with-the-twitter-api.html)    
-<br>
+&lt;br&gt;
        - 'to serve the unique needs and challenges of academic researchers'
            - ranging from master's students to professors    
-<br>
+&lt;br&gt;
        - access to all public tweets
           - by up to 1.5M a month at a time
        
 ---
-## Considerations &mdash; Law and Ethics
+## Considerations &amp;mdash; Law and Ethics
 
 - It is often impossible to get users' consent
 
   - i.e., for collecting and analysing their data on Twitter    
-<br>
+&lt;br&gt;
   - Twitter itself has no problem with it, but others might disagree
       - e.g., your law makers, (funding and/or research) institution, subjects, conscience
     
 --
 
-<br>
+&lt;br&gt;
 
 - Check the rules that apply to your case
    
@@ -584,14 +577,14 @@ name: potential-biases
   
 --
 
-<br>
+&lt;br&gt;
 
 - Reflect on whether using Twitter data for research is ethical
 
   - even where it is legal and allowed, it may not be moral
 
 ---
-## Considerations &mdash; Data Storage
+## Considerations &amp;mdash; Data Storage
 
 Twitter data frequently requires 
 
@@ -599,7 +592,7 @@ Twitter data frequently requires
 
   - Twitter data is typically big data
       - many tweets, up to 90 variables   
-<br>
+&lt;br&gt;
   - e.g., a dataset of 1M tweets requires about 300MB 
       - when stored in R data formats
 
@@ -611,7 +604,7 @@ Twitter data frequently requires
   - but also local rules, institutional requirements
 
 ---
-## Considerations &mdash; Language and Context
+## Considerations &amp;mdash; Language and Context
 
 - Some tools of text analysis are developed for a specific language and/or context
 
@@ -622,7 +615,7 @@ Twitter data frequently requires
    
 --
 
-<br>
+&lt;br&gt;
 
 - Some tools of text analysis are developed for general use
 
@@ -646,16 +639,16 @@ class: inverse, center, middle
 ---
 class: action
 
-## Workshop Slides &mdash; Access on Your Browser
+## Workshop Slides &amp;mdash; Access on Your Browser
 
-- Having the workshop slides<sup>*</sup> on your own machine might be helpful
+- Having the workshop slides&lt;sup&gt;*&lt;/sup&gt; on your own machine might be helpful
 
   - flexibility to go back and forward on your own
   - ability to scroll across long codes on some slides
 
-<br>
+&lt;br&gt;
 
-- Access at <https://resulumit.com/teaching/twtr_workshop.html>
+- Access at &lt;https://resulumit.com/teaching/twtr_workshop.html&gt;
 
   - will remain accessible after the workshop
   - might crash for some Safari users
@@ -663,7 +656,7 @@ class: action
   
 .footnote[
 
-<sup>*</sup> These slides are produced in R, with the `xaringan` package ([Xie, 2020](https://cran.r-project.org/web/packages/xaringan/xaringan.pdf)).
+&lt;sup&gt;*&lt;/sup&gt; These slides are produced in R, with the `xaringan` package ([Xie, 2020](https://cran.r-project.org/web/packages/xaringan/xaringan.pdf)).
 
 ]
 
@@ -671,15 +664,15 @@ class: action
 name: download-zip
 class: action
 
-## Course Materials &mdash; Download from the Internet
+## Course Materials &amp;mdash; Download from the Internet
 
-- Download the materials from <https://github.com/resulumit/twtr_workshop/tree/materials>
+- Download the materials from &lt;https://github.com/resulumit/twtr_workshop/tree/materials&gt;
 
   - on the webpage, follow
 
-> `Code -> Download ZIP`
+&gt; `Code -&gt; Download ZIP`
 
-<br>
+&lt;br&gt;
 
 - Unzip and rename the folder
 
@@ -687,7 +680,7 @@ class: action
      - e.g., perhaps to *Documents*, but not Dropbox
 
 ---
-## Course Materials &mdash; Overview
+## Course Materials &amp;mdash; Overview
 
 Materials have the following structure
 
@@ -710,21 +703,21 @@ twtr_workshop-materials
 
 ```
 ---
-## Course Materials &mdash; Contents
+## Course Materials &amp;mdash; Contents
 
 - `data/mps.csv`
 
   - a dataset on the members of parliament (MPs) in the British House of Commons, at the end of January 2021
   - it includes variables on electoral results as well as Twitter usernames
 
-<br>
+&lt;br&gt;
 
 - `data/status_ids.rds`
 
   - a dataset with a single variable: `status_id`
   - lists the status IDs of all tweets posted by the MPs listed in `mps.csv`, during January 2021
   
-<br>
+&lt;br&gt;
 
 - `data/tweets.rds`
 
@@ -732,14 +725,14 @@ twtr_workshop-materials
       - the time period is now limited to 15 to 31 January, reducing the number of observations below 50,000, allowing for all variables to be posted online
 
 ---
-## Course Materials &mdash; Contents
+## Course Materials &amp;mdash; Contents
 
 - `tweet_based.Rmd`
 
   - an R Markdown file with exercises for [Part 6](#part-6)
   - the solution to these exercises are in `tweet_based_answers.Rmd`
 
-<br>
+&lt;br&gt;
 
 - `user_based.Rmd`
 
@@ -749,7 +742,7 @@ twtr_workshop-materials
 ---
 class: action
 
-## R &mdash; Download from the Internet and Install
+## R &amp;mdash; Download from the Internet and Install
 
 - Programming language of this workshop
 
@@ -759,7 +752,7 @@ class: action
       - collecting, processing, and analysing Twitter data
   - an alternative: [python](https://www.python.org/)
 
-<br>
+&lt;br&gt;
 
 - Optional, if you have R already installed
 
@@ -767,7 +760,7 @@ class: action
      - type the `R.version.string` command in R to check the version of your copy
      - compare with the latest official release at [https://cran.r-project.org/sources.html](https://cran.r-project.org/sources.html)
 
-<br>
+&lt;br&gt;
 
 - Download R from [https://cloud.r-project.org](https://cloud.r-project.org)
 
@@ -776,73 +769,75 @@ class: action
 ---
 class: action
 
-## RStudio &mdash; Download from the Internet and Install
+## RStudio &amp;mdash; Download from the Internet and Install
 
 - Optional, but highly recommended
 
   - facilitates working with Twitter data in R
 
-<br>
+&lt;br&gt;
 
 - A popular integrated development environment (IDE) for R
 
   - an alternative: [GNU Emacs](https://www.gnu.org/software/emacs/)
 
-<br>
+&lt;br&gt;
 
 - Download RStudio from [https://rstudio.com/products/rstudio/download](https://rstudio.com/products/rstudio/download)
 
   - choose the free version
   - consider updating your copy, if it is not up to date, following from the RStudio menu:
 
-> `Help -> Check for Updates`
+&gt; `Help -&gt; Check for Updates`
 
 ---
 class: action
 name: rstudio-project
 
-## RStudio Project &mdash; Create from within RStudio 
+## RStudio Project &amp;mdash; Create from within RStudio 
 
 - RStudio allows for dividing your work with R into separate projects
 
   - each project gets dedicated workspace, history, and source documents
   - [this page](https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects) has more information on why projects are recommended
 
-<br>
+&lt;br&gt;
 
-- Create a new RStudio project for the existing<sup>*</sup> workshop directory `...\twtr_workshop-materials` from the RStudio menu:
+- Create a new RStudio project for the existing&lt;sup&gt;*&lt;/sup&gt; workshop directory `...\twtr_workshop-materials` from the RStudio menu:
 
-> `File -> New Project -> Existing Directory -> Browse -> ...\twtr_workshop-materials -> Open`
+&gt; `File -&gt; New Project -&gt; Existing Directory -&gt; Browse -&gt; ...\twtr_workshop-materials -&gt; Open`
 
 
 .footnote[
 
-<sup>*</sup> Recall that we have downloaded this earlier from GitHub. [Back to the relevant slide](#download-zip).
+&lt;sup&gt;*&lt;/sup&gt; Recall that we have downloaded this earlier from GitHub. [Back to the relevant slide](#download-zip).
 
 ]
 
 ---
 class: action
 
-## R Packages &mdash; Install from within RStudio<sup>*</sup>
+## R Packages &amp;mdash; Install from within RStudio&lt;sup&gt;*&lt;/sup&gt;
 
-```{r eval=FALSE, tidy=FALSE}
+
+```r
 install.packages(c("rtweet", "httpuv", "tidyverse", "tidytext"))
 ```
 
 
 .footnote[
 
-<sup>*</sup> You may already have a copy of one or more of these packages. In that case, I recommend updating by re-installing them now.
+&lt;sup&gt;*&lt;/sup&gt; You may already have a copy of one or more of these packages. In that case, I recommend updating by re-installing them now.
 
 ]
 
 ---
 class: action
 
-## R Packages &mdash; Install from within RStudio
+## R Packages &amp;mdash; Install from within RStudio
 
-```{r eval=FALSE, tidy=FALSE}
+
+```r
 install.packages(c("rtweet", "httpuv", "tidyverse", "tidytext"))
 ```
 
@@ -851,9 +846,9 @@ install.packages(c("rtweet", "httpuv", "tidyverse", "tidytext"))
     - alternatives: used to be `twitteR` ([Gentry, 2015](https://cran.r-project.org/web/packages/twitteR/index.html)), but not anymore; [running Python code in R](https://blog.twitter.com/developer/en_us/topics/tips/2020/running-the-python-package-for-search-tweets-in-r.html)
 
 --
-<br>
+&lt;br&gt;
 
-- `httpuv` ([Cheng & Chang, 2020](https://cran.r-project.org/web/packages/httpuv/index.html)), for API authorization
+- `httpuv` ([Cheng &amp; Chang, 2020](https://cran.r-project.org/web/packages/httpuv/index.html)), for API authorization
 
     - alternative: using your own access tokens
         - necessitates making an application through a developer
@@ -862,28 +857,29 @@ install.packages(c("rtweet", "httpuv", "tidyverse", "tidytext"))
 ---
 class: action
 
-## R Packages &mdash; Install from within RStudio
+## R Packages &amp;mdash; Install from within RStudio
 
-```{r eval=FALSE, tidy=FALSE}
+
+```r
 install.packages(c("rtweet", "httpuv", "tidyverse", "tidytext"))
 ```
 
-- `tidyverse` ([Wickham & RStudio 2019](https://cran.r-project.org/web/packages/tidyverse/index.html)), for various tasks
+- `tidyverse` ([Wickham &amp; RStudio 2019](https://cran.r-project.org/web/packages/tidyverse/index.html)), for various tasks
 
     - including data manipulation, visualisation
     - alternative: e.g., `base` R
 
 --
-<br>
+&lt;br&gt;
 
-- `tidytext` ([Robinson & Silge, 2021](https://cran.r-project.org/web/packages/tidytext/index.html)), for working with text as data
+- `tidytext` ([Robinson &amp; Silge, 2021](https://cran.r-project.org/web/packages/tidytext/index.html)), for working with text as data
 
     - alternative: e.g., `quanteda` ([Benoit et al., 2020](https://cran.r-project.org/web/packages/quanteda/index.html))
 
 ---
-## Twitter &mdash; Authorisation
+## Twitter &amp;mdash; Authorisation
 
-Authorization to use Twitter APIs requires at least three steps<sup>*</sup>
+Authorization to use Twitter APIs requires at least three steps&lt;sup&gt;*&lt;/sup&gt;
 
 1) open a user account on Twitter
   - a personal or an institutional (perhaps, for a research project) one
@@ -900,21 +896,21 @@ Authorization to use Twitter APIs requires at least three steps<sup>*</sup>
       
 .footnote[
 
-<sup>*</sup> There may be additional steps, such as registering for the [Academic Research product track](https://developer.twitter.com/en/portal/petition/academic/is-it-right-for-you).
+&lt;sup&gt;*&lt;/sup&gt; There may be additional steps, such as registering for the [Academic Research product track](https://developer.twitter.com/en/portal/petition/academic/is-it-right-for-you).
 
 ]
 
 ---
-## Twitter &mdash; Authorisation &mdash; Notes
+## Twitter &amp;mdash; Authorisation &amp;mdash; Notes
 
 - It is possible to interact with Twitter APIs without steps 2 and 3
 
-  - `rtweet` has a its own Twitter app &mdash; `rstats2twitter` &mdash; that anyone can use
+  - `rtweet` has a its own Twitter app &amp;mdash; `rstats2twitter` &amp;mdash; that anyone can use
       - anyone with a Twitter account, who authorises `rstats2twitter` via a pop-up browser
 
 --
 
-<br>
+&lt;br&gt;
 
 - I recommend
    
@@ -922,7 +918,7 @@ Authorization to use Twitter APIs requires at least three steps<sup>*</sup>
        - you might already have done
        - is otherwise automatic
        - allows us to use `rstats2twitter` and follow the workshop   
-<br>
+&lt;br&gt;
    - leaving the remaining steps until [Part 8](#part-8)
        - to allow you to think and write your applications carefully
        - to get my feedback if you prefer to do so
@@ -930,56 +926,56 @@ Authorization to use Twitter APIs requires at least three steps<sup>*</sup>
 ---
 class: action
 
-## Twitter &mdash; Open an Account
+## Twitter &amp;mdash; Open an Account
 
 Sign up for Twitter at [https://twitter.com/](twitter.com)
 
 - a pre-condition for interacting with Twitter APIs
 
     - e.g., you must be authorized 
-       - even to use `rtweet`'s app &mdash; `rstats2twitter`
+       - even to use `rtweet`'s app &amp;mdash; `rstats2twitter`
     
-<br>
+&lt;br&gt;
 - helpful for getting to know what you study
 
     - e.g., the written and unwritten rules that mediate the behaviour on Twitter
         - as discussed [in Part 1](#potential-biases)
 
-<br>
+&lt;br&gt;
 - with a strategic username
 
   - usernames are changeable, but nevertheless public
       - either choose an anonymous username (e.g., `asdf029348`)
-      - or choose one carefully &mdash; they become a part of users' online presence
+      - or choose one carefully &amp;mdash; they become a part of users' online presence
 
 ---
-## Other Resources<sup>*</sup>
+## Other Resources&lt;sup&gt;*&lt;/sup&gt;
 
-- R for Data Science ([Wickham & Grolemund, 2019](https://r4ds.had.co.nz/))
+- R for Data Science ([Wickham &amp; Grolemund, 2019](https://r4ds.had.co.nz/))
   
    - open access at [https://r4ds.had.co.nz](https://r4ds.had.co.nz/)
    
 --
 
-<br>
+&lt;br&gt;
 
-- Text Mining with R: A Tidy Approach ([Silge & Robinson, 2017](https://www.tidytextmining.com/))
+- Text Mining with R: A Tidy Approach ([Silge &amp; Robinson, 2017](https://www.tidytextmining.com/))
  
    - open access at [tidytextmining.com](https://www.tidytextmining.com/)
    - comes with [a course website](https://juliasilge.shinyapps.io/learntidytext/) where you can practice
    
 --
 
-<br>
+&lt;br&gt;
 
-- A Tutorial for Using Twitter Data in the Social Sciences: Data Collection, Preparation, and Analysis ([Jürgens & Jungherr, 2016](http://dx.doi.org/10.2139/ssrn.2710146))
+- A Tutorial for Using Twitter Data in the Social Sciences: Data Collection, Preparation, and Analysis ([Jürgens &amp; Jungherr, 2016](http://dx.doi.org/10.2139/ssrn.2710146))
 
    - open access at [http://dx.doi.org/10.2139/ssrn.2710146](http://dx.doi.org/10.2139/ssrn.2710146)
    
    
 .footnote[
 
-<sup>*</sup> I recommend these to be consulted not during but after the workshop.
+&lt;sup&gt;*&lt;/sup&gt; I recommend these to be consulted not during but after the workshop.
 
 ]
 
@@ -995,7 +991,7 @@ class: inverse, center, middle
 
 ]
 ---
-## Data Collection &mdash; Overview &mdash; APIs
+## Data Collection &amp;mdash; Overview &amp;mdash; APIs
   
 - We will collect data through APIs    
 
@@ -1005,19 +1001,19 @@ class: inverse, center, middle
       - enforced through authentication
 
 --
-<br>
+&lt;br&gt;
 
 - Collecting data through web scraping is also possible    
 
-   - e.g., with `GetOldTweets3` &mdash; [a python library](https://pypi.org/project/GetOldTweets3/)
+   - e.g., with `GetOldTweets3` &amp;mdash; [a python library](https://pypi.org/project/GetOldTweets3/)
       - scrapes, scrolls down, and scrapes again to collect all matching data   
-<br>
+&lt;br&gt;
    - does not require, is not limited by, Twitter APIs
    - limited with what is available on browsers
    - may or may not be ethical and/or legal
 
 ---
-## Data Collection &mdash; Overview &mdash; APIs &mdash; Types
+## Data Collection &amp;mdash; Overview &amp;mdash; APIs &amp;mdash; Types
 
 - .yellow-h[In general], there are two main types of APIs   
 
@@ -1027,7 +1023,7 @@ class: inverse, center, middle
    
 --
 
-<br>
+&lt;br&gt;
 
 - REST APIs are for single, one-off requests    
 
@@ -1036,14 +1032,14 @@ class: inverse, center, middle
    
 --
 
-<br>
+&lt;br&gt;
 
 - Streaming APIs are for continuous requests    
 
    - e.g., collect tweets as they are being posted
 
 ---
-## Data Collection &mdash; Overview &mdash; APIs &mdash; Types
+## Data Collection &amp;mdash; Overview &amp;mdash; APIs &amp;mdash; Types
 
 - .yellow-h[At Twitter], there is a further differentiation among the APIs   
 
@@ -1052,7 +1048,7 @@ class: inverse, center, middle
 
 --
 
-<br>
+&lt;br&gt;
 
 - Rules and restrictions differ from one type to another   
 
@@ -1063,7 +1059,7 @@ class: inverse, center, middle
      
 --
 
-<br>
+&lt;br&gt;
 
 - Rules and restrictions can also differ within one type
  
@@ -1072,7 +1068,7 @@ class: inverse, center, middle
 
 
 ---
-## Data Collection &mdash; Overview &mdash; Standard v1.1 APIs
+## Data Collection &amp;mdash; Overview &amp;mdash; Standard v1.1 APIs
 
 - We will collect data through Twitter's Standard v1.1 APIs  
 
@@ -1082,7 +1078,7 @@ class: inverse, center, middle
         - e.g., searches tweets posted in the last 6 to 9 days
 
 --
-<br>
+&lt;br&gt;
 
 - You can surpass these restrictions later on    
 
@@ -1093,7 +1089,7 @@ class: inverse, center, middle
        - the package may require an update, in line with the [Academic Research product track](https://twitter.com/TwitterDev/status/1354143047324299264)
        
 ---
-## Data Collection &mdash; Overview &mdash; APIs &mdash; Limitations
+## Data Collection &amp;mdash; Overview &amp;mdash; APIs &amp;mdash; Limitations
 
 Our attempts to collect data will be limited for various reasons, including
 
@@ -1120,7 +1116,7 @@ Our attempts to collect data will be limited for various reasons, including
    - sometimes things just happen
 
 ---
-## Data Collection &mdash; `rtweet` &mdash; Overview
+## Data Collection &amp;mdash; `rtweet` &amp;mdash; Overview
 
 - A powerful R package for collecting Twitter data
 
@@ -1137,7 +1133,7 @@ Our attempts to collect data will be limited for various reasons, including
     - the [package repository](https://github.com/ropensci/rtweet) on GitHub
     - the [package documentation](https://cran.r-project.org/web/packages/rtweet/rtweet.pdf)
     - this [journal article](https://doi.org/10.21105/joss.01829) by its creator
-    - this [book](https://rud.is/books/21-recipes/) by Bob Rudis &mdash; a user of the package
+    - this [book](https://rud.is/books/21-recipes/) by Bob Rudis &amp;mdash; a user of the package
     - numerous tutorials, such as [this](https://www.mzes.uni-mannheim.de/socialsciencedatalab/article/collecting-and-analyzing-twitter-using-r/), [this](https://www.r-pkg.org/pkg/rtweet), and [this](https://www.earthdatascience.org/courses/earth-analytics/get-data-using-apis/use-twitter-api-r/)
 
 --
@@ -1147,7 +1143,7 @@ Our attempts to collect data will be limited for various reasons, including
     - offers the option of using your own keys and tokens, if/once you have them
 
 ---
-## Data Collection &mdash; `rtweet` &mdash; Basics
+## Data Collection &amp;mdash; `rtweet` &amp;mdash; Basics
 
 There are four main groups of functions to collect .yellow-h[historical] data, starting with
 
@@ -1177,7 +1173,7 @@ There are four main groups of functions to collect .yellow-h[historical] data, s
 
 
 ---
-## Data Collection &mdash; `rtweet` &mdash; Basics
+## Data Collection &amp;mdash; `rtweet` &amp;mdash; Basics
 
 There is also .yellow-h[one] function to collect tweets in .yellow-h[real time]
 
@@ -1189,7 +1185,7 @@ There is also .yellow-h[one] function to collect tweets in .yellow-h[real time]
 
 --
 
-<br>
+&lt;br&gt;
 
 - For other functions, see the [package documentation](https://cran.r-project.org/web/packages/rtweet/rtweet.pdf)
 
@@ -1199,7 +1195,7 @@ There is also .yellow-h[one] function to collect tweets in .yellow-h[real time]
 ---
 class: action
 
-## Data Collection &mdash; Start Your Script
+## Data Collection &amp;mdash; Start Your Script
 
 .pull-left[
 
@@ -1209,7 +1205,7 @@ class: action
 
 - Create a new R Script, following from the RStudio menu
 
-> `File -> New File -> R Script`
+&gt; `File -&gt; New File -&gt; R Script`
 
 - Name and save your file
     - to avoid the `Untitled123` problem
@@ -1223,7 +1219,8 @@ class: action
 
 .pull-right[
 
-```{r, eval=FALSE}
+
+```r
 library(rtweet)
 library(tidyverse)
 library(tidytext)
@@ -1237,17 +1234,17 @@ class: middle, center
 # `search_`
 
 ---
-## Data Collection &mdash; `search_tweets`
+## Data Collection &amp;mdash; `search_tweets`
 
 .pull-left[
 
 Collect tweets posted in the last 6 to 9 days
 - filter by search query, with the `q` argument
 
-- limited to 18,000 tweets, per 15 minutes, per token<sup>*</sup>
-    - set the limit, higher or lower, with the `n` argument<sup>**</sup>
+- limited to 18,000 tweets, per 15 minutes, per token&lt;sup&gt;*&lt;/sup&gt;
+    - set the limit, higher or lower, with the `n` argument&lt;sup&gt;**&lt;/sup&gt;
         - works best the multiples of 100   
-<br>
+&lt;br&gt;
     - if set higher, wait automatically by setting the `retryonratelimit` argument to `TRUE`
 
 
@@ -1255,7 +1252,8 @@ Collect tweets posted in the last 6 to 9 days
 
 .pull-right[
 
-```{r, eval=FALSE}
+
+```r
 search_tweets(q,
               n = 100,
               type = "recent",
@@ -1276,28 +1274,28 @@ search_tweets(q,
 
 .footnote[
 
-<sup>*</sup> All limits are for the standard v1.1 APIs.
+&lt;sup&gt;*&lt;/sup&gt; All limits are for the standard v1.1 APIs.
 
-<sup>**</sup>This argument is common to many functions in the package. I recommend setting it to a small number, such as 200, for the exercises in this workshop. This will save computation time and avoid running into rate limits.
+&lt;sup&gt;**&lt;/sup&gt;This argument is common to many functions in the package. I recommend setting it to a small number, such as 200, for the exercises in this workshop. This will save computation time and avoid running into rate limits.
 
 ]
 
 ---
-## Data Collection &mdash; `search_tweets`
+## Data Collection &amp;mdash; `search_tweets`
 
 .pull-left[
 
 - Collect the .yellow-h[latest] 100 tweets that
     - include the hashtag "publish"
 
-<br>
+&lt;br&gt;
 
 - Note that
   - by default, `type = "recent"`, returning the latest tweets
      - other options are "popular" and "mixed"    
-<br>
+&lt;br&gt;
   - by default, `n = 100`, returning 100 tweets
-<br>
+&lt;br&gt;
   - here we are relying on `rtweet`'s `rstats2twitter` app
       - as, by default, `token = NULL`
 
@@ -1307,8 +1305,9 @@ search_tweets(q,
 .pull-right[
 
 
-```{r, eval=FALSE}
-```{r, eval=FALSE}
+
+
+```r
 search_tweets(q = `"#publish"`)
 ```
 
@@ -1340,10 +1339,12 @@ class: action
 - compare and contrast the API- and browser-based searches
 
     
-`r countdown(minutes = 15, seconds = 00, top = 0)`
+<div class="countdown" id="timer_621f7c07" style="top:0;right:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">15</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
 
 ---
-## Data Collection &mdash; Notes
+## Data Collection &amp;mdash; Notes
 
 - Twitter usernames, or handles, are stored under variable `screen_name`
 
@@ -1371,7 +1372,7 @@ class: action
    - by setting `include_rts = FALSE`
 
 ---
-## Data Collection &mdash; `search_tweets`
+## Data Collection &amp;mdash; `search_tweets`
 
 .pull-left[
 
@@ -1384,7 +1385,8 @@ Collect the .yellow-h[top] .yellow-h[200] tweets that
 .pull-right[
 
 
-```{r, eval=FALSE}
+
+```r
 search_tweets(q = `"p`ublish",
               `n = 200`,
               `type = "popular"`)
@@ -1393,14 +1395,14 @@ search_tweets(q = `"p`ublish",
 ]
 
 ---
-## Data Collection &mdash; `search_tweets`
+## Data Collection &amp;mdash; `search_tweets`
 
 .pull-left[
 
 - Collect the top 200 tweets that
   - include the word "publish" .yellow-h[and] "perish", not necessarily in that order
 
-<br>
+&lt;br&gt;
 
 - Note that
   - space is treated as the boolean AND operator
@@ -1411,7 +1413,8 @@ search_tweets(q = `"p`ublish",
 .pull-right[
 
 
-```{r, eval=FALSE}
+
+```r
 search_tweets(q = `"publish perish"`,
               n = 200,
               type = "popular")
@@ -1420,14 +1423,14 @@ search_tweets(q = `"publish perish"`,
 ]
 
 ---
-## Data Collection &mdash; `search_tweets`
+## Data Collection &amp;mdash; `search_tweets`
 
 .pull-left[
 
 - Collect the top 200 tweets that
   - include the word "publish" .yellow-h[or] "perish"
 
-<br>
+&lt;br&gt;
 
 - Note that
   - the boolean OR operator must be specified, in capital letters
@@ -1438,7 +1441,8 @@ search_tweets(q = `"publish perish"`,
 .pull-right[
 
 
-```{r, eval=FALSE}
+
+```r
 search_tweets(q = `"publish OR perish"`,
               n = 200,
               type = "popular")
@@ -1447,17 +1451,17 @@ search_tweets(q = `"publish OR perish"`,
 ]
 
 ---
-## Data Collection &mdash; `search_tweets`
+## Data Collection &amp;mdash; `search_tweets`
 
 .pull-left[
 
 - Collect the top 200 tweets that
   - include the .yellow-h[exact phrase]  "publish or perish"
 
-<br>
+&lt;br&gt;
 
 - Note that
- - double quotation marks .yellow-h["] need to be escaped with a backslash .yellow-h[&#92;]
+ - double quotation marks .yellow-h["] need to be escaped with a backslash .yellow-h[&amp;#92;]
 
 ]
 
@@ -1465,7 +1469,8 @@ search_tweets(q = `"publish OR perish"`,
 .pull-right[
 
 
-```{r, eval=FALSE}
+
+```r
 search_tweets(q = "`\"`publish or perish`\"`",
               n = 200,
               type = "popular")
@@ -1474,14 +1479,14 @@ search_tweets(q = "`\"`publish or perish`\"`",
 ]
 
 ---
-## Data Collection &mdash; `search_tweets`
+## Data Collection &amp;mdash; `search_tweets`
 
 .pull-left[
 
 - Collect the top 200 tweets that
   - include "publish" but not "perish"
   
-<br>
+&lt;br&gt;
 
 - Note that
   - words can be negated with a hyphen .yellow-h[-]
@@ -1492,7 +1497,8 @@ search_tweets(q = "`\"`publish or perish`\"`",
 .pull-right[
 
 
-```{r, eval=FALSE}
+
+```r
 search_tweets(q = "publish `-perish`",
               n = 200,
               type = "popular")
@@ -1501,7 +1507,7 @@ search_tweets(q = "publish `-perish`",
 ]
 
 ---
-## Data Collection &mdash; `search_tweets`
+## Data Collection &amp;mdash; `search_tweets`
 
 .pull-left[
 
@@ -1509,7 +1515,7 @@ search_tweets(q = "publish `-perish`",
   - include "publish", and
   - are otherwise written .yellow-h[in German]
 
-<br>
+&lt;br&gt;
 
 
 
@@ -1519,7 +1525,8 @@ search_tweets(q = "publish `-perish`",
 .pull-right[
 
 
-```{r, eval=FALSE}
+
+```r
 search_tweets(q = "publish `lang:de`",
               n = 200,
               type = "popular")
@@ -1528,14 +1535,14 @@ search_tweets(q = "publish `lang:de`",
 ]
 
 - Note that   
-  - query parameters, such as `lang`, are followed by a colon .yellow-h[&#58;]
+  - query parameters, such as `lang`, are followed by a colon .yellow-h[&amp;#58;]
       - other parameters include `filter`, `from`, `to`, `since`, `until`, `min_retweets` *etc*.   
-<br>
+&lt;br&gt;
   - there is an official guide for [a comprehensive but not complete list of search operators](https://developer.twitter.com/en/docs/twitter-api/v1/tweets/search/guides/standard-operators)
       - alternatively, fill in [this advanced search form](https://twitter.com/search-advanced), and observe the resulting syntax
 
 ---
-## Data Collection &mdash; `search_tweets`
+## Data Collection &amp;mdash; `search_tweets`
 
 .pull-left[
 
@@ -1552,7 +1559,8 @@ Note that
 .pull-right[
 
 
-```{r, eval=FALSE}
+
+```r
 search_tweets(q = "publish `-`lang:de",
               n = 200,
               type = "popular")
@@ -1561,14 +1569,14 @@ search_tweets(q = "publish `-`lang:de",
 ]
 
 ---
-## Data Collection &mdash; `search_tweets` &mdash; Notes
+## Data Collection &amp;mdash; `search_tweets` &amp;mdash; Notes
 
 .pull-left[
 
 - .yellow-h[Some] query parameters can be passed into the function as arguments as well
   - e.g., `lang`, `filter`
 
-<br>
+&lt;br&gt;
 
 - Note that
   - these functions on the right return the same observations
@@ -1582,13 +1590,15 @@ search_tweets(q = "publish `-`lang:de",
 .pull-right[
 
 
-```{r, eval=FALSE}
+
+```r
 search_tweets(q = "publish lang:en filter:replies",
               n = 200,
               type = "mixed")
 ```
 
-```{r, eval=FALSE}
+
+```r
 search_tweets(q = "publish",
               n = 200,
               type = "mixed",
@@ -1599,14 +1609,14 @@ search_tweets(q = "publish",
 ]
 
 ---
-## Data Collection &mdash; `search_tweets` &mdash; Notes
+## Data Collection &amp;mdash; `search_tweets` &amp;mdash; Notes
 
 - This function returns a data frame
 
   - as do many other functions in the package
   - because, by default, `parse = TRUE`
 
-<br>
+&lt;br&gt;
 
 - Under the hood, Twitter APIs return nested lists
 
@@ -1622,7 +1632,7 @@ class: action
 - the phrase "publish or perish"
 - and the word "academia" but not the word "phd"
 
-<br>
+&lt;br&gt;
 
 6) Collect the most recent 200 tweets that
 - include the word "Luzern"
@@ -1631,17 +1641,19 @@ class: action
 - hint: pull the help file for the function to see which arguments you can use
    - get help from Google about the coordinates
 
-<br>
+&lt;br&gt;
 
 7) Collect the most recent 35,000 tweets that
 - include the word "phd"
 - note that this is over the limit of 18,000
 - hint: pull the help file for the function to see which argument you must use to surpass the limit
 
-`r countdown(minutes = 20, seconds = 00, top = 0)`
+<div class="countdown" id="timer_621f7c42" style="top:0;right:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">20</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
 
 ---
-## Data Collection &mdash; `search_users`
+## Data Collection &amp;mdash; `search_users`
 
 .pull-left[
 - Collect information on users
@@ -1652,7 +1664,7 @@ class: action
   - limited to 1,000 users
 
     
-<br>
+&lt;br&gt;
 
 - Note that
 
@@ -1663,7 +1675,8 @@ class: action
 
 .pull-right[
 
-```{r, eval=FALSE}
+
+```r
 search_users(q, 
              n = 100, 
              parse = TRUE, 
@@ -1682,27 +1695,29 @@ class: action
 - are associated with the word "PhD"
 - but not with the word "rstats"
 
-<br>
+&lt;br&gt;
 
 9) Collect the latest 300 tweets that 
 - include the word "PhD"
 - but not the word "rstats"
 
-<br>
+&lt;br&gt;
 
 10) Take some time to explore the resulting data frames
 - how do they compare to each other? 
 
-<br>
+&lt;br&gt;
 
 11) Conduct one or more searches that interest you
 - for tweets and/or users
 
-`r countdown(minutes = 20, seconds = 00, top = 0)`
+<div class="countdown" id="timer_621f79d2" style="top:0;right:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">20</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
 
 
 ---
-## Data Collection &mdash; Notes &mdash; `rate_limit`
+## Data Collection &amp;mdash; Notes &amp;mdash; `rate_limit`
 
 .pull-left[
 
@@ -1712,7 +1727,7 @@ class: action
    - for a specific operation
       - e.g., searching tweets with the `search_tweets` function
   
-<br>
+&lt;br&gt;
 
 - Note that 
 
@@ -1724,7 +1739,8 @@ class: action
 
 .pull-right[
 
-```{r, eval=FALSE}
+
+```r
 rate_limit(token = NULL, 
            query = NULL, 
            parse = TRUE)
@@ -1733,22 +1749,24 @@ rate_limit(token = NULL,
 ]
 
 ---
-## Data Collection &mdash; Notes &mdash; `rate_limit`
+## Data Collection &amp;mdash; Notes &amp;mdash; `rate_limit`
 
 Check you remaining rate limits, for all operations
 
-```{r, eval=FALSE}
+
+```r
 rate_limit()
 ```
 
 --
 
-<br>
+&lt;br&gt;
 
 Check your remaining rate limits for the `search_tweets` function
 
 
-```{r, eval=FALSE}
+
+```r
 rate_limit(`query = "search/tweets"`)
 ```
 
@@ -1761,23 +1779,25 @@ class: action
 - hint: assign the call `rate_limit` to a name 
    - so that you can observe the resulting data frame better
 
-<br> 
+&lt;br&gt; 
 
 13) Check your remaining limits for the `search_tweets` function
    - assign it to a name so that you can remember
 
-<br>
+&lt;br&gt;
 
 14) Collect the top 5000 tweets that 
 - include the word "PhD"
 - and posted by a verified account
 
-<br>
+&lt;br&gt;
 
 15) Check your remaining limits for the `search_tweets` function again
 - how do they compare to the results from exercise 13? 
 
-`r countdown(minutes = 10, seconds = 00, top = 0)`
+<div class="countdown" id="timer_621f7a2f" style="top:0;right:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">10</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
 
 ---
 class: middle, center
@@ -1785,7 +1805,7 @@ class: middle, center
 # `lookup_`
 
 ---
-## Data Collection &mdash; `lookup_tweets`
+## Data Collection &amp;mdash; `lookup_tweets`
 
 .pull-left[
 
@@ -1795,7 +1815,7 @@ class: middle, center
    - limited with 90,000 posts per 15 minutes
       - there is no `retryonratelimit` argument
       
-<br>
+&lt;br&gt;
 - Note that
 
    - this function would be useful for replicating studies
@@ -1806,7 +1826,8 @@ class: middle, center
 
 .pull-right[
 
-```{r, eval=FALSE}
+
+```r
 lookup_tweets(statuses, 
               parse = TRUE, 
               token = NULL)
@@ -1815,25 +1836,27 @@ lookup_tweets(statuses,
 ]
 
 ---
-## Data Collection &mdash; `lookup_tweets`
+## Data Collection &amp;mdash; `lookup_tweets`
 
 Collect data on one or more status IDs 
 
-```{r, eval=FALSE}
+
+```r
 lookup_tweets(statuses = c("567053242429734913", "266031293945503744", "440322224407314432"))
 ```
 
 --
-<br>
+&lt;br&gt;
 
 Collect data on status IDs .yellow[in a data frame] 
 
-```{r, eval=FALSE}
+
+```r
 lookup_tweets(statuses = df$status_id)
 ```
 
 ---
-## Data Collection &mdash; `lookup_users`
+## Data Collection &amp;mdash; `lookup_users`
 
 .pull-left[
 
@@ -1843,7 +1866,7 @@ lookup_tweets(statuses = df$status_id)
    - limited with 90,000 users per 15 minutes
       - there is no `retryonratelimit` argument
 
-<br>
+&lt;br&gt;
 
 - Note that
 
@@ -1853,7 +1876,8 @@ lookup_tweets(statuses = df$status_id)
 
 .pull-right[
 
-```{r, eval=FALSE}
+
+```r
 lookup_users(users, 
              parse = TRUE, 
              token = NULL)
@@ -1862,25 +1886,27 @@ lookup_users(users,
 ]
 
 ---
-## Data Collection &mdash; `lookup_users`
+## Data Collection &amp;mdash; `lookup_users`
 
 Collect data on one or more status IDs 
 
-```{r, eval=FALSE}
+
+```r
 lookup_users(users = c( "drob", "hadleywickham", "JennyBryan"))
 ```
 
 --
-<br>
+&lt;br&gt;
 
 Collect data on status IDs .yellow[in a data frame] 
 
-```{r, eval=FALSE}
+
+```r
 lookup_users(users  = df$screen_name)
 ```
 
 ---
-## Data Collection &mdash; `lookup_friendships`
+## Data Collection &amp;mdash; `lookup_friendships`
 
 .pull-left[
 
@@ -1891,7 +1917,7 @@ lookup_users(users  = df$screen_name)
    - limited with 90,000 users per 15 minutes
       - there is no `retryonratelimit` argument
 
-<br>
+&lt;br&gt;
 
 - Note that
 
@@ -1901,7 +1927,8 @@ lookup_users(users  = df$screen_name)
 
 .pull-right[
 
-```{r, eval=FALSE}
+
+```r
 lookup_friendships(source, 
                    target, 
                    parse = TRUE, 
@@ -1919,21 +1946,23 @@ class: action
  - they appear in search bar when viewing a single tweet
  - unlike user IDs
 
-<br>
+&lt;br&gt;
 
 17) Look up a subset of tweets whose ids stored in `status_ids.rds` 
 
-<br>
+&lt;br&gt;
 
 18) Look up a subset of users whose usernames stored in `mps.csv`
 
-<br>
+&lt;br&gt;
 
 19) Check the friendship status of two MPs in the dataset
 - hint: not all MPs are on Twitter, but most are
-    - e.g., check if the 10<sup>th</sup> and 20<sup>th</sup> observations follow each other
+    - e.g., check if the 10&lt;sup&gt;th&lt;/sup&gt; and 20&lt;sup&gt;th&lt;/sup&gt; observations follow each other
 
-`r countdown(minutes = 15, seconds = 00, top = 0)`
+<div class="countdown" id="timer_621f7ada" style="top:0;right:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">15</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
 
 
 ---
@@ -1942,7 +1971,7 @@ class: middle, center
 # `get_`
 
 ---
-## Data Collection &mdash; `get_timeline`
+## Data Collection &amp;mdash; `get_timeline`
 
 .pull-left[
 
@@ -1957,7 +1986,8 @@ class: middle, center
     
 .pull-right[
 
-```{r, eval=FALSE}
+
+```r
 get_timeline(user,
              n = 100,
              max_id = NULL,
@@ -1972,7 +2002,7 @@ get_timeline(user,
 ]
 
 ---
-## Data Collection &mdash; `get_timeline`
+## Data Collection &amp;mdash; `get_timeline`
 
 
 .pull-left[
@@ -1986,7 +2016,8 @@ Collect the most recent 200 tweets by David Robinson
 .pull-right[
 
 
-```{r, eval=FALSE}
+
+```r
 search_tweets(user = "drob",
               n = 200)
 ```
@@ -1994,7 +2025,7 @@ search_tweets(user = "drob",
 ]
 
 ---
-## Data Collection &mdash; `get_timeline`
+## Data Collection &amp;mdash; `get_timeline`
 
 
 .pull-left[
@@ -2003,7 +2034,7 @@ search_tweets(user = "drob",
 
   - tweets from the user-timeline of .yellow-h[multiple] users 
 
-<br>
+&lt;br&gt;
 
 - Note that
   
@@ -2017,7 +2048,8 @@ search_tweets(user = "drob",
 .pull-right[
 
 
-```{r, eval=FALSE}
+
+```r
 get_timeline(user = `c("drob",`
                      `"hadleywickham")`,
              n = 200)
@@ -2026,7 +2058,7 @@ get_timeline(user = `c("drob",`
 ]
 
 ---
-## Data Collection &mdash; `get_timeline` &mdash; Home Timeline
+## Data Collection &amp;mdash; `get_timeline` &amp;mdash; Home Timeline
 
 .pull-left[
 
@@ -2046,7 +2078,8 @@ get_timeline(user = `c("drob",`
 .pull-right[
 
 
-```{r, eval=FALSE}
+
+```r
 get_timeline(`user = "hadleywickham"`,
              n = 200, 
              `home = TRUE`)
@@ -2055,7 +2088,7 @@ get_timeline(`user = "hadleywickham"`,
 ]
 
 ---
-## Data Collection &mdash; Notes &mdash; `retryonratelimit`
+## Data Collection &amp;mdash; Notes &amp;mdash; `retryonratelimit`
 
 - the `retryonratelimit` argument is not available for all functions in the package
 
@@ -2064,7 +2097,7 @@ get_timeline(`user = "hadleywickham"`,
     
 --
 
-<br>
+&lt;br&gt;
 
 - You can create your own safety net
 
@@ -2072,31 +2105,32 @@ get_timeline(`user = "hadleywickham"`,
      - until a specific rate limit increases
 
 ---
-## Data Collection &mdash; Notes &mdash; `retryonratelimit` &mdash; Iteration
+## Data Collection &amp;mdash; Notes &amp;mdash; `retryonratelimit` &amp;mdash; Iteration
 
 
-```{r, eval=FALSE}
-datalist <- list() # create an empty list, to be filled later
+
+```r
+datalist &lt;- list() # create an empty list, to be filled later
 
 for(i in 1:length(df_users$screen_name)) { # for one user, in the data frame df_users, at a time
   
-  if (rate_limit(query = "application/rate_limit_status", token = tw_token)$remaining > 2 &
-      rate_limit(query = "get_timeline", token = tw_token)$remaining > 20) { # if your are still under rate limit for this task
+  if (rate_limit(query = "application/rate_limit_status", token = tw_token)$remaining &gt; 2 &amp;
+      rate_limit(query = "get_timeline", token = tw_token)$remaining &gt; 20) { # if your are still under rate limit for this task
     
-  dat <- get_timeline(df$screen_name[i], n = 3200, # collect the tweets
+  dat &lt;- get_timeline(df$screen_name[i], n = 3200, # collect the tweets
                       token = tw_token)
   
-  datalist[[i]] <- dat # fill the list with data, for one user at a time
+  datalist[[i]] &lt;- dat # fill the list with data, for one user at a time
   
   }else{ # if there is no limit, wait a little
     
-  wait <- rate_limit(query = "get_timeline")$reset + 0.1
+  wait &lt;- rate_limit(query = "get_timeline")$reset + 0.1
   Sys.sleep(wait * 60)
     
   }
 }
 
-df_tweets <- as.data.frame(do.call(rbind, datalist)) # put all data in one data frame
+df_tweets &lt;- as.data.frame(do.call(rbind, datalist)) # put all data in one data frame
 ```
 
 
@@ -2109,19 +2143,21 @@ class: action
 - 100 from the first user, 200 from the second, and 300 from the third
 - hint: see the function documentation on how to vary the `n` argument by user
 
-<br>
+&lt;br&gt;
 
 21) Collect as many tweets as possible from your own home-timeline
 
-<br>
+&lt;br&gt;
 
 22) Collect data from timelines of the first five MPs in `mps.csv`
 - collect as many tweets as possible
 
-`r countdown(minutes = 10, seconds = 00, top = 0)`
+<div class="countdown" id="timer_621f7c98" style="top:0;right:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">10</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
 
 ---
-## Data Collection &mdash; `get_followers`
+## Data Collection &amp;mdash; `get_followers`
 
 .pull-left[
 
@@ -2131,7 +2167,7 @@ class: action
   - limited with 75,000 followers per 15 minutes
       - use `retryonratelimit = TRUE` to surpass the limit
 
-<br>     
+&lt;br&gt;     
 - Note that
 
    - this function does not accept multiple users
@@ -2141,7 +2177,8 @@ class: action
 
 
 .pull-right[
-```{r, eval=FALSE}
+
+```r
 get_followers(user,
               n = 5000,
               page = "-1",
@@ -2154,18 +2191,19 @@ get_followers(user,
 ]
 
 ---
-## Data Collection &mdash; `get_followers`
+## Data Collection &amp;mdash; `get_followers`
 
 Collect a list of Hadley Wickham's followers on Twitter
 
-```{r, eval=FALSE}
+
+```r
 get_followers(user = "hadleywickham",
               n = 10000,
               retryonratelimit = TRUE)
 ```
 
 ---
-## Data Collection &mdash; `get_friends`
+## Data Collection &amp;mdash; `get_friends`
 
 .pull-left[
 
@@ -2174,10 +2212,10 @@ Get a list of users, .yellow-h[followed by] .yellow-h[one or more] users
 - this returns a single column of user IDs, not usernames
 - limited to 15 users
       - use `retryonratelimit = TRUE` to surpass the limit   
-<br>
+&lt;br&gt;
 - limited also to 5,000 followers per user
       - here `retryonratelimit = TRUE` does not help   
-<br>
+&lt;br&gt;
 - use the `page` argument instead to surpass the limit
       - learn the correct value with the `next_cursor` argument
 ]
@@ -2186,7 +2224,8 @@ Get a list of users, .yellow-h[followed by] .yellow-h[one or more] users
 .pull-right[
 
 
-```{r, eval=FALSE}
+
+```r
 get_friends(users,
             n = 5000,
             retryonratelimit = FALSE,
@@ -2200,12 +2239,13 @@ get_friends(users,
 ]
 
 ---
-## Data Collection &mdash; `get_friends`
+## Data Collection &amp;mdash; `get_friends`
 
 Collect a list of users followed by Jenny Bryan and Hadley Wickham on Twitter
    - with 20 friends from each
 
-```{r, eval=FALSE}
+
+```r
 get_friends(users = c("hadleywickham", "JennyBryan"),
             n = 20)
 ```
@@ -2219,20 +2259,22 @@ class: action
 - search for the Unversity's username with `search_users`
 - search for the followers `get_followers`
 
-<br>
+&lt;br&gt;
 
 24) Collect a list of accounts that *Universität Luzern* follows
 - find out more about these accounts with `lookup_users`
    - hint: use `df_friends$user_id` as the `users` argument
    
-<br>
+&lt;br&gt;
    
 25) Check your rate limits
 
-`r countdown(minutes = 7, seconds = 30, top = 0)`
+<div class="countdown" id="timer_621f7c0d" style="top:0;right:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">07</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">30</span></code>
+</div>
 
 ---
-## Data Collection &mdash; `get_favorites`
+## Data Collection &amp;mdash; `get_favorites`
 
 .pull-left[
 
@@ -2249,7 +2291,8 @@ Collect tweets liked by one or more users
 .pull-right[
 
 
-```{r, eval=FALSE}
+
+```r
 get_favorites(user,
               n = 200,
               since_id = NULL,
@@ -2262,17 +2305,18 @@ get_favorites(user,
 ]
 
 ---
-## Data Collection &mdash; `get_favorites`
+## Data Collection &amp;mdash; `get_favorites`
 
 Collect a list of tweets liked by Jenny Bryan
 
-```{r, eval=FALSE}
+
+```r
 get_favorites(user = "JennyBryan")
 ```
 
 
 ---
-## Data Collection &mdash; `get_retweets`
+## Data Collection &amp;mdash; `get_retweets`
 
 .pull-left[
 
@@ -2282,7 +2326,7 @@ get_favorites(user = "JennyBryan")
    - available in the data frames returned by many functions in the package
        - e.g., `get_timeline`
         - also available on browsers    
-<br>
+&lt;br&gt;
    - limited to 100 retweets
       - even if there might be more
 
@@ -2291,7 +2335,8 @@ get_favorites(user = "JennyBryan")
 
 .pull-right[
 
-```{r, eval=FALSE}
+
+```r
 get_retweets(status_id, 
              n = 100, 
              parse = TRUE, 
@@ -2303,14 +2348,15 @@ get_retweets(status_id,
 
 
 ---
-## Data Collection &mdash; `get_retweets`
+## Data Collection &amp;mdash; `get_retweets`
 
 - Collect the most recent 50 retweets 
 
    - of the post announcing the [Academic Research product track](https://twitter.com/TwitterDev/status/1354143047324299264)
 
 
-```{r, eval=FALSE}
+
+```r
 get_retweets(status_id = "1354143047324299264")
 ```
 
@@ -2323,25 +2369,27 @@ class: action
 26) Collect a list of favorites by three users
 - compare and contrast the resulting data with the same information available on browser
 
-<br>
+&lt;br&gt;
 
 27) Collect a list of accounts retweeting a recent tweet of yours
 - compare and contrast the resulting data with what you can see on a browser
 
-`r countdown(minutes = 7, seconds = 30, top = 0)`
+<div class="countdown" id="timer_621f7a35" style="top:0;right:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">07</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">30</span></code>
+</div>
 
 ---
-## Data Collection &mdash; `get_trends`
+## Data Collection &amp;mdash; `get_trends`
 
 .pull-left[
 
 - Collect information on twitter trends
 
    - by town or country, specified with 
-       - the `woeid` argument,<sup>*</sup> or 
+       - the `woeid` argument,&lt;sup&gt;*&lt;/sup&gt; or 
        - the `lat` and `long` arguments
 
-<br>       
+&lt;br&gt;       
 - Note that
 
   - not all locations have trending data
@@ -2353,7 +2401,8 @@ class: action
 
 .pull-right[
 
-```{r, eval=FALSE}
+
+```r
 get_trends(woeid = 1,
            lat = NULL,
            lng = NULL,
@@ -2367,28 +2416,30 @@ get_trends(woeid = 1,
 
 .footnote[
 
-<sup>*</sup> It stands for "where on earth identifier", which is 44418 for London. Google for more!
+&lt;sup&gt;*&lt;/sup&gt; It stands for "where on earth identifier", which is 44418 for London. Google for more!
 
 ]
 
 ---
-## Data Collection &mdash; `get_trends`
+## Data Collection &amp;mdash; `get_trends`
 
 Collect the trends data for London
  - using the `woeid` argument
 
-```{r, eval=FALSE}
+
+```r
 get_trends(woeid = 44418)
 ```
 
 
-<br>
+&lt;br&gt;
 
 Collect the same trends data for London
  - using the `lat` and `long` arguments instead
 
 
-```{r, eval=FALSE}
+
+```r
 get_trends(lat = "51.50", lng = "0.12")
 ```
 
@@ -2400,17 +2451,19 @@ class: action
 28) Collect a list of places where the trends data is available
 - hint: use the `trends_available` function
 
-<br>
+&lt;br&gt;
 
 29) Collect the lists of trends for two locations
 - compare and contrast the resulting data for two locations
 
-<br>
+&lt;br&gt;
 
 30) Collect the list of trends for your location
 - compare and contrast the resulting data with what you see on your browser
 
-`r countdown(minutes = 7, seconds = 30, top = 0)`
+<div class="countdown" id="timer_621f7c26" style="top:0;right:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">07</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">30</span></code>
+</div>
 
 ---
 class: middle, center
@@ -2418,7 +2471,7 @@ class: middle, center
 # `lists_`
 
 ---
-## Data Collection &mdash; `lists_memberships`
+## Data Collection &amp;mdash; `lists_memberships`
 
 .pull-left[
 
@@ -2431,7 +2484,8 @@ class: middle, center
 
 .pull-right[
 
-```{r, eval=FALSE}
+
+```r
 lists_memberships(user = NULL,
                   n = 200,
                   cursor = "-1",
@@ -2445,24 +2499,26 @@ lists_memberships(user = NULL,
 ]
 
 ---
-## Data Collection &mdash; `lists_memberships`
+## Data Collection &amp;mdash; `lists_memberships`
 
 Collect data on lists where Jenny Bryan is listed
 
-```{r, eval=FALSE}
+
+```r
 lists_memberships(user = "JennyBryan")
 ```
 
-<br>
+&lt;br&gt;
 
 Collect data on lists where Jenny Bryan .yellow-h[and/or] Hadley Wickham is listed
 
-```{r, eval=FALSE}
+
+```r
 lists_memberships(user = c("JennyBryan", "hadleywickham"))
 ```
 
 ---
-## Data Collection &mdash; `lists_members`
+## Data Collection &amp;mdash; `lists_members`
 
 .pull-left[
 
@@ -2473,7 +2529,7 @@ lists_memberships(user = c("JennyBryan", "hadleywickham"))
    - or the `owner_user` .yellow-h[and] `slug` arguments together
    - limited to 5,000 members
    
-<br>
+&lt;br&gt;
 
 - Note that
 
@@ -2484,7 +2540,8 @@ lists_memberships(user = c("JennyBryan", "hadleywickham"))
    
 .pull-right[
 
-```{r, eval=FALSE}
+
+```r
 lists_members(list_id = NULL,
               slug = NULL,
               owner_user = NULL,
@@ -2499,27 +2556,29 @@ lists_members(list_id = NULL,
 ]
 
 ---
-## Data Collection &mdash; `lists_members`
+## Data Collection &amp;mdash; `lists_members`
 
 Collect data on the list of MPs in the House of Commons
 - using the `list_id` argument
    
-```{r, eval=FALSE}
+
+```r
 lists_members(list_id = "1405362")
 ```
 
 --
-<br>
+&lt;br&gt;
 
 Collect the same data, with different arguments
 - using the `owner_user` .yellow-h[and] `slug` arguments
    
-```{r, eval=FALSE}
+
+```r
 lists_members(owner_user = "tweetminster", slug = "UKMPs")
 ```
 
 ---
-## Data Collection &mdash; `lists_statuses`
+## Data Collection &amp;mdash; `lists_statuses`
 
 .pull-left[
 
@@ -2533,7 +2592,8 @@ Collect tweets from the timeline of a list
     
 .pull-right[
 
-```{r, eval=FALSE}
+
+```r
 lists_statuses(list_id = NULL,
                slug = NULL,
                owner_user = NULL,
@@ -2549,27 +2609,29 @@ lists_statuses(list_id = NULL,
 ]
 
 ---
-## Data Collection &mdash; `lists_statuses`
+## Data Collection &amp;mdash; `lists_statuses`
 
 Collect tweets posted by the members of the UKMPs list
 - using the `list_id` argument
    
-```{r, eval=FALSE}
+
+```r
 lists_statuses(list_id = "1405362")
 ```
 
 --
-<br>
+&lt;br&gt;
 
 Collect the same data, with different arguments
 - using the `owner_user` .yellow-h[and] `slug` arguments
    
-```{r, eval=FALSE}
+
+```r
 lists_statuses(owner_user = "tweetminster", slug = "UKMPs")
 ```
 
 ---
-## Data Collection &mdash; `lists_subscribers`
+## Data Collection &amp;mdash; `lists_subscribers`
 
 .pull-left[
 
@@ -2584,7 +2646,8 @@ Collect data on users subscribed to a given list
 
 .pull-right[
 
-```{r, eval=FALSE}
+
+```r
 lists_subscribers(list_id = NULL,
                   slug = NULL,
                   owner_user = NULL,
@@ -2598,27 +2661,29 @@ lists_subscribers(list_id = NULL,
 ]
 
 ---
-## Data Collection &mdash; `lists_subscribers`
+## Data Collection &amp;mdash; `lists_subscribers`
 
 Collect data on users subscribed to the UKMPs list
 - using the `list_id` argument
    
-```{r, eval=FALSE}
+
+```r
 lists_subscribers(list_id = "1405362")
 ```
 
 --
-<br>
+&lt;br&gt;
 
 Collect the same data, with different arguments
 - using the `owner_user` .yellow-h[and] `slug` arguments
    
-```{r, eval=FALSE}
+
+```r
 lists_subscribers(owner_user = "tweetminster", slug = "UKMPs")
 ```
 
 ---
-## Data Collection &mdash; `lists_subscriptions`
+## Data Collection &amp;mdash; `lists_subscriptions`
 
 .pull-left[
 
@@ -2632,7 +2697,8 @@ Collect data on the lists a user is subscribed to
 
 .pull-right[
 
-```{r, eval=FALSE}
+
+```r
 lists_subscriptions(user, 
                     n = 20, 
                     cursor = "-1", 
@@ -2643,12 +2709,13 @@ lists_subscriptions(user,
 ]
 
 ---
-## Data Collection &mdash; `lists_subscriptions`
+## Data Collection &amp;mdash; `lists_subscriptions`
 
 
 Collect data on the lists that Aimee Paige is subscribed to
 
-```{r, eval=FALSE}
+
+```r
 lists_subscriptions(user = "AimeePaige")
 ```
 
@@ -2660,25 +2727,27 @@ class: action
 31) Collect data on lists where Hadley Wickham is listed
 - hint: Wickham's username is "hadleywickham"
 
-<br>
+&lt;br&gt;
 
 32) For one of these lists, see who else is listed with Hadley Wickham
 - compare and contrast this data with what you can see on a browser
 
-<br>
+&lt;br&gt;
 
 33) Collect the latest posts from that list
 
-<br>
+&lt;br&gt;
 
 34) Collect data on users subscribed to that list
 
-<br>
+&lt;br&gt;
 
 35) For one of these users, see if they are subscribed to any other lists
 
 
-`r countdown(minutes = 10, seconds = 00, top = 0)`
+<div class="countdown" id="timer_621f7aa1" style="top:0;right:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">10</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
 
 ---
 
@@ -2687,7 +2756,7 @@ class: middle, center
 # `stream_tweets`
 
 ---
-## Data Collection &mdash; `stream_tweets`
+## Data Collection &amp;mdash; `stream_tweets`
 
 .pull-left[
 
@@ -2713,7 +2782,8 @@ class: middle, center
 
 .pull-right[
 
-```{r, eval=FALSE}
+
+```r
 stream_tweets(q = "",
               timeout = 30,
               parse = TRUE,
@@ -2727,7 +2797,7 @@ stream_tweets(q = "",
 ]
 
 ---
-## Data Collection &mdash; `stream_tweets`
+## Data Collection &amp;mdash; `stream_tweets`
 
 .pull-left[
 
@@ -2735,7 +2805,7 @@ stream_tweets(q = "",
 
    - continuously
   
-<br>
+&lt;br&gt;
 - Note that
 
    - the `timeout` function can be set to infinity
@@ -2744,14 +2814,15 @@ stream_tweets(q = "",
 ]
 
 .pull-right[
-```{r, eval=FALSE}
+
+```r
 stream_tweets(q = "",
               `timeout = Inf`)
 ```
 ]
 
 ---
-## Data Collection &mdash; `stream_tweets`
+## Data Collection &amp;mdash; `stream_tweets`
 
 .pull-left[
 
@@ -2759,7 +2830,7 @@ stream_tweets(q = "",
 
    - for 30 seconds
 
-<br>
+&lt;br&gt;
 
 - Note that
 
@@ -2768,14 +2839,15 @@ stream_tweets(q = "",
 ]
 
 .pull-right[
-```{r, eval=FALSE}
+
+```r
 stream_tweets(q = "",
               `timeout = 30`)
 ```
 ]
 
 ---
-## Data Collection &mdash; `stream_tweets`
+## Data Collection &amp;mdash; `stream_tweets`
 
 .pull-left[
 
@@ -2784,7 +2856,7 @@ stream_tweets(q = "",
    - for 30 seconds
    - filtered by .yellow-h[a search query]
 
-<br>
+&lt;br&gt;
 
 - Note that
 
@@ -2794,7 +2866,8 @@ stream_tweets(q = "",
 ]
 
 .pull-right[
-```{r, eval=FALSE}
+
+```r
 stream_tweets(q = `"switzerland, schweiz,`
                    `suisse, svizzera",`
               timeout = 30)
@@ -2802,7 +2875,7 @@ stream_tweets(q = `"switzerland, schweiz,`
 ]
 
 ---
-## Data Collection &mdash; `stream_tweets`
+## Data Collection &amp;mdash; `stream_tweets`
 
 .pull-left[
 
@@ -2811,7 +2884,7 @@ stream_tweets(q = `"switzerland, schweiz,`
    - for 30 seconds
    - filtered by .yellow-h[usernames]
 
-<br>
+&lt;br&gt;
 
 - Note that
 
@@ -2822,7 +2895,8 @@ stream_tweets(q = `"switzerland, schweiz,`
 
 .pull-right[
 
-```{r, eval=FALSE}
+
+```r
 stream_tweets(q = `c("UniLuzern", "hslu",`
                    `"phluzern")`,
               timeout = 30)
@@ -2831,7 +2905,7 @@ stream_tweets(q = `c("UniLuzern", "hslu",`
 ]
 
 ---
-## Data Collection &mdash; `stream_tweets`
+## Data Collection &amp;mdash; `stream_tweets`
 
 .pull-left[
 
@@ -2844,7 +2918,8 @@ stream_tweets(q = `c("UniLuzern", "hslu",`
 ]
 
 .pull-right[
-```{r, eval=FALSE}
+
+```r
 stream_tweets(q = `c(6.02, 45.77,` 
                   `10.44, 47.83),`
               timeout = 30)
@@ -2874,7 +2949,9 @@ class: action
 - e.g., "Luzern"
 - stream for 60 more seconds
 
-`r countdown(minutes = 10, seconds = 00, top = 0)`
+<div class="countdown" id="timer_621f7ba1" style="top:0;right:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">10</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
 
 ---
 name: part4
@@ -2889,7 +2966,7 @@ class: inverse, center, middle
 ]
 
 ---
-## Data Preperation &mdash; Overview
+## Data Preperation &amp;mdash; Overview
 
 - The `rtweet` package does a very good job with data preperation to start with
 
@@ -2900,7 +2977,7 @@ class: inverse, center, middle
 
 --
 
-<br>
+&lt;br&gt;
 
 - Further data preparation depends on your research project
 
@@ -2908,7 +2985,7 @@ class: inverse, center, middle
    - we will cover some common preparation steps
 
 ---
-## Data Preperation &mdash; Overview &mdash; Strings
+## Data Preperation &amp;mdash; Overview &amp;mdash; Strings
 
 - Most researchers would be interested in textual Twitter data
 
@@ -2916,7 +2993,7 @@ class: inverse, center, middle
 
 --
 
-<br>
+&lt;br&gt;
 
 - There are many components of tweets as texts
 
@@ -2926,7 +3003,7 @@ class: inverse, center, middle
 
 --
 
-<br>
+&lt;br&gt;
 
 - I use the `stringr` package ([Wickham, 2019](https://cran.r-project.org/web/packages/stringr/index.html)) for string operations
 
@@ -2935,7 +3012,7 @@ class: inverse, center, middle
        - no need to change as long as it does the job
        
 ---
-## Data Preperation &mdash; Overview &mdash; Numbers
+## Data Preperation &amp;mdash; Overview &amp;mdash; Numbers
 
 - There is more to Twitter data than just tweets
       
@@ -2943,7 +3020,7 @@ class: inverse, center, middle
      - see Silva and Proksch ([2020](https://doi.org/10.1017/S0003055420000817)) for a great example
 
 --
-<br>
+&lt;br&gt;
 
 - I use the `dplyr` package ([Wickham et al, 2020](https://cran.r-project.org/web/packages/dplyr/index.html) for most data operations
 
@@ -2952,15 +3029,17 @@ class: inverse, center, middle
        - no need to change as long as it does the job
 
 ---
-## Data Preperation &mdash; Remove Mentions
+## Data Preperation &amp;mdash; Remove Mentions
 
-```{r, eval=FALSE}
-tweet <- "These from @handle1 are #socool. 👏 A #mustsee, @handle2! 
+
+```r
+tweet &lt;- "These from @handle1 are #socool. 👏 A #mustsee, @handle2! 
           👉 t.co/aq7MJJ1
           👉 https://t.co/aq7MJJ2"
 ```
 
-```{r, eval=FALSE}
+
+```r
 str_remove_all(string = tweet, pattern = "[@][\\w_-]+")
 ```
 
@@ -2975,16 +3054,18 @@ str_remove_all(string = tweet, pattern = "[@][\\w_-]+")
 
 
 ---
-## Data Preperation &mdash; Remove Hashtags
+## Data Preperation &amp;mdash; Remove Hashtags
 
 
-```{r, eval=FALSE}
-tweet <- "These from @handle1 are #socool. 👏 A #mustsee, @handle2! 
+
+```r
+tweet &lt;- "These from @handle1 are #socool. 👏 A #mustsee, @handle2! 
           👉 t.co/aq7MJJ1
           👉 https://t.co/aq7MJJ2"
 ```
 
-```{r, eval=FALSE}
+
+```r
 str_remove_all(string = tweet, pattern = "[`#`][\\w_-]+")
 ```
 
@@ -2998,16 +3079,17 @@ str_remove_all(string = tweet, pattern = "[`#`][\\w_-]+")
 ]
 
 ---
-## Data Preperation &mdash; Remove Links
+## Data Preperation &amp;mdash; Remove Links
 
-```{r, eval=FALSE}
-tweet <- "These from @handle1 are #socool. 👏 A #mustsee, @handle2! 
+
+```r
+tweet &lt;- "These from @handle1 are #socool. 👏 A #mustsee, @handle2! 
           👉 t.co/aq7MJJ1
           👉 https://t.co/aq7MJJ2"
-
 ```
 
-```{r, eval=FALSE}
+
+```r
 str_remove_all(string = tweet, pattern = "http\\S+\\s*")
 ```
 
@@ -3019,7 +3101,7 @@ str_remove_all(string = tweet, pattern = "http\\S+\\s*")
 
 ]
 
-<br>
+&lt;br&gt;
 
 - Notice that
 
@@ -3027,19 +3109,20 @@ str_remove_all(string = tweet, pattern = "http\\S+\\s*")
   - you may need multiple or complicated regular expression patterns
 
 ---
-## Data Preperation &mdash; Remove Links &mdash; Alternative
+## Data Preperation &amp;mdash; Remove Links &amp;mdash; Alternative
 
 Use the `urls_t.co` variable to remove all links
 
 - if there are more than one link in a tweet, they are stored as a list in this variable
 
 
-```{r, eval=FALSE}
+
+```r
 # start with your existing dataset of tweets
-df_tweets <- df_tweets %>%
+df_tweets &lt;- df_tweets %&gt;%
   
 # limit the operation to within individual tweets  
-  group_by(status_id) %>%
+  group_by(status_id) %&gt;%
   
 # create a new variable of tweets without links  
   mutate(tidy_text = 
@@ -3054,18 +3137,22 @@ df_tweets <- df_tweets %>%
 --
 class: action
 
-`r countdown(minutes = 8, seconds = 00, top = 0)`
+<div class="countdown" id="timer_621f794c" style="top:0;right:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">08</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
 
 ---
-## Data Preperation &mdash; Remove Emojis
+## Data Preperation &amp;mdash; Remove Emojis
 
-```{r, eval=FALSE}
-tweet <- "These from @handle1 are #socool. 👏 A #mustsee, @handle2! 
+
+```r
+tweet &lt;- "These from @handle1 are #socool. 👏 A #mustsee, @handle2! 
           👉 t.co/aq7MJJ1
           👉 https://t.co/aq7MJJ2"
 ```
 
-```{r, eval=FALSE}
+
+```r
 iconv(x = tweet, from = "latin1", to = "ASCII", sub = "")
 ```
 
@@ -3080,7 +3167,7 @@ iconv(x = tweet, from = "latin1", to = "ASCII", sub = "")
 
 
 ---
-## Data Preperation &mdash; Exercises &mdash; Notes
+## Data Preperation &amp;mdash; Exercises &amp;mdash; Notes
 
 
 - The exercises in this part are best followed by
@@ -3090,19 +3177,18 @@ iconv(x = tweet, from = "latin1", to = "ASCII", sub = "")
   - observing the newly created variables 
       - to confirm whether the code works as intended
 
-<br>
+&lt;br&gt;
 
 - The `mutate` function, from the `dplyr` package, can be helpful, as follows
 
    - recall that `text` is the variable for tweets
 
-```{r, eval=FALSE}
 
-tweets <- read_rds("data/tweets.rds")
+```r
+tweets &lt;- read_rds("data/tweets.rds")
 
-clean_tweets <- tweets %>%
+clean_tweets &lt;- tweets %&gt;%
   `mutate(no_mentions` = str_remove_all(string = `text`, pattern = "[@][\\w_-]+"))
-
 ```
 
 ---
@@ -3125,19 +3211,23 @@ class: action
 - pull the help file for the `iconv` function first
 
 
-`r countdown(minutes = 10, seconds = 00, top = 0)`
+<div class="countdown" id="timer_621f7c34" style="top:0;right:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">10</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
 
 
 ---
-## Data Preperation &mdash; Remove Punctuations
+## Data Preperation &amp;mdash; Remove Punctuations
 
-```{r, eval=FALSE}
-tweet <- "These from @handle1 are #socool. 👏 A #mustsee, @handle2! 
+
+```r
+tweet &lt;- "These from @handle1 are #socool. 👏 A #mustsee, @handle2! 
           👉 t.co/aq7MJJ1
           👉 https://t.co/aq7MJJ2"
 ```
 
-```{r, eval=FALSE}
+
+```r
 str_remove_all(string = tweet, pattern = "[[:punct:]]")
 ```
 
@@ -3156,13 +3246,15 @@ Notice that
       - alternatively, try the `str_replace` function to replace punctuation with space
       
 ---
-## Data Preperation &mdash; Remove Punctuations &mdash; Alternative
+## Data Preperation &amp;mdash; Remove Punctuations &amp;mdash; Alternative
 
-```{r, eval=FALSE}
-tweet <- "This is a sentence.There is no space before this sentence."
+
+```r
+tweet &lt;- "This is a sentence.There is no space before this sentence."
 ```
 
-```{r, eval=FALSE}
+
+```r
 str_`remove`_all(string = tweet, pattern = "[[:punct:]]")
 ```
 
@@ -3174,10 +3266,11 @@ str_`remove`_all(string = tweet, pattern = "[[:punct:]]")
 
 --
 
-<br>
+&lt;br&gt;
 
 
-```{r, eval=FALSE}
+
+```r
 str_`replace`_all(string = tweet, pattern = "[[:punct:]]", replacement = " ")
 ```
 
@@ -3188,14 +3281,16 @@ str_`replace`_all(string = tweet, pattern = "[[:punct:]]", replacement = " ")
 ]
 
 ---
-## Data Preperation &mdash; Remove Punctuations &mdash; Alternative
+## Data Preperation &amp;mdash; Remove Punctuations &amp;mdash; Alternative
 
 
-```{r, eval=FALSE}
-tweet <- "This is a sentence.There is no space before this sentence."
+
+```r
+tweet &lt;- "This is a sentence.There is no space before this sentence."
 ```
 
-```{r, eval=FALSE}
+
+```r
 str_replace_all(string = tweet, pattern = "[[:punct:]]", replacement = " ")
 ```
 
@@ -3206,14 +3301,16 @@ str_replace_all(string = tweet, pattern = "[[:punct:]]", replacement = " ")
 ]
 
 ---
-## Data Preperation &mdash; Remove Repeated Whitespace
+## Data Preperation &amp;mdash; Remove Repeated Whitespace
 
 
-```{r, eval=FALSE}
-tweet <- "There are too many spaces after this sentence.   This is a new sentence."
+
+```r
+tweet &lt;- "There are too many spaces after this sentence.   This is a new sentence."
 ```
 
-```{r, eval=FALSE}
+
+```r
 str_squish(string = tweet)
 ```
 
@@ -3229,13 +3326,15 @@ Note that
    - hence, this function might be useful after other operations
 
 ---
-## Data Preperation &mdash; Change Case
+## Data Preperation &amp;mdash; Change Case
 
-```{r, eval=FALSE}
-tweet <- "lower case. Sentence case. Title Case. UPPER CASE."
+
+```r
+tweet &lt;- "lower case. Sentence case. Title Case. UPPER CASE."
 ```
 
-```{r, eval=FALSE}
+
+```r
 str_to_lower(string = tweet)
 ```
 
@@ -3259,21 +3358,23 @@ class: action
 - by using the `str_replace_all` function
 - hint: the pattern is `[[:punct:]]`
 
-<br>
+&lt;br&gt;
 
 46) Remove whitespace
 - hint: the function is called `str_squish`
 
-<br>
+&lt;br&gt;
 
 47) Change case to lower case
 - hint: the function is called `str_to_lower`
 
 
-`r countdown(minutes = 10, seconds = 00, top = 0)`
+<div class="countdown" id="timer_621f7989" style="top:0;right:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">10</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
 
 ---
-## Data Preperation &mdash; Change Unit of Observation
+## Data Preperation &amp;mdash; Change Unit of Observation
 
 Research designs might require changing the unit of observation
    - aggregation
@@ -3286,44 +3387,46 @@ Research designs might require changing the unit of observation
      - tokenise with `tidytext`
      
 ---
-## Data Preperation &mdash; Change Unit of Observation &mdash; Aggregation
+## Data Preperation &amp;mdash; Change Unit of Observation &amp;mdash; Aggregation
 
 Aggregate at the level of users
 
 - the number of tweets per user
 
-```{r, eval=FALSE}
+
+```r
 # load the tweets dataset
-df <- read_rds("tweets.rds") %>%
+df &lt;- read_rds("tweets.rds") %&gt;%
   
 # group by users for aggregation  
-  group_by(user_id) %>%
+  group_by(user_id) %&gt;%
   
 # create summary statistics for variables of interest
   summarise(sum_tweets = n())
 ```
 
 ---
-## Data Preperation &mdash; Change Unit of Observation &mdash; Aggregation
+## Data Preperation &amp;mdash; Change Unit of Observation &amp;mdash; Aggregation
 
 What is aggregated at which level depends on your research design, such as
    - aggregate the tweets into a single text
    - at the level of users by source
 
 
-```{r, eval=FALSE}
+
+```r
 # load the tweets dataset
-df <- read_rds("tweets.rds") %>%
+df &lt;- read_rds("tweets.rds") %&gt;%
   
 # group by users for aggregation  
-  group_by(user_id, `source`) %>%
+  group_by(user_id, `source`) %&gt;%
   
 # create summary statistics for variables of interest
   summarise(`merged_tweets = paste0(text, collapse = ". ")`) 
 ```
 
 ---
-## Data Preperation &mdash; Change Unit of Observation &mdash; Dis-aggregation
+## Data Preperation &amp;mdash; Change Unit of Observation &amp;mdash; Dis-aggregation
 
 Disaggregate the tweets, by splitting them into smaller units
   - also called .yellow-h[tokenisation]
@@ -3334,64 +3437,68 @@ Note that
 - this creates a tidy dataset, where each observation is a word
    - all other tweet-level variables are repeated for each observation
 
-```{r, eval=FALSE}
+
+```r
 # load the tweets dataset
-df <- read_rds("tweets.rds") %>%
+df &lt;- read_rds("tweets.rds") %&gt;%
   
 # split the variable `text`  
     separate_rows(text)
 ```
 
 ---
-## Data Preperation &mdash; Change Unit of Observation &mdash; Dis-aggregation
+## Data Preperation &amp;mdash; Change Unit of Observation &amp;mdash; Dis-aggregation
 
 The `tidytext` has a function that works better with tokenising tweets
 - with `token = "tweets"`, it dis-aggregates text into words
    - except that it respects usernames, hashtags, and URLS 
 
-```{r, eval=FALSE}
+
+```r
 # load the tweets dataset
-df <- read_rds("tweets.rds") %>%
+df &lt;- read_rds("tweets.rds") %&gt;%
   
 # split the variable `text`, create a new variable called `da_tweets`    
     unnest_tokens(output = da_tweets, input = text, token = "tweets")
 ```
 
 ---
-## Data Preperation &mdash; Change Unit of Observation &mdash; Dis-aggregation
+## Data Preperation &amp;mdash; Change Unit of Observation &amp;mdash; Dis-aggregation
 
 Tokenise variables to levels other than words
 - e.g., characters, words (the default),  sentences, lines
 
-```{r, eval=FALSE}
+
+```r
 # load the tweets dataset
-df <- read_rds("tweets.rds") %>%
+df &lt;- read_rds("tweets.rds") %&gt;%
   
 # split the variable `text` into sentences, create a new variable called `da_tweets`    
     unnest_tokens(output = da_tweets, input = text, `token = "sentences"`)
 ```
 
 ---
-## Data Preperation &mdash; Change Unit of Observation &mdash; Dis-aggregation
+## Data Preperation &amp;mdash; Change Unit of Observation &amp;mdash; Dis-aggregation
 
 Tokenise variables other than tweets
 - recall that `rtweet` stores multiple hastags, mentions *etc*. as lists
 
 
-```{r, eval=FALSE}
+
+```r
 # load the tweets dataset
-df <- read_rds("tweets.rds") %>%
+df &lt;- read_rds("tweets.rds") %&gt;%
   
 # unlist the lists of hashtags to create strings  
-  group_by(status_id) %>%
-  mutate(tidy_hashtags = str_c(unlist(hashtags), collapse = " ")) %>%
+  group_by(status_id) %&gt;%
+  mutate(tidy_hashtags = str_c(unlist(hashtags), collapse = " ")) %&gt;%
   
 # split the string, create a new variable called `da_tweets`    
   unnest_tokens(output = da_hashtags, input = tidy_hashtags, token = "words")
 ```
 
 ---
-## Data Preperation &mdash; Remove Stop Words
+## Data Preperation &amp;mdash; Remove Stop Words
 
 Remove the common, uninformative words
 - e.g., the, a, i
@@ -3404,12 +3511,13 @@ Note that
    - the `stopwords` function from the `tm` package
       - e.g., use `tm::stopwords("german")` for German
 
-```{r, eval=FALSE}
+
+```r
 # load the tweets dataset
-df <- read_rds("tweets.rds") %>%
+df &lt;- read_rds("tweets.rds") %&gt;%
   
 # split the variable `text`, create a new variable called `da_tweets`    
-  unnest_tokens(output = da_tweets, input = text, token = "tweets") %>%
+  unnest_tokens(output = da_tweets, input = text, token = "tweets") %&gt;%
  
 # remove rows that match any of the stop words as stored in the stop_words dataset 
   anti_join(stop_words, by = c("da_tweets" = "word"))
@@ -3424,22 +3532,24 @@ class: action
 - e.g., if you are not using `tweets.rds`, to MP level
    - if not, perhaps to `source` level
 
-<br>
+&lt;br&gt;
 
 49) Dis-aggregate `text` to a lower level
 - e.g., to words
 
-<br>
+&lt;br&gt;
 
 50) Dis-aggregate `hashtags`
 - i.e., make sure each row has at most one hashtag
 
-<br>
+&lt;br&gt;
 
 51) Remove stop words
 
 
-`r countdown(minutes = 10, seconds = 00, top = 0)`
+<div class="countdown" id="timer_621f7bbd" style="top:0;right:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">10</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
 
 ---
 name: part5
@@ -3454,7 +3564,7 @@ class: inverse, center, middle
 ]
 
 ---
-## Analysing Users &mdash; Overview
+## Analysing Users &amp;mdash; Overview
 
 - Twitter analysis might focus on users
 
@@ -3466,7 +3576,7 @@ class: inverse, center, middle
 
 --
 
-<br>
+&lt;br&gt;
 
 - There are at least two types of user-based analysis
 
@@ -3477,46 +3587,34 @@ class: inverse, center, middle
       - e.g., who retweets whom, how often?
 
 ---
-## Analysing Users &mdash; Correlates of being on Twitter
+## Analysing Users &amp;mdash; Correlates of being on Twitter
 
-```{r, echo = FALSE, out.width = "70%", fig.align = "center"}
-knitr::include_graphics("twtr_workshop_files/figure-html/exercise_52-1.png")
-```
+&lt;img src="twtr_workshop_files/figure-html/exercise_52-1.png" width="70%" style="display: block; margin: auto;" /&gt;
 
 ---
-## Analysing Users &mdash; Who has the most followers?
+## Analysing Users &amp;mdash; Who has the most followers?
 
-```{r, echo = FALSE, out.width = "70%", fig.align = "center"}
-knitr::include_graphics("twtr_workshop_files/figure-html/exercise_53-1.png")
-```
+&lt;img src="twtr_workshop_files/figure-html/exercise_53-1.png" width="70%" style="display: block; margin: auto;" /&gt;
 
 ---
-## Analysing Users &mdash; Correlates of having more followers
+## Analysing Users &amp;mdash; Correlates of having more followers
 
-```{r, echo = FALSE, out.width = "70%", fig.align = "center"}
-knitr::include_graphics("twtr_workshop_files/figure-html/exercise_54-1.png")
-```
+&lt;img src="twtr_workshop_files/figure-html/exercise_54-1.png" width="70%" style="display: block; margin: auto;" /&gt;
 
 ---
-## Analysing Users &mdash; Who tweets the most often?
+## Analysing Users &amp;mdash; Who tweets the most often?
 
-```{r, echo = FALSE, out.width = "70%", fig.align = "center"}
-knitr::include_graphics("twtr_workshop_files/figure-html/exercise_55-1.png")
-```
+&lt;img src="twtr_workshop_files/figure-html/exercise_55-1.png" width="70%" style="display: block; margin: auto;" /&gt;
 
 ---
-## Analysing Users &mdash; Correlates of tweeting more often
+## Analysing Users &amp;mdash; Correlates of tweeting more often
 
-```{r, echo = FALSE, out.width = "70%", fig.align = "center"}
-knitr::include_graphics("twtr_workshop_files/figure-html/exercise_56-1.png")
-```
+&lt;img src="twtr_workshop_files/figure-html/exercise_56-1.png" width="70%" style="display: block; margin: auto;" /&gt;
 
 ---
-## Analysing Users &mdash; Who do they talk to?
+## Analysing Users &amp;mdash; Who do they talk to?
 
-```{r, echo = FALSE, out.width = "70%", fig.align = "center"}
-knitr::include_graphics("twtr_workshop_files/figure-html/exercise_57-1.png")
-```
+&lt;img src="twtr_workshop_files/figure-html/exercise_57-1.png" width="70%" style="display: block; margin: auto;" /&gt;
 
 ---
 class: action
@@ -3537,7 +3635,9 @@ On `users.Rmd`, complete the following exercises
 
 57) Who do they talk to?
 
-`r countdown(minutes = 45, seconds = 00, top = 0)`
+<div class="countdown" id="timer_621f7ab9" style="top:0;right:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">45</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
 
 ---
 class: center, middle
@@ -3545,27 +3645,27 @@ class: center, middle
 # Network Analysis
 
 ---
-## Analysing Users &mdash; Network Analysis &mdash; Overview
+## Analysing Users &amp;mdash; Network Analysis &amp;mdash; Overview
 
 - Twitter data is suitable for network analysis
 
   - a social network
   - studying the relations between users
 
-<br>
+&lt;br&gt;
 
 - There are at least five networks
 
    - networks of followers
        - directed, not reoccurring 
        - e.g., who is following whom     
-<br>
+&lt;br&gt;
    - networks of retweeters, quoters, repliers, and likers
        - directed, reoccurring
        - e.g., who is replying to whom, how often
 
 ---
-## Analysing Users &mdash; Network Analysis &mdash; Basics
+## Analysing Users &amp;mdash; Network Analysis &amp;mdash; Basics
 
 - Networks are composed of nodes and edges
    
@@ -3573,7 +3673,7 @@ class: center, middle
    
 --
 
-<br>
+&lt;br&gt;
 
 - The nodes and edges are often kept separate for analysis
     
@@ -3582,7 +3682,7 @@ class: center, middle
   
 --
 
-<br>
+&lt;br&gt;
 
 - We will use two pacakges for network analysis
    
@@ -3590,16 +3690,16 @@ class: center, middle
    - `ggraph` for visualisation
   
 ---
-## Analysing Users &mdash; Network Analysis &mdash; `tidygraph`
+## Analysing Users &amp;mdash; Network Analysis &amp;mdash; `tidygraph`
 
 .pull-left[
-```{r, eval=FALSE}
-read_rds("data/tweets.rds") %>%
-  filter(is_retweet == TRUE) %>% 
-  group_by(screen_name, retweet_screen_name) %>%
-  summarise(rts = n()) %>% 
-  head()
 
+```r
+read_rds("data/tweets.rds") %&gt;%
+  filter(is_retweet == TRUE) %&gt;% 
+  group_by(screen_name, retweet_screen_name) %&gt;%
+  summarise(rts = n()) %&gt;% 
+  head()
 ```
 
 ]
@@ -3608,36 +3708,36 @@ read_rds("data/tweets.rds") %>%
 
 .out-t[
 
-<pre class="tab">
-&#x23; A tibble: 6 x 3    
-&#x23; Groups:   screen_name [1]     
+&lt;pre class="tab"&gt;
+&amp;#x23; A tibble: 6 x 3    
+&amp;#x23; Groups:   screen_name [1]     
   screen_name  retweet_screen_name   rts
-  <chr>        <chr>               <int>
+  &lt;chr&gt;        &lt;chr&gt;               &lt;int&gt;
 1 _OliviaBlake AlexDaviesJones         1
 2 _OliviaBlake CommonsPAC              2
 3 _OliviaBlake DanJarvisMP             3
 4 _OliviaBlake DrRosena                1
 5 _OliviaBlake EmmaHardyMP             1
 6 _OliviaBlake FriendsLoxley           2
-</pre>        
+&lt;/pre&gt;        
 
 ]
 
 ]
 ---
-## Analysing Users &mdash; Network Analysis &mdash; `tidygraph`
+## Analysing Users &amp;mdash; Network Analysis &amp;mdash; `tidygraph`
 
 .pull-left[
 
 Use the `as_tbl_graph` function transform data frames
 
-```{r, eval=FALSE}
-read_rds("data/tweets.rds") %>%
-  filter(is_retweet == TRUE) %>% 
-  group_by(screen_name, retweet_screen_name) %>%
-  summarise(rts = n()) %>% 
-  `as_tbl_graph()`
 
+```r
+read_rds("data/tweets.rds") %&gt;%
+  filter(is_retweet == TRUE) %&gt;% 
+  group_by(screen_name, retweet_screen_name) %&gt;%
+  summarise(rts = n()) %&gt;% 
+  `as_tbl_graph()`
 ```
 
 ]
@@ -3646,51 +3746,51 @@ read_rds("data/tweets.rds") %>%
 
 .out-t[
 
-<pre class="tab">
-&#x23; A tbl_graph: 7377 nodes and 16131 edges
-&#x23;
-&#x23; A directed multigraph with 5 components
-&#x23;
-&#x23; Node Data: 7,377 x 1 (active)
+&lt;pre class="tab"&gt;
+&amp;#x23; A tbl_graph: 7377 nodes and 16131 edges
+&amp;#x23;
+&amp;#x23; A directed multigraph with 5 components
+&amp;#x23;
+&amp;#x23; Node Data: 7,377 x 1 (active)
   name         
-  <chr>        
+  &lt;chr&gt;        
 1 _OliviaBlake 
 2 _RobbieMoore 
 3 AaronBell4NUL
 4 ab4scambs    
 5 abenaopp     
 6 ABridgen     
-&#x23; ... with 7,371 more rows
-&#x23;
-&#x23; Edge Data: 16,131 x 3
+&amp;#x23; ... with 7,371 more rows
+&amp;#x23;
+&amp;#x23; Edge Data: 16,131 x 3
    from    to   rts
-  <int> <int> <int>
+  &lt;int&gt; &lt;int&gt; &lt;int&gt;
 1     1    19     1
 2     1   550     2
 3     1   119     3
-&#x23; ... with 16,128 more rows
-</pre>        
+&amp;#x23; ... with 16,128 more rows
+&lt;/pre&gt;        
 
 ]
 
 ]
 
 ---
-## Analysing Users &mdash; Network Analysis &mdash; `tidygraph`
+## Analysing Users &amp;mdash; Network Analysis &amp;mdash; `tidygraph`
 
 .pull-left[
 
 Use the `activate` function manipulate the nodes or edges
 
-```{r, eval=FALSE}
-read_rds("data/tweets.rds") %>%
-  filter(is_retweet == TRUE) %>% 
-  group_by(screen_name, retweet_screen_name) %>%
-  summarise(rts = n()) %>% 
-  as_tbl_graph() %>% 
-  `activate(edges)` %>%
-  `mutate(multi_rts = if_else(rts > 1, 1, 0))`
 
+```r
+read_rds("data/tweets.rds") %&gt;%
+  filter(is_retweet == TRUE) %&gt;% 
+  group_by(screen_name, retweet_screen_name) %&gt;%
+  summarise(rts = n()) %&gt;% 
+  as_tbl_graph() %&gt;% 
+  `activate(edges)` %&gt;%
+  `mutate(multi_rts = if_else(rts &gt; 1, 1, 0))`
 ```
 
 ]
@@ -3699,38 +3799,38 @@ read_rds("data/tweets.rds") %>%
 
 .out-t[
 
-<pre class="tab">
-&#x23; A tbl_graph: 7377 nodes and 16131 edges
-&#x23;
-&#x23; A directed multigraph with 5 components
-&#x23;
-&#x23; Edge Data: 16,131 x 4 (active)
+&lt;pre class="tab"&gt;
+&amp;#x23; A tbl_graph: 7377 nodes and 16131 edges
+&amp;#x23;
+&amp;#x23; A directed multigraph with 5 components
+&amp;#x23;
+&amp;#x23; Edge Data: 16,131 x 4 (active)
    from    to   rts multi_rts
-  <int> <int> <int>    <dbl>
+  &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;dbl&gt;
 1     1    19     1        0
 2     1   550     2        1
 3     1   119     3        1
 4     1   154     1        0
 5     1   167     1        0
 6     1   551     2        1
-&#x23; ... with 16,125 more rows
-&#x23;
-&#x23; Node Data: 7,377 x 1
+&amp;#x23; ... with 16,125 more rows
+&amp;#x23;
+&amp;#x23; Node Data: 7,377 x 1
   name         
-  <chr>        
+  &lt;chr&gt;        
 1 _OliviaBlake 
 2 _RobbieMoore 
 3 AaronBell4NUL
-&#x23; ... with 7,374 more rows
+&amp;#x23; ... with 7,374 more rows
 
-</pre>        
+&lt;/pre&gt;        
 
 ]
 
 ]
 
 ---
-## Analysing Users &mdash; Network Analysis &mdash; `ggraph`
+## Analysing Users &amp;mdash; Network Analysis &amp;mdash; `ggraph`
 
 
 Once the nodes and edges are ready, use the `ggraph` package to visualise
@@ -3738,35 +3838,28 @@ Once the nodes and edges are ready, use the `ggraph` package to visualise
    - an extension of `ggplot2`
    - many verbs are intuitively similar
 
-```{r, eval=FALSE}
 
+```r
 ggraph(rt_network) +
   geom_edge_link() +
   geom_node_point(aes(color = party)) +
   theme_graph()
-
 ```
 
 ---
-## Analysing Users &mdash; Reply networks
+## Analysing Users &amp;mdash; Reply networks
 
-```{r, echo = FALSE, out.width = "70%", fig.align = "center"}
-knitr::include_graphics("twtr_workshop_files/figure-html/exercise_58-1.png")
-```
+&lt;img src="twtr_workshop_files/figure-html/exercise_58-1.png" width="70%" style="display: block; margin: auto;" /&gt;
 
 ---
-## Analysing Users &mdash; Retweet networks
+## Analysing Users &amp;mdash; Retweet networks
 
-```{r, echo = FALSE, out.width = "70%", fig.align = "center"}
-knitr::include_graphics("twtr_workshop_files/figure-html/exercise_59-1.png")
-```
+&lt;img src="twtr_workshop_files/figure-html/exercise_59-1.png" width="70%" style="display: block; margin: auto;" /&gt;
 
 ---
-## Analysing Users &mdash; Who are more central in the retweet networks?
+## Analysing Users &amp;mdash; Who are more central in the retweet networks?
 
-```{r, echo = FALSE, out.width = "70%", fig.align = "center"}
-knitr::include_graphics("twtr_workshop_files/figure-html/exercise_60-1.png")
-```
+&lt;img src="twtr_workshop_files/figure-html/exercise_60-1.png" width="70%" style="display: block; margin: auto;" /&gt;
 
 ---
 class: action
@@ -3785,7 +3878,9 @@ On `users.Rmd`, complete the following exercises
 
 63) Something interesting from your own data
 
-`r countdown(minutes = 45, seconds = 00, top = 0)`
+<div class="countdown" id="timer_621f7b42" style="top:0;right:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">45</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
 
 ---
 name: part6
@@ -3800,7 +3895,7 @@ class: inverse, center, middle
 ]
 
 ---
-## Analysing Tweets &mdash; Overview
+## Analysing Tweets &amp;mdash; Overview
 
 - Twitter analysis often focuses on tweets
 
@@ -3811,7 +3906,7 @@ class: inverse, center, middle
 
 --
 
-<br>
+&lt;br&gt;
 
 - There are at least two types of tweet-based analysis
 
@@ -3823,46 +3918,34 @@ class: inverse, center, middle
          - but also with other techniques such as machiene learning
 
 ---
-## Analysing Tweets &mdash; When were the tweets posted?
+## Analysing Tweets &amp;mdash; When were the tweets posted?
 
-```{r, echo = FALSE, out.width = "70%", fig.align = "center"}
-knitr::include_graphics("twtr_workshop_files/figure-html/exercise_63-1.png")
-```
+&lt;img src="twtr_workshop_files/figure-html/exercise_63-1.png" width="70%" style="display: block; margin: auto;" /&gt;
 
 ---
-## Analysing Tweets &mdash; What day of the week?
+## Analysing Tweets &amp;mdash; What day of the week?
 
-```{r, echo = FALSE, out.width = "70%", fig.align = "center"}
-knitr::include_graphics("twtr_workshop_files/figure-html/exercise_64-1.png")
-```
+&lt;img src="twtr_workshop_files/figure-html/exercise_64-1.png" width="70%" style="display: block; margin: auto;" /&gt;
 
 ---
-## Analysing Tweets &mdash; What time of the day?
+## Analysing Tweets &amp;mdash; What time of the day?
 
-```{r, echo = FALSE, out.width = "70%", fig.align = "center"}
-knitr::include_graphics("twtr_workshop_files/figure-html/exercise_65-1.png")
-```
+&lt;img src="twtr_workshop_files/figure-html/exercise_65-1.png" width="70%" style="display: block; margin: auto;" /&gt;
 
 ---
-## Analysing Tweets &mdash; Which hastags were the most frequent?
+## Analysing Tweets &amp;mdash; Which hastags were the most frequent?
 
-```{r, echo = FALSE, out.width = "70%", fig.align = "center"}
-knitr::include_graphics("twtr_workshop_files/figure-html/exercise_66-1.png")
-```
+&lt;img src="twtr_workshop_files/figure-html/exercise_66-1.png" width="70%" style="display: block; margin: auto;" /&gt;
 
 ---
-## Analysing Tweets &mdash; Which words were the most frequent?
+## Analysing Tweets &amp;mdash; Which words were the most frequent?
 
-```{r, echo = FALSE, out.width = "70%", fig.align = "center"}
-knitr::include_graphics("twtr_workshop_files/figure-html/exercise_67-1.png")
-```
+&lt;img src="twtr_workshop_files/figure-html/exercise_67-1.png" width="70%" style="display: block; margin: auto;" /&gt;
 
 ---
-## Analysing Tweets &mdash; Sentiments by Hours of the Day
+## Analysing Tweets &amp;mdash; Sentiments by Hours of the Day
 
-```{r, echo = FALSE, out.width = "70%", fig.align = "center"}
-knitr::include_graphics("twtr_workshop_files/figure-html/exercise_68-1.png")
-```
+&lt;img src="twtr_workshop_files/figure-html/exercise_68-1.png" width="70%" style="display: block; margin: auto;" /&gt;
 
 ---
 class: action
@@ -3883,7 +3966,9 @@ On `tweets.Rmd`, complete the following exercises
 
 68) Sentiments by Hours of the Day
 
-`r countdown(minutes = 45, seconds = 00, top = 0)`
+<div class="countdown" id="timer_621f7c40" style="top:0;right:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">45</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
 
 
 ---
@@ -3892,7 +3977,7 @@ class: center, middle
 # Dictionary Methods
 
 ---
-## Analysing Users &mdash; Dictionary Methods &mdash; Overview
+## Analysing Users &amp;mdash; Dictionary Methods &amp;mdash; Overview
 
 - Dictionary methods are based on pre-categorisation of words
 
@@ -3904,20 +3989,20 @@ class: center, middle
 
 --
 
-<br>
+&lt;br&gt;
 
 - These catagories are than matched with the text we have
    
   - to calculate scores for, e.g., each tweet
 
 ---
-## Analysing Users &mdash; Dictionary Methods &mdash; Notes
+## Analysing Users &amp;mdash; Dictionary Methods &amp;mdash; Notes
 
 - There are many ways to calculate scores
 
    - depending on your research design
 
-<br>
+&lt;br&gt;
 
 - Positive score could be
 
@@ -3932,32 +4017,24 @@ class: center, middle
 
 ---
 
-## Analysing Tweets &mdash; Sentiments across the time frame
+## Analysing Tweets &amp;mdash; Sentiments across the time frame
 
-```{r, echo = FALSE, out.width = "70%", fig.align = "center"}
-knitr::include_graphics("twtr_workshop_files/figure-html/exercise_69-1.png")
-```
+&lt;img src="twtr_workshop_files/figure-html/exercise_69-1.png" width="70%" style="display: block; margin: auto;" /&gt;
 
 ---
-## Analysing Tweets &mdash; Sentiments in different types of tweets
+## Analysing Tweets &amp;mdash; Sentiments in different types of tweets
 
-```{r, echo = FALSE, out.width = "70%", fig.align = "center"}
-knitr::include_graphics("twtr_workshop_files/figure-html/exercise_70-1.png")
-```
+&lt;img src="twtr_workshop_files/figure-html/exercise_70-1.png" width="70%" style="display: block; margin: auto;" /&gt;
 
 ---
-## Analysing Tweets &mdash; Concreteness in different types of tweets
+## Analysing Tweets &amp;mdash; Concreteness in different types of tweets
 
-```{r, echo = FALSE, out.width = "70%", fig.align = "center"}
-knitr::include_graphics("twtr_workshop_files/figure-html/exercise_71-1.png")
-```
+&lt;img src="twtr_workshop_files/figure-html/exercise_71-1.png" width="70%" style="display: block; margin: auto;" /&gt;
 
 ---
-## Analysing Tweets &mdash; Concreteness by Hours of the Day
+## Analysing Tweets &amp;mdash; Concreteness by Hours of the Day
 
-```{r, echo = FALSE, out.width = "70%", fig.align = "center"}
-knitr::include_graphics("twtr_workshop_files/figure-html/exercise_72-1.png")
-```
+&lt;img src="twtr_workshop_files/figure-html/exercise_72-1.png" width="70%" style="display: block; margin: auto;" /&gt;
 
 ---
 class: action
@@ -3978,7 +4055,9 @@ On `tweets.Rmd`, complete the following exercises
 
 74) Something interesting from your own data
 
-`r countdown(minutes = 45, seconds = 00, top = 0)`
+<div class="countdown" id="timer_621f7c54" style="top:0;right:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">45</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
 
 ---
 name: part7
@@ -4007,28 +4086,28 @@ class: inverse, center, middle
 ---
 class: action
 
-## Twitter &mdash; Apply for a Developer Account
+## Twitter &amp;mdash; Apply for a Developer Account
 
 - On [developer.twitter.com](https://developer.twitter.com/), click `Apply`
-   - at the top-right corner of the page<sup>*</sup>
+   - at the top-right corner of the page&lt;sup&gt;*&lt;/sup&gt;
    - follow the instructions on consecutive pages    
 
 .footnote[
 
-<sup>*</sup>It takes a few days for Twitter to review and hopefully approve your request to have an account. You might have created an account before. In that case, you will see `Developer Portal` instead of `Apply`. 
+&lt;sup&gt;*&lt;/sup&gt;It takes a few days for Twitter to review and hopefully approve your request to have an account. You might have created an account before. In that case, you will see `Developer Portal` instead of `Apply`. 
 
 ]
 
 ---
 class: action
 
-## Twitter &mdash; Apply for a Developer Account
+## Twitter &amp;mdash; Apply for a Developer Account
 
 - On [developer.twitter.com](https://developer.twitter.com/), click `Apply`
-   - at the top-right corner of the page<sup>*</sup>
+   - at the top-right corner of the page&lt;sup&gt;*&lt;/sup&gt;
    - follow the instructions on consecutive pages    
 
-<br>
+&lt;br&gt;
 
 - Write a detailed case for your intended use of Twitter APIs
        - not just that you are attending this workshop
@@ -4036,7 +4115,7 @@ class: action
           - as Twitter often asks for more details via email
        - rejection is also a possibility    
 
-<br>
+&lt;br&gt;
 
 - Carefully review the Twitter's [Developer Agreement and Policy](https://developer.twitter.com/en/developer-terms/agreement-and-policy)
        - especially important if you will develop an app that
@@ -4046,7 +4125,7 @@ class: action
 ---
 class: action
 
-## Twitter &mdash; Register an App
+## Twitter &amp;mdash; Register an App
 
 - On [developer.twitter.com/en/portal/projects-and-apps](https://developer.twitter.com/en/portal/projects-and-apps), click `+ Create App`
    - follow the instructions on consecutive pages
@@ -4061,7 +4140,7 @@ class: action
     - e.g., an app for smart phones
 
 ---
-## Twitter &mdash; Keys and Tokens &mdash; Notes          
+## Twitter &amp;mdash; Keys and Tokens &amp;mdash; Notes          
       
 - Keys and tokens are personal
    - should not be shared with others
@@ -4082,7 +4161,7 @@ class: action
    - not covered in this workshop
    
 ---
-## Twitter &mdash; Keys and Tokens &mdash; Notes &mdash; Definitions
+## Twitter &amp;mdash; Keys and Tokens &amp;mdash; Notes &amp;mdash; Definitions
 
 - Consumer key and Consumer secret
 
@@ -4104,10 +4183,10 @@ class: action
      - check whether the user should have access to a request
      
 ---
-## Data Collection &mdash; `rtweet` &mdash; Authentication
+## Data Collection &amp;mdash; `rtweet` &amp;mdash; Authentication
 
 There are two different methods of [authentication](https://developer.twitter.com/en/docs/authentication/overview)   
-<br>   
+&lt;br&gt;   
 - through `rtweet`'s `rstats2twitter` app
       
   - the app makes requests on your behalf
@@ -4116,7 +4195,7 @@ There are two different methods of [authentication](https://developer.twitter.co
   
 --
 
-<br>  
+&lt;br&gt;  
       
 - through your own app   
       
@@ -4133,7 +4212,7 @@ There are two different methods of [authentication](https://developer.twitter.co
 name: create-token
 class: action
 
-## Data Collection &mdash; Define Your Token
+## Data Collection &amp;mdash; Define Your Token
 
 If you are using your own app to authenticate, create a token
 - using the `create_token` function
@@ -4141,8 +4220,9 @@ If you are using your own app to authenticate, create a token
 - the other arguments to be filled with the information from the `Keys and tokens` tab on the same website
 
 
-```{r, eval=FALSE}
-tw_token <- create_token(
+
+```r
+tw_token &lt;- create_token(
     app = "",
     consumer_key = "",
     consumer_secret = "",
@@ -4152,7 +4232,7 @@ tw_token <- create_token(
 ```
 
 ---
-## Data Collection &mdash; Define Your Token &mdash; Alternatives
+## Data Collection &amp;mdash; Define Your Token &amp;mdash; Alternatives
 
 .pull-left[
 - You may wish to put your keys and tokens elsewhere
@@ -4167,8 +4247,9 @@ tw_token <- create_token(
 
 `keys_tokens.R`
 
-```{r, eval=FALSE}
- tw_token <- create_token(
+
+```r
+ tw_token &lt;- create_token(
     app = "",
     consumer_key = "",
     consumer_secret = "",
@@ -4180,7 +4261,8 @@ tw_token <- create_token(
 
 `data_collection.R`
 
-```{r, eval=FALSE}
+
+```r
  library(rtweet)
  `source("keys_tokens.R")`
 ```
@@ -4188,7 +4270,7 @@ tw_token <- create_token(
 ]
 
 ---
-## Data Collection &mdash; Define Your Token &mdash; Alternatives
+## Data Collection &amp;mdash; Define Your Token &amp;mdash; Alternatives
 
 .pull-left[
 - You may wish to put your keys and tokens elsewhere
@@ -4205,7 +4287,8 @@ tw_token <- create_token(
 
 `.Renviron`
 
-```{r, eval=FALSE}
+
+```r
 TWITTER_APP=name_of_my_app
 TWITTER_CONSUMER_KEY=akN...
 TWITTER_CONSUMER_SECRET=HJK...
@@ -4216,9 +4299,10 @@ TWITTER_ACCESS_SECRET=SDF...
 
 `data_collection.R`
 
-```{r, eval=FALSE}
+
+```r
  library(rtweet)
-tw_token <- create_token(
+tw_token &lt;- create_token(
     app = Sys.getenv("TWITTER_APP"),
     consumer_key = Sys.getenv("TWITTER_CONSUMER_KEY"),
     consumer_secret = Sys.getenv("TWITTER_CONSUMER_SECRET"),
@@ -4244,32 +4328,32 @@ class: inverse, center, middle
 ---
 ## References
 
-Benoit, K., Watanabe, K., Wang, H., Nulty, P., Obeng, A., Müller, S., Matsuo, A., Lua, J. W., Kuha, J., & Lowe, W. (2020). [quanteda: Quantitative Analysis of Textual Data](https://cran.r-project.org/web/packages/quanteda/index.html). R package, version 2.1.2.
+Benoit, K., Watanabe, K., Wang, H., Nulty, P., Obeng, A., Müller, S., Matsuo, A., Lua, J. W., Kuha, J., &amp; Lowe, W. (2020). [quanteda: Quantitative Analysis of Textual Data](https://cran.r-project.org/web/packages/quanteda/index.html). R package, version 2.1.2.
 
-Cheng, J., & Chang, W. (2020). [httpuv: HTTP and WebSocket Server Library](https://cran.r-project.org/web/packages/httpuv/index.html). R package, version 1.5.4.
+Cheng, J., &amp; Chang, W. (2020). [httpuv: HTTP and WebSocket Server Library](https://cran.r-project.org/web/packages/httpuv/index.html). R package, version 1.5.4.
 
 Gentry, J. (2015). [twitteR: R Based Twitter Client](https://cran.r-project.org/web/packages/twitteR/index.html). R package, version 1.1.9.
 
-Jungherr, A. (2016). [Twitter use in election campaigns: A systematic literature review](https://doi.org/10.1080/19331681.2015.1132401). Journal of Information Technology & Politics, 13(1), 72&ndash;91.
+Jungherr, A. (2016). [Twitter use in election campaigns: A systematic literature review](https://doi.org/10.1080/19331681.2015.1132401). Journal of Information Technology &amp; Politics, 13(1), 72&amp;ndash;91.
 
-Jürgens, P. & Jungherr, A. (2016). A Tutorial for Using Twitter Data in the Social Sciences: Data Collection, Preparation, and Analysis (January 5, 2016). Available at <http://dx.doi.org/10.2139/ssrn.2710146>.
+Jürgens, P. &amp; Jungherr, A. (2016). A Tutorial for Using Twitter Data in the Social Sciences: Data Collection, Preparation, and Analysis (January 5, 2016). Available at &lt;http://dx.doi.org/10.2139/ssrn.2710146&gt;.
 
-Mellon, J., & Prosser, C. (2017). [Twitter and Facebook are not representative of the general population: Political attitudes and demographics of British social media users](https://doi.org/10.1177%2F2053168017720008). Research & Politics, July-September 2017, 1&ndash;9.
+Mellon, J., &amp; Prosser, C. (2017). [Twitter and Facebook are not representative of the general population: Political attitudes and demographics of British social media users](https://doi.org/10.1177%2F2053168017720008). Research &amp; Politics, July-September 2017, 1&amp;ndash;9.
 
-Robinson, D., & Silge, J. (2021). [tidytext: Text mining using 'dplyr', 'ggplot2', and other tidy tools](https://cran.r-project.org/web/packages/tidytext/index.html). R package, version 0.3.0.
+Robinson, D., &amp; Silge, J. (2021). [tidytext: Text mining using 'dplyr', 'ggplot2', and other tidy tools](https://cran.r-project.org/web/packages/tidytext/index.html). R package, version 0.3.0.
 
-Sievert, C., Parmer, C.,  Hocking, T., Chamberlain, S., Ram, K., Corvellec, M., & Despouy, P. (2020). [plotly: Create Interactive Web Graphics via 'plotly.js'](https://cran.r-project.org/web/packages/plotly/index.html). R package, version 4.9.3.
+Sievert, C., Parmer, C.,  Hocking, T., Chamberlain, S., Ram, K., Corvellec, M., &amp; Despouy, P. (2020). [plotly: Create Interactive Web Graphics via 'plotly.js'](https://cran.r-project.org/web/packages/plotly/index.html). R package, version 4.9.3.
 
 ---
 ## References
 
-Silge, J., & Robinson, D. (2017). [Text mining with R: A tidy approach](https://www.tidytextmining.com). O'Reilly. Open access at
+Silge, J., &amp; Robinson, D. (2017). [Text mining with R: A tidy approach](https://www.tidytextmining.com). O'Reilly. Open access at
 
-Silva, B. C., & Proksch, S. O. (2020). [Fake It 'Til You Make It: A Natural Experiment to Identify European Politicians' Benefit from Twitter Bots](https://doi.org/10.1017/S0003055420000817). American Political Science Review, 1-7.
+Silva, B. C., &amp; Proksch, S. O. (2020). [Fake It 'Til You Make It: A Natural Experiment to Identify European Politicians' Benefit from Twitter Bots](https://doi.org/10.1017/S0003055420000817). American Political Science Review, 1-7.
 
-Sinnenberg, L., Buttenheim, A. M., Padrez, K., Mancheno, C., Ungar, L., & Merchant, R. M. (2017). [Twitter as a tool for health research: A systematic review](https://doi.org/10.2105/AJPH.2016.303512). American Journal of Public Health, 107(1), 1&ndash;8.
+Sinnenberg, L., Buttenheim, A. M., Padrez, K., Mancheno, C., Ungar, L., &amp; Merchant, R. M. (2017). [Twitter as a tool for health research: A systematic review](https://doi.org/10.2105/AJPH.2016.303512). American Journal of Public Health, 107(1), 1&amp;ndash;8.
 
-Umit, R. (2017). [Strategic communication of EU affairs: An analysis of legislative behaviour on Twitter](https://doi.org/10.1080/13572334.2017.1283166). Journal of Legislative Studies, 23(1), 93&ndash;124.
+Umit, R. (2017). [Strategic communication of EU affairs: An analysis of legislative behaviour on Twitter](https://doi.org/10.1080/13572334.2017.1283166). Journal of Legislative Studies, 23(1), 93&amp;ndash;124.
 
 Wickham, H. (2019). [stringr: Simple, Consistent Wrappers for Common String Operations](https://cran.r-project.org/web/packages/stringr/index.html). R package, version 1.4.0.
 
@@ -4293,3 +4377,128 @@ class: middle, center
 [Back to the contents slide](#contents-slide).
 
 ]
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"highlightSpans": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
