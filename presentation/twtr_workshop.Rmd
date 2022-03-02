@@ -2,7 +2,7 @@
 title: "Working with Twitter Data in R"
 subtitle: "Resul Umit"
 institute: ""
-date: "February 2021"
+date: "March 2022"
 output:
   xaringan::moon_reader:
     lib_dir: libs
@@ -2955,7 +2955,7 @@ class: inverse, center, middle
 tweet <- "These from @handle1 are #socool. 👏 A #mustsee, @handle2! 
           👉 t.co/aq7MJJ1
           👉 https://t.co/aq7MJJ2"
-````
+```
 
 ```{r, eval=FALSE}
 str_remove_all(string = tweet, pattern = "[@][\\w_-]+")
@@ -2979,7 +2979,7 @@ str_remove_all(string = tweet, pattern = "[@][\\w_-]+")
 tweet <- "These from @handle1 are #socool. 👏 A #mustsee, @handle2! 
           👉 t.co/aq7MJJ1
           👉 https://t.co/aq7MJJ2"
-````
+```
 
 ```{r, eval=FALSE}
 str_remove_all(string = tweet, pattern = "[`#`][\\w_-]+")
@@ -3002,7 +3002,7 @@ tweet <- "These from @handle1 are #socool. 👏 A #mustsee, @handle2!
           👉 t.co/aq7MJJ1
           👉 https://t.co/aq7MJJ2"
 
-````
+```
 
 ```{r, eval=FALSE}
 str_remove_all(string = tweet, pattern = "http\\S+\\s*")
@@ -3060,7 +3060,7 @@ class: action
 tweet <- "These from @handle1 are #socool. 👏 A #mustsee, @handle2! 
           👉 t.co/aq7MJJ1
           👉 https://t.co/aq7MJJ2"
-````
+```
 
 ```{r, eval=FALSE}
 iconv(x = tweet, from = "latin1", to = "ASCII", sub = "")
@@ -3132,7 +3132,7 @@ class: action
 tweet <- "These from @handle1 are #socool. 👏 A #mustsee, @handle2! 
           👉 t.co/aq7MJJ1
           👉 https://t.co/aq7MJJ2"
-````
+```
 
 ```{r, eval=FALSE}
 str_remove_all(string = tweet, pattern = "[[:punct:]]")
@@ -3157,7 +3157,7 @@ Notice that
 
 ```{r, eval=FALSE}
 tweet <- "This is a sentence.There is no space before this sentence."
-````
+```
 
 ```{r, eval=FALSE}
 str_`remove`_all(string = tweet, pattern = "[[:punct:]]")
@@ -3190,7 +3190,7 @@ str_`replace`_all(string = tweet, pattern = "[[:punct:]]", replacement = " ")
 
 ```{r, eval=FALSE}
 tweet <- "This is a sentence.There is no space before this sentence."
-````
+```
 
 ```{r, eval=FALSE}
 str_replace_all(string = tweet, pattern = "[[:punct:]]", replacement = " ")
@@ -3208,7 +3208,7 @@ str_replace_all(string = tweet, pattern = "[[:punct:]]", replacement = " ")
 
 ```{r, eval=FALSE}
 tweet <- "There are too many spaces after this sentence.   This is a new sentence."
-````
+```
 
 ```{r, eval=FALSE}
 str_squish(string = tweet)
@@ -3230,7 +3230,7 @@ Note that
 
 ```{r, eval=FALSE}
 tweet <- "lower case. Sentence case. Title Case. UPPER CASE."
-````
+```
 
 ```{r, eval=FALSE}
 str_to_lower(string = tweet)
