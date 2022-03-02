@@ -468,7 +468,7 @@ name: potential-biases
 
   - e.g., [Standard v1.1](https://developer.twitter.com/en/docs/twitter-api/v1) is the most restrictive APIs
       - other first generation APIs are the [Premium v1.1](https://developer.twitter.com/en/products/twitter-api/premium-apis) and [Enterprise: Gnip 2.0](https://developer.twitter.com/en/products/twitter-api/enterprise) APIs &mdash; both with paid subscriptions
-      - there are also the second generation APIs, including the newly announced [Academic Research product track](https://blog.twitter.com/developer/en_us/topics/tips/2021/enabling-the-future-of-academic-research-with-the-twitter-api.html)
+      - there are also the second generation APIs, including the newly announced [Academic Research access](https://developer.twitter.com/en/products/twitter-api/academic-research)
 
 --
 <br>
@@ -556,7 +556,7 @@ name: potential-biases
 
 - Not all changes are bad
 
-   - among others, APIs v2 introduces the [Academic Research product track](https://blog.twitter.com/developer/en_us/topics/tips/2021/enabling-the-future-of-academic-research-with-the-twitter-api.html)    
+   - among others, APIs v2 introduces the [Academic Research access](https://developer.twitter.com/en/products/twitter-api/academic-research)    
 <br>
        - 'to serve the unique needs and challenges of academic researchers'
            - ranging from master's students to professors    
