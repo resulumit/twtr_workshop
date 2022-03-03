@@ -848,7 +848,7 @@ install.packages(c("rtweet", "httpuv", "tidyverse", "tidytext"))
 
 - `rtweet` ([Kearney, 2020](https://cran.r-project.org/web/packages/rtweet/index.html)), for collecting tweets
 
-    - alternatives: used to be `twitteR` ([Gentry, 2015](https://cran.r-project.org/web/packages/twitteR/index.html)), but not anymore; [running Python code in R](https://blog.twitter.com/developer/en_us/topics/tips/2020/running-the-python-package-for-search-tweets-in-r.html)
+    - alternatives: `academictwitteR` ([Barrie and Chun-ting Ho, 2022](https://cran.r-project.org/web/packages/academictwitteR/index.html)) for academic research access; [running Python code in R](https://blog.twitter.com/developer/en_us/topics/tips/2020/running-the-python-package-for-search-tweets-in-r.html)
 
 --
 <br>
@@ -1086,11 +1086,11 @@ class: inverse, center, middle
 
 - You can surpass these restrictions later on    
 
-   - academic researchers can apply for the newly announced the [Academic Research product track](https://twitter.com/TwitterDev/status/1354143047324299264)
+   - academic researchers can apply for [Academic Research access](https://developer.twitter.com/en/products/twitter-api/academic-research)
    - others can purchase an alternative
    - the principles of data collection are likely to remain the same
        - `rweet` has the `search_30day` and `search_fullarchive` functions for the [Premium V1.1](https://developer.twitter.com/en/products/twitter-api/premium-apis) APIs
-       - the package may require an update, in line with the [Academic Research product track](https://twitter.com/TwitterDev/status/1354143047324299264)
+       - the package may require an update, in line with the [Academic Research access](https://developer.twitter.com/en/products/twitter-api/academic-research)
        
 ---
 ## Data Collection &mdash; Overview &mdash; APIs &mdash; Limitations
@@ -1127,8 +1127,8 @@ Our attempts to collect data will be limited for various reasons, including
   - created by [Michael W. Kearney](https://mikewk.com/) (University of Missouri)
   - used widely, replacing previous packages for this task
       - e.g., `twitteR`
-  - last updated a year ago
-      - personal communication: the package will continue to be maintained in the future
+  - last updated on CRAN two years ago
+      - the package is currently being updated on GitHub
 
 --
 
@@ -2945,7 +2945,7 @@ class: inverse, center, middle
 --
 <br>
 
-- I use the `dplyr` package ([Wickham et al, 2020](https://cran.r-project.org/web/packages/dplyr/index.html) for most data operations
+- I use the `dplyr` package ([Wickham et al, 2020](https://cran.r-project.org/web/packages/dplyr/index.html)) for most data operations
 
    - part of the `tidyverse` family
    - you might have another favourite already
@@ -3629,7 +3629,7 @@ read_rds("data/tweets.rds") %>%
 
 .pull-left[
 
-Use the `as_tbl_graph` function transform data frames
+Use the `as_tbl_graph` function to transform data frames
 
 ```{r, eval=FALSE}
 read_rds("data/tweets.rds") %>%
@@ -3680,7 +3680,7 @@ read_rds("data/tweets.rds") %>%
 
 .pull-left[
 
-Use the `activate` function manipulate the nodes or edges
+Use the `activate` function to manipulate the nodes or edges
 
 ```{r, eval=FALSE}
 read_rds("data/tweets.rds") %>%
@@ -4293,3 +4293,8 @@ class: middle, center
 [Back to the contents slide](#contents-slide).
 
 ]
+
+
+```{r, print, eval=FALSE, echo=FALSE, message=FALSE}
+pagedown::chrome_print("twtr_workshop.html", output = "twtr_workshop.pdf")
+```
