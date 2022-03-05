@@ -25,6 +25,30 @@ library(dplyr)
 library(ggplot2)
 library(stargazer)
 library(countdown)
+library(RefManageR)
+
+# references
+c("rtweet", "httpuv", "tidyverse", "tidytext", "xaringan", "stringr", "dplyr") %>% 
+        knitr::write_bib("twtr_workshop_files/bibliography/packages.bib")
+
+bib_files <- c("twtr_workshop_files/bibliography/packages.bib", 
+               "twtr_workshop_files/bibliography/manuals.bib")
+
+bib_data <- lapply(bib_files, readLines)
+
+write(unlist(bib_data),
+      file = "twtr_workshop_files/bibliography/presentation.bib")
+
+BibOptions(check.entries = FALSE,
+           bib.style = "authoryear",
+           cite.style = "authoryear",
+           style = "markdown",
+           hyperlink = "to.doc",
+           dashed = FALSE)
+
+bibliography <- ReadBib("twtr_workshop_files/bibliography/presentation.bib", 
+                        check = FALSE)
+
 ```
 
 <style type="text/css">
@@ -424,8 +448,8 @@ class: inverse, center, middle
 - Not all questions can be answered with Twitter data
 
   - see relevant literature for what works, what does not
-     - e.g., for political science, the review by [Jungherr (2016)](https://doi.org/10.1080/19331681.2015.1132401)
-        - for public health, the review by [Sinnenberg et al. (2017)](https://doi.org/10.2105/AJPH.2016.303512)
+     - e.g., for political science, the review by `r Citep(bibliography, "jungherr2016")` 
+        - for public health, the review by `r Citep(bibliography, "sinnenberg2017")` 
 
 ---
 ## Considerations &mdash; Potential Biases
@@ -435,10 +459,10 @@ There are at least two potential sources of bias in Twitter data
 - sampling
 
   - Twitter users are not representative of the people out there
-     - see, for example, [Mellon and Prosser (2017)](https://doi.org/10.1177%2F2053168017720008)    
+     - see, for example, `r Citep(bibliography, "mellon2017")`   
 <br>
   - Tweeting behaviour has a strategic component 
-     - see, for example, [Umit (2017)](https://doi.org/10.1080/13572334.2017.1283166)
+     - see, for example, `r Citep(bibliography, "umit2017")`
 
 
 --
@@ -663,7 +687,7 @@ class: action
   
 .footnote[
 
-<sup>*</sup> These slides are produced in R, with the `xaringan` package ([Xie, 2020](https://cran.r-project.org/web/packages/xaringan/xaringan.pdf)).
+<sup>*</sup> These slides are produced in R, with the `xaringan` package `r Citep(bibliography, "R-xaringan")`.
 
 ]
 
@@ -846,14 +870,14 @@ class: action
 install.packages(c("rtweet", "httpuv", "tidyverse", "tidytext"))
 ```
 
-- `rtweet` ([Kearney, 2020](https://cran.r-project.org/web/packages/rtweet/index.html)), for collecting tweets
+- `rtweet` `r Citep(bibliography, "R-rtweet")`, for collecting tweets
 
-    - alternatives: `academictwitteR` ([Barrie and Chun-ting Ho, 2022](https://cran.r-project.org/web/packages/academictwitteR/index.html)) for academic research access; [running Python code in R](https://blog.twitter.com/developer/en_us/topics/tips/2020/running-the-python-package-for-search-tweets-in-r.html)
+    - alternatives: `academictwitteR` `r Citep(bibliography, "R-academictwitteR")` for academic research access; [running Python code in R](https://blog.twitter.com/developer/en_us/topics/tips/2020/running-the-python-package-for-search-tweets-in-r.html)
 
 --
 <br>
 
-- `httpuv` ([Cheng & Chang, 2020](https://cran.r-project.org/web/packages/httpuv/index.html)), for API authorization
+- `httpuv` `r Citep(bibliography, "R-httpuv")`, for API authorization
 
     - alternative: using your own access tokens
         - necessitates making an application through a developer
@@ -868,7 +892,7 @@ class: action
 install.packages(c("rtweet", "httpuv", "tidyverse", "tidytext"))
 ```
 
-- `tidyverse` ([Wickham & RStudio 2019](https://cran.r-project.org/web/packages/tidyverse/index.html)), for various tasks
+- `tidyverse` `r Citep(bibliography, "R-tidyverse")`, for various tasks
 
     - including data manipulation, visualisation
     - alternative: e.g., `base` R
@@ -876,9 +900,9 @@ install.packages(c("rtweet", "httpuv", "tidyverse", "tidytext"))
 --
 <br>
 
-- `tidytext` ([Robinson & Silge, 2021](https://cran.r-project.org/web/packages/tidytext/index.html)), for working with text as data
+- `tidytext` `r Citep(bibliography, "R-tidytext")`, for working with text as data
 
-    - alternative: e.g., `quanteda` ([Benoit et al., 2020](https://cran.r-project.org/web/packages/quanteda/index.html))
+    - alternative: e.g., `quanteda` `r Citep(bibliography, "R-quanteda")`
 
 ---
 ## Twitter &mdash; Authorisation
@@ -955,7 +979,7 @@ Sign up for Twitter at [https://twitter.com/](twitter.com)
 ---
 ## Other Resources<sup>*</sup>
 
-- R for Data Science ([Wickham & Grolemund, 2019](https://r4ds.had.co.nz/))
+- R for Data Science `r Citep(bibliography, "rfordatascience")`
   
    - open access at [https://r4ds.had.co.nz](https://r4ds.had.co.nz/)
    
@@ -963,7 +987,7 @@ Sign up for Twitter at [https://twitter.com/](twitter.com)
 
 <br>
 
-- Text Mining with R: A Tidy Approach ([Silge & Robinson, 2017](https://www.tidytextmining.com/))
+- Text Mining with R: A Tidy Approach `r Citep(bibliography, "textminingwithr")`
  
    - open access at [tidytextmining.com](https://www.tidytextmining.com/)
    - comes with [a course website](https://juliasilge.shinyapps.io/learntidytext/) where you can practice
@@ -972,7 +996,7 @@ Sign up for Twitter at [https://twitter.com/](twitter.com)
 
 <br>
 
-- A Tutorial for Using Twitter Data in the Social Sciences: Data Collection, Preparation, and Analysis ([Jürgens & Jungherr, 2016](http://dx.doi.org/10.2139/ssrn.2710146))
+- A Tutorial for Using Twitter Data in the Social Sciences: Data Collection, Preparation, and Analysis `r Citep(bibliography, "jurgens2016")`
 
    - open access at [http://dx.doi.org/10.2139/ssrn.2710146](http://dx.doi.org/10.2139/ssrn.2710146)
    
@@ -2928,7 +2952,7 @@ class: inverse, center, middle
 
 <br>
 
-- I use the `stringr` package ([Wickham, 2019](https://cran.r-project.org/web/packages/stringr/index.html)) for string operations
+- I use the `stringr` package `r Citep(bibliography, "R-stringr")` for string operations
 
    - part of the `tidyverse` family
    - you might have another favourite already
@@ -2940,12 +2964,12 @@ class: inverse, center, middle
 - There is more to Twitter data than just tweets
       
   - e.g., the number of followers, likes *etc*.
-     - see Silva and Proksch ([2020](https://doi.org/10.1017/S0003055420000817)) for a great example
+     - see Silva and Proksch `r Citep(bibliography, "silva2021")` for a great example
 
 --
 <br>
 
-- I use the `dplyr` package ([Wickham et al, 2020](https://cran.r-project.org/web/packages/dplyr/index.html)) for most data operations
+- I use the `dplyr` package `r Citep(bibliography, "R-dplyr")` for most data operations
 
    - part of the `tidyverse` family
    - you might have another favourite already
@@ -4244,43 +4268,36 @@ class: inverse, center, middle
 ---
 ## References
 
-Benoit, K., Watanabe, K., Wang, H., Nulty, P., Obeng, A., Müller, S., Matsuo, A., Lua, J. W., Kuha, J., & Lowe, W. (2020). [quanteda: Quantitative Analysis of Textual Data](https://cran.r-project.org/web/packages/quanteda/index.html). R package, version 2.1.2.
+```{r echo=FALSE, warning=FALSE, results="asis"}
 
-Cheng, J., & Chang, W. (2020). [httpuv: HTTP and WebSocket Server Library](https://cran.r-project.org/web/packages/httpuv/index.html). R package, version 1.5.4.
+capture.output({
+  
+PrintBibliography(bibliography, .opts = list(style = "text"), 
+                  start = 1, end = 8)
+}) %>%
+  { gsub("<URL:", "", ., fixed = TRUE) } %>%
+  { gsub(">", "", ., fixed = TRUE) } %>%
+  { gsub("Ã§", "ç", ., fixed = TRUE) } %>%
+  cat(sep="\n")
 
-Gentry, J. (2015). [twitteR: R Based Twitter Client](https://cran.r-project.org/web/packages/twitteR/index.html). R package, version 1.1.9.
-
-Jungherr, A. (2016). [Twitter use in election campaigns: A systematic literature review](https://doi.org/10.1080/19331681.2015.1132401). Journal of Information Technology & Politics, 13(1), 72&ndash;91.
-
-Jürgens, P. & Jungherr, A. (2016). A Tutorial for Using Twitter Data in the Social Sciences: Data Collection, Preparation, and Analysis (January 5, 2016). Available at <http://dx.doi.org/10.2139/ssrn.2710146>.
-
-Mellon, J., & Prosser, C. (2017). [Twitter and Facebook are not representative of the general population: Political attitudes and demographics of British social media users](https://doi.org/10.1177%2F2053168017720008). Research & Politics, July-September 2017, 1&ndash;9.
-
-Robinson, D., & Silge, J. (2021). [tidytext: Text mining using 'dplyr', 'ggplot2', and other tidy tools](https://cran.r-project.org/web/packages/tidytext/index.html). R package, version 0.3.0.
-
-Sievert, C., Parmer, C.,  Hocking, T., Chamberlain, S., Ram, K., Corvellec, M., & Despouy, P. (2020). [plotly: Create Interactive Web Graphics via 'plotly.js'](https://cran.r-project.org/web/packages/plotly/index.html). R package, version 4.9.3.
+```
 
 ---
 ## References
 
-Silge, J., & Robinson, D. (2017). [Text mining with R: A tidy approach](https://www.tidytextmining.com). O'Reilly. Open access at
+```{r echo=FALSE, warning=FALSE, results="asis"}
 
-Silva, B. C., & Proksch, S. O. (2020). [Fake It 'Til You Make It: A Natural Experiment to Identify European Politicians' Benefit from Twitter Bots](https://doi.org/10.1017/S0003055420000817). American Political Science Review, 1-7.
+capture.output({
+  
+PrintBibliography(bibliography, .opts = list(style = "text"), 
+                  start = 9)
+}) %>%
+  { gsub("<URL:", "", ., fixed = TRUE) } %>%
+  { gsub(">", "", ., fixed = TRUE) } %>%
+  { gsub("Ã§", "ç", ., fixed = TRUE) } %>%
+  cat(sep="\n")
 
-Sinnenberg, L., Buttenheim, A. M., Padrez, K., Mancheno, C., Ungar, L., & Merchant, R. M. (2017). [Twitter as a tool for health research: A systematic review](https://doi.org/10.2105/AJPH.2016.303512). American Journal of Public Health, 107(1), 1&ndash;8.
-
-Umit, R. (2017). [Strategic communication of EU affairs: An analysis of legislative behaviour on Twitter](https://doi.org/10.1080/13572334.2017.1283166). Journal of Legislative Studies, 23(1), 93&ndash;124.
-
-Wickham, H. (2019). [stringr: Simple, Consistent Wrappers for Common String Operations](https://cran.r-project.org/web/packages/stringr/index.html). R package, version 1.4.0.
-
-Wickham, H., Chang, W., Henry, L., Pedersen, T. L., Takahashi, K., Wilke, C., Woo, K., Yutani, H. and Dunnington, D. (2020). [dplyr: A grammar of data manipulation](https://cran.r-project.org/web/packages/dplyr/index.html). R package, version 0.8.5.
-
-Wickham, H. and Grolemund, G. (2019). [R for data science](https://r4ds.had.co.nz). O'Reilly. Open access at [https://r4ds.had.co.nz](https://r4ds.had.co.nz/).
-
-Wickham, H., RStudio (2019). [https://cran.r-project.org/web/packages/tidyverse/index.html](tidyverse: Easily Install and Load the 'Tidyverse'). R package, version 3.3.3.
-
-Xie, Y. (2020). [xaringan: Presentation Ninja](https://cran.r-project.org/web/packages/xaringan/index.html). R package, version 0.19.
-
+```
 ---
 class: middle, center
 
