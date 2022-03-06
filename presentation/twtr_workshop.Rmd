@@ -315,10 +315,7 @@ name: contents-slide
 [Part 6. Data Anaysis: Tweets](#part6)
    - e.g., conducting sentiment analysis
    
-[Part 7. Data Anaysis: Machiene Learning](#part7)
-   - *To be added*
-   
-[Part 8. Next Steps](#part8)
+[Part 7. Next Steps](#part7)
    - e.g., applying for a developer account  
    
 ]
@@ -947,7 +944,7 @@ Authorization to use Twitter APIs requires at least three steps<sup>*</sup>
        - is otherwise automatic
        - allows us to use `rstats2twitter` and follow the workshop   
 <br>
-   - leaving the remaining steps until [Part 8](#part-8)
+   - leaving the remaining steps until [Part 7](#part-7)
        - to allow you to think and write your applications carefully
        - to get my feedback if you prefer to do so
        
@@ -4079,10 +4076,10 @@ class: inverse, center, middle
 ]
 
 ---
-name: part8
+name: part7
 class: inverse, center, middle
 
-# Part 8. Next Steps
+# Part 7. Next Steps
 
 .footnote[
 
