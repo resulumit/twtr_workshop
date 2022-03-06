@@ -1343,7 +1343,7 @@ class: action
 
 ## Exercises
 
-1) Collect the top 300 tweets that 
+1) Collect the latest 30 tweets that 
 - include the hashtag "AcademicTwitter"
 - and assign the resulting data frame to `df_tweets`
    - so that you can observe the results with ease
@@ -1399,8 +1399,9 @@ class: action
 
 .pull-left[
 
-Collect the .yellow-h[top] .yellow-h[200] tweets that
-- include the .yellow-h[word] "publish"
+- Collect the .yellow-h[top] .yellow-h[200] tweets that
+
+  - include the .yellow-h[word] "publish"
 
 ]
 
@@ -1422,11 +1423,13 @@ search_tweets(q = `"p`ublish",
 .pull-left[
 
 - Collect the top 200 tweets that
+
   - include the word "publish" .yellow-h[and] "perish", not necessarily in that order
 
 <br>
 
 - Note that
+
   - space is treated as the boolean AND operator
 
 ]
@@ -1449,11 +1452,13 @@ search_tweets(q = `"publish perish"`,
 .pull-left[
 
 - Collect the top 200 tweets that
+
   - include the word "publish" .yellow-h[or] "perish"
 
 <br>
 
 - Note that
+
   - the boolean OR operator must be specified, in capital letters
 
 ]
@@ -1476,18 +1481,19 @@ search_tweets(q = `"publish OR perish"`,
 .pull-left[
 
 - Collect the top 200 tweets that
+
   - include the .yellow-h[exact phrase]  "publish or perish"
 
 <br>
 
 - Note that
+
  - double quotation marks .yellow-h["] need to be escaped with a backslash .yellow-h[&#92;]
 
 ]
 
 
 .pull-right[
-
 
 ```{r, eval=FALSE}
 search_tweets(q = "`\"`publish or perish`\"`",
@@ -1503,18 +1509,20 @@ search_tweets(q = "`\"`publish or perish`\"`",
 .pull-left[
 
 - Collect the top 200 tweets that
+
   - include "publish" but not "perish"
   
 <br>
 
 - Note that
+
   - words can be negated with a hyphen .yellow-h[-]
 
 ]
 
+<br>
 
 .pull-right[
-
 
 ```{r, eval=FALSE}
 search_tweets(q = "publish `-perish`",
@@ -1530,18 +1538,15 @@ search_tweets(q = "publish `-perish`",
 .pull-left[
 
 - Collect the top 200 tweets that
+
   - include "publish", and
   - are otherwise written .yellow-h[in German]
 
 <br>
 
-
-
 ]
 
-
 .pull-right[
-
 
 ```{r, eval=FALSE}
 search_tweets(q = "publish `lang:de`",
@@ -1552,6 +1557,7 @@ search_tweets(q = "publish `lang:de`",
 ]
 
 - Note that   
+
   - query parameters, such as `lang`, are followed by a colon .yellow-h[&#58;]
       - other parameters include `filter`, `from`, `to`, `since`, `until`, `min_retweets` *etc*.   
 <br>
@@ -1563,18 +1569,20 @@ search_tweets(q = "publish `lang:de`",
 
 .pull-left[
 
-Collect the top 200 tweets that
-- include "publish", and
-- are .yellow-h[not] in German
+- Collect the top 200 tweets that
 
-Note that
-- operators can be negated with a hyphen as well
+  - include "publish", and
+  - are .yellow-h[not] in German
+
+<br>
+
+- Note that
+
+  - operators can be negated with a hyphen as well
 
 ]
 
-
 .pull-right[
-
 
 ```{r, eval=FALSE}
 search_tweets(q = "publish `-`lang:de",
@@ -1602,9 +1610,7 @@ search_tweets(q = "publish `-`lang:de",
 
 ]
 
-
 .pull-right[
-
 
 ```{r, eval=FALSE}
 search_tweets(q = "publish lang:en filter:replies",
@@ -1642,23 +1648,22 @@ class: action
 
 ## Exercises
 
-5) Collect the latest 200 tweets that include
+5) Collect the latest 10 tweets that include
 - the phrase "publish or perish"
-- and the word "academia" but not the word "phd"
+- and the word "academia" but not the word "PhD"
 
 <br>
 
-6) Collect the most recent 200 tweets that
-- include the word "Luzern"
-- sent within 25 mile radius around Lucerne city centre
+6) Collect the most popular 50 tweets that
+- include the word "Switzerland"
 - excluding retweets
-- hint: pull the help file for the function to see which arguments you can use
-   - get help from Google about the coordinates
+- note that Twitter API may return fewer than 50 tweets
+   - as there may not be that many popular tweets posted in the last 6 to 9 days
 
 <br>
 
 7) Collect the most recent 35,000 tweets that
-- include the word "phd"
+- include the word "PhD"
 - note that this is over the limit of 18,000
 - hint: pull the help file for the function to see which argument you must use to surpass the limit
 
@@ -1675,14 +1680,6 @@ class: action
   - returns information from recently active users 
   - limited to 1,000 users
 
-    
-<br>
-
-- Note that
-
-  - there is no `retryonratelimit` argument
-  - you can still use the [complete list of search operators](https://developer.twitter.com/en/docs/twitter-api/v1/tweets/search/guides/standard-operators) and [this advanced search form](https://twitter.com/search-advanced) for help with queries
-    
 ]
 
 .pull-right[
@@ -1696,19 +1693,27 @@ search_users(q,
 ```
 
 ]
+
+    
+<br>
+
+- Note that
+
+  - there is no `retryonratelimit` argument
+  - you can still use the [complete list of search operators](https://developer.twitter.com/en/docs/twitter-api/v1/tweets/search/guides/standard-operators) and [this advanced search form](https://twitter.com/search-advanced) for help with queries
     
 ---
 class: action
 
 ## Exercises
 
-8) Collect information on 300 users that 
-- are associated with the word "PhD"
-- but not with the word "rstats"
+8) Collect information on 30 users that
+- are associated with the word "PhD", but not with the word "rstats"
+- read one of these users' bio on their homepage via a browser
 
 <br>
 
-9) Collect the latest 300 tweets that 
+9) Collect the latest 30 tweets that 
 - include the word "PhD"
 - but not the word "rstats"
 
@@ -1724,7 +1729,6 @@ class: action
 
 `r countdown(minutes = 20, seconds = 00, top = 0)`
 
-
 ---
 ## Data Collection &mdash; Notes &mdash; `rate_limit`
 
@@ -1735,14 +1739,6 @@ class: action
    - for all operations
    - for a specific operation
       - e.g., searching tweets with the `search_tweets` function
-  
-<br>
-
-- Note that 
-
-  - if no token is specified, the function uses the `rstats2twitter` app
-  - rate limits decrease as you use them, increase again after a time threshold
-  - [Twitter Developer terms](https://developer.twitter.com/en/developer-terms/agreement-and-policy) do not allow for multiple tokens to be used for the same project
 
 ]
 
@@ -1756,6 +1752,16 @@ rate_limit(token = NULL,
 
 ]
 
+  
+<br>
+
+- Note that 
+
+  - these limits are for the number of requests, per user and/or per app
+  - if no token is specified, the function uses the `rstats2twitter` app
+  - rate limits decrease as you use them, increase again after a time threshold
+  - [Twitter Developer terms](https://developer.twitter.com/en/developer-terms/agreement-and-policy) do not allow for multiple tokens to be used for the same project
+
 ---
 ## Data Collection &mdash; Notes &mdash; `rate_limit`
 
@@ -1765,16 +1771,71 @@ Check you remaining rate limits, for all operations
 rate_limit()
 ```
 
---
+.out-t[
 
-<br>
+```
+# A tibble: 261 x 7
+   query                   limit remaining reset      reset_at            timestamp           app           
+   <chr>                   <int>     <int> <drtn>     <dttm>              <dttm>              <chr>         
+ 1 lists/list                 15        15 14.78 mins 2022-03-06 10:35:45 2022-03-06 10:20:59 rstats2twitter
+ 2 lists/:id/tweets&GET      900       900 14.78 mins 2022-03-06 10:35:45 2022-03-06 10:20:59 rstats2twitter
+ 3 lists/:id/followers&GET   180       180 14.78 mins 2022-03-06 10:35:45 2022-03-06 10:20:59 rstats2twitter
+ 4 lists/memberships          75        75 14.78 mins 2022-03-06 10:35:45 2022-03-06 10:20:59 rstats2twitter
+ 5 lists/:id&DELETE          300       300 14.78 mins 2022-03-06 10:35:45 2022-03-06 10:20:59 rstats2twitter
+ 6 lists/subscriptions        15        15 14.78 mins 2022-03-06 10:35:45 2022-03-06 10:20:59 rstats2twitter
+ 7 lists/members             900       900 14.78 mins 2022-03-06 10:35:45 2022-03-06 10:20:59 rstats2twitter
+ 8 lists/:id&GET              75        75 14.78 mins 2022-03-06 10:35:45 2022-03-06 10:20:59 rstats2twitter
+ 9 lists/subscribers/show     15        15 14.78 mins 2022-03-06 10:35:45 2022-03-06 10:20:59 rstats2twitter
+10 lists/:id&PUT             300       300 14.78 mins 2022-03-06 10:35:45 2022-03-06 10:20:59 rstats2twitter
+# ... with 251 more rows
+```
 
-Check your remaining rate limits for the `search_tweets` function
+]
 
+---
+## Data Collection &mdash; Notes &mdash; `rate_limit`
+
+Check your remaining rate limits for specifically the `search_tweets` function
 
 ```{r, eval=FALSE}
 rate_limit(`query = "search/tweets"`)
 ```
+
+.out-t[
+
+```
+# A tibble: 1 x 7
+  query         limit remaining reset         reset_at            timestamp           app           
+  <chr>         <int>     <int> <drtn>        <dttm>              <dttm>              <chr>         
+1 search/tweets   180       171 14.77129 mins 2022-03-06 10:42:12 2022-03-06 10:27:26 rstats2twitter
+```
+
+]
+
+---
+## Data Collection &mdash; Notes &mdash; `rate_limit`
+
+Single out the .yellow-h[number] of remaining rate limit for specifically the `search_tweets` function
+
+```{r, eval=FALSE}
+rate_limit(query = "search/tweets")`$remaining`
+```
+
+.out-t[
+
+```
+## [1] 171
+```
+
+]
+
+<br>
+
+- Note that 
+
+  - this is not the number of tweets you can search for
+  - but rather the number of times that you can search for tweets
+
 
 ---
 class: action
@@ -1782,24 +1843,23 @@ class: action
 ## Exercises
 
 12) Check all your remaining rate limits
-- hint: assign the call `rate_limit` to a name 
-   - so that you can observe the resulting data frame better
+- have a look at the resulting data
 
 <br> 
 
 13) Check your remaining limits for the `search_tweets` function
-   - assign it to a name so that you can remember
+- assign it to a name
 
 <br>
 
-14) Collect the top 5000 tweets that 
-- include the word "PhD"
-- and posted by a verified account
+14) Collect the most recent 50 tweets that
+- include the word "rstat"
+- and posted in English
 
 <br>
 
 15) Check your remaining limits for the `search_tweets` function again
-- how do they compare to the results from exercise 13? 
+- how do they compare to the results from Exercise 13? 
 
 `r countdown(minutes = 10, seconds = 00, top = 0)`
 
@@ -1818,13 +1878,7 @@ class: middle, center
    - whose status ID you already know
    - limited with 90,000 posts per 15 minutes
       - there is no `retryonratelimit` argument
-      
-<br>
-- Note that
-
-   - this function would be useful for replicating studies
-   - status IDs are visible on browsers
-      - if you click on a specific tweet
+    
 ]
 
 
@@ -1837,6 +1891,13 @@ lookup_tweets(statuses,
 ```
 
 ]
+
+<br>
+- Note that
+
+   - this function would be useful for replicating studies
+   - status IDs are visible on browsers
+      - if you click on a specific tweet
 
 ---
 ## Data Collection &mdash; `lookup_tweets`
@@ -1891,7 +1952,7 @@ lookup_users(users,
 Collect data on one or more status IDs 
 
 ```{r, eval=FALSE}
-lookup_users(users = c( "drob", "hadleywickham", "JennyBryan"))
+lookup_users(users = c("drob", "hadleywickham", "JennyBryan"))
 ```
 
 --
@@ -2130,7 +2191,7 @@ class: action
 ## Exercises
 
 20) Collect the most recent tweets posted by three users 
-- 100 from the first user, 200 from the second, and 300 from the third
+- 10 from the first user, 20 from the second, and 30 from the third
 - hint: see the function documentation on how to vary the `n` argument by user
 
 <br>
@@ -2203,7 +2264,7 @@ Get a list of users, .yellow-h[followed by] .yellow-h[one or more] users
       - here `retryonratelimit = TRUE` does not help   
 <br>
 - use the `page` argument instead to surpass the limit
-      - learn the correct value with the `next_cursor` argument
+      - learn the correct value with the `next_cursor` function
 ]
 
 
@@ -2247,11 +2308,11 @@ class: action
 
 24) Collect a list of accounts that *Universität Luzern* follows
 - find out more about these accounts with `lookup_users`
-   - hint: use `df_friends$user_id` as the `users` argument
    
 <br>
    
 25) Check your rate limits
+- see the ones that are getting low
 
 `r countdown(minutes = 7, seconds = 30, top = 0)`
 
@@ -2331,7 +2392,7 @@ get_retweets(status_id,
 
 - Collect the most recent 50 retweets 
 
-   - of the post announcing the [Academic Research product track](https://twitter.com/TwitterDev/status/1354143047324299264)
+   - of the post announcing the [Academic Research Access](https://twitter.com/TwitterDev/status/1354143047324299264)
 
 
 ```{r, eval=FALSE}
@@ -2349,7 +2410,7 @@ class: action
 
 <br>
 
-27) Collect a list of accounts retweeting a recent tweet of yours
+27) Collect a list of accounts retweeting a tweet of yours
 - compare and contrast the resulting data with what you can see on a browser
 
 `r countdown(minutes = 7, seconds = 30, top = 0)`
@@ -2479,7 +2540,7 @@ lists_memberships(user = "JennyBryan")
 
 <br>
 
-Collect data on lists where Jenny Bryan .yellow-h[and/or] Hadley Wickham is listed
+Collect data on lists where Jenny Bryan .yellow-h[or] Hadley Wickham is listed
 
 ```{r, eval=FALSE}
 lists_memberships(user = c("JennyBryan", "hadleywickham"))
@@ -2880,23 +2941,25 @@ class: action
 
 ## Exercises
 
-37) Stream for all tweets, for 30 seconds
-- observer the outcome
-    - observe the outcome of each step below as well
-- hint: assign each stream to a different name, so that you can compare
+36) Stream for all tweets, for 30 seconds
+- observer the outcome, and compare them with the outcomes from below
 
+<br>
 
-38) Limit your stream to Switzerland
-   - and stream for 60 seconds
+37) Further limit your stream by a popular keyword
+- e.g., "and"
+- stream for 30 more seconds
 
-39) Further limit your stream by a popular keyword
-- e.g., "und"
-- stream for 60 more seconds
+<br>
 
+38) Further limit your stream to a not so popular word
+- e.g., "PhD"
+- stream for 30 more seconds
 
-40) Further limit your stream to a not so popular word
-- e.g., "Luzern"
-- stream for 60 more seconds
+<br>
+
+39) Stream for a word or words that interest you
+
 
 `r countdown(minutes = 10, seconds = 00, top = 0)`
 
@@ -2961,15 +3024,15 @@ class: inverse, center, middle
 ---
 ## Data Preperation &mdash; Overview &mdash; Numbers
 
-- There is more to Twitter data than just tweets
+- There is more to Twitter data than just tweets themselves
       
   - e.g., the number of followers, likes *etc*.
-     - see Silva and Proksch `r Citep(bibliography, "silva2021")` for a great example
+     - see Silva and Proksch `r Citep(bibliography, "silva2021")` for a great study on numbers
 
 --
 <br>
 
-- I use the `dplyr` package `r Citep(bibliography, "R-dplyr")` for most data operations
+- I use the `dplyr` package `r Citep(bibliography, "R-dplyr")` for most data operations on numbers
 
    - part of the `tidyverse` family
    - you might have another favourite already
@@ -3075,11 +3138,6 @@ df_tweets <- df_tweets %>%
            pattern = str_c(unlist(urls_t.co), collapse = "|")))
 ```
 
---
-class: action
-
-`r countdown(minutes = 8, seconds = 00, top = 0)`
-
 ---
 ## Data Preperation &mdash; Remove Emojis
 
@@ -3102,30 +3160,30 @@ iconv(x = tweet, from = "latin1", to = "ASCII", sub = "")
 
 ]
 
-
 ---
 ## Data Preperation &mdash; Exercises &mdash; Notes
 
 
 - The exercises in this part are best followed by
 
-  - using `tweets.rds` or similar dataset
+  - using `tweets.rds` or a similar existing dataset
   - saving a new variable at every step of preparation
   - observing the newly created variables 
+      - by selecting only the old and new variable
       - to confirm whether the code works as intended
 
 <br>
 
-- The `mutate` function, from the `dplyr` package, can be helpful, as follows
-
-   - recall that `text` is the variable for tweets
+- The `mutate` and `select` functions, from the `dplyr` package, can be helpful, as follows
 
 ```{r, eval=FALSE}
 
-tweets <- read_rds("data/tweets.rds")
+df_tweets <- read_rds("data/tweets.rds")
 
-clean_tweets <- tweets %>%
-  `mutate(no_mentions` = str_remove_all(string = `text`, pattern = "[@][\\w_-]+"))
+df_tweets %>%
+  `mutate(no_mentions` = str_remove_all(string = `text`, pattern = "[@][\\w_-]+")) %>% 
+  `select(text, no_mentions)` %>% 
+  View()
 
 ```
 
@@ -3134,23 +3192,36 @@ class: action
 
 ## Exercises
 
+.pull-left[
 
-41) Remove mentions
+40) Create a new variable without mentions
 
 - hint: the pattern is `"[@][\\w_-]+"`
 
-42) Remove hastags
+<br>
+
+41) Create a new variable without hashtags
 - hint: the pattern is `"[#][\\w_-]+"`
 
-43) Remove links
+<br>
+
+42) Create a new variable without links
 - by using the links from the `urls_t.co` variable
 
-44) Remove emojis
+]
+
+.pull-right[
+
+43) Create a new variable without emojis
 - pull the help file for the `iconv` function first
 
+<br>
+
+44) Create a new variable without any of the above
+
+]
 
 `r countdown(minutes = 10, seconds = 00, top = 0)`
-
 
 ---
 ## Data Preperation &mdash; Remove Punctuations
@@ -3174,20 +3245,20 @@ str_remove_all(string = tweet, pattern = "[[:punct:]]")
 
 ]
 
-Notice that
+<br>
+
+Note that
    - this removed all punctuation, including those in mentions, hashtags, and links
-   - if tweets are typed with no spaces after punctuation, this might lead to merged pieces of text
-      - alternatively, try the `str_replace` function to replace punctuation with space
-      
+   - there is a `str_remove` version, which removes the first occurrence only
 ---
-## Data Preperation &mdash; Remove Punctuations &mdash; Alternative
+## Data Preperation &mdash; Remove Punctuations
 
 ```{r, eval=FALSE}
 tweet <- "This is a sentence.There is no space before this sentence."
 ```
 
 ```{r, eval=FALSE}
-str_`remove`_all(string = tweet, pattern = "[[:punct:]]")
+str_remove_all(string = tweet, pattern = "[[:punct:]]")
 ```
 
 .out-t[
@@ -3196,23 +3267,14 @@ str_`remove`_all(string = tweet, pattern = "[[:punct:]]")
 
 ]
 
---
-
 <br>
 
-
-```{r, eval=FALSE}
-str_`replace`_all(string = tweet, pattern = "[[:punct:]]", replacement = " ")
-```
-
-.out-t[
-
-[1] "This is a sentence There is no space before this sentence "
-
-]
-
+Note that
+   - if tweets are typed with no spaces after punctuation, this might lead to merged pieces of text
+      - alternatively, try the `str_replace_all` function to replace punctuation with space
+      
 ---
-## Data Preperation &mdash; Remove Punctuations &mdash; Alternative
+## Data Preperation &mdash; .yellow-h[Replace] Punctuations
 
 
 ```{r, eval=FALSE}
@@ -3220,7 +3282,7 @@ tweet <- "This is a sentence.There is no space before this sentence."
 ```
 
 ```{r, eval=FALSE}
-str_replace_all(string = tweet, pattern = "[[:punct:]]", replacement = " ")
+str_`replace`_all(string = tweet, pattern = "[[:punct:]]", replacement = " ")
 ```
 
 .out-t[
@@ -3246,6 +3308,8 @@ str_squish(string = tweet)
 [1] "There are too many spaces after this sentence. This is a new sentence."
 
 ]
+
+<br>
 
 Note that
 - white spaces can be introduced not only by users on Twitter, but also by us, while cleaning the data
@@ -3281,17 +3345,14 @@ class: action
 
 45) Remove punctuations
 - by using the `str_replace_all` function
-- hint: the pattern is `[[:punct:]]`
 
 <br>
 
-46) Remove whitespace
-- hint: the function is called `str_squish`
+46) Remove repeated whitespace
 
 <br>
 
 47) Change case to lower case
-- hint: the function is called `str_to_lower`
 
 
 `r countdown(minutes = 10, seconds = 00, top = 0)`
@@ -3445,8 +3506,9 @@ class: action
 ## Exercises
 
 48) Aggregate `text` to a higher level
-- e.g., if you are not using `tweets.rds`, to MP level
-   - if not, perhaps to `source` level
+- e.g., if you are using `tweets.rds`, to MP level
+-and add at least two numerical variables
+  - e.g., average number of likes
 
 <br>
 
@@ -3456,7 +3518,7 @@ class: action
 <br>
 
 50) Dis-aggregate `hashtags`
-- i.e., make sure each row has at most one hashtag
+- make sure each row has at most one hashtag
 
 <br>
 
