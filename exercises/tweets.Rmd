@@ -70,6 +70,7 @@ The previous graph shows regular dips. Do those dips occur on  specific days of 
 # visualise the results
 
 
+
 ```
 
 ### What time of the day?
@@ -234,6 +235,7 @@ Conduct another tweet-based analysis of the `tweets` dataset --- something that 
 
 
 ```{r, exercise_73, echo=FALSE}
+
 
 
 ```

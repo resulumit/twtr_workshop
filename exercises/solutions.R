@@ -127,18 +127,18 @@ df_mps <- read.csv("data/mps.csv") %>%
 View(df_mps)
 
 # look up the users
-df_tweets <- lookup_users(users = df_mps$screen_name)
+df_users <- lookup_users(users = df_mps$screen_name)
 
 
 # exercise 19 -------------------------------------------------------------
 
 # import data and keep only the screen_name variable
-screen_names <- read.csv("data/mps.csv") %>%
+mp_names <- read.csv("data/mps.csv") %>%
   select(screen_name)
 
 # single out the 10th and 20th mps
-mp10 <- screen_names[10, 1]
-mp20 <- screen_names[20, 1]
+mp10 <- mp_names[10, 1]
+mp20 <- mp_names[20, 1]
 
 #  check the friendship status of the two
 df_friends <- lookup_friendships(source = mp10,

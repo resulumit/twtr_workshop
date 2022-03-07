@@ -55,7 +55,7 @@ Use the variables from the `mps` dataset to explore.
 # using some other variables from the same dataset as independent variables
 # visualise the results with the `dwplot` function
 
-head(mps)
+
 
 ```
 
@@ -72,7 +72,6 @@ Optionally, use the `name` and `party` variables from the `mps` dataset to impro
 # merge with the mps dataset, to get full names and party variables
 # visualise the top 20 MPs with a barplot
 # using the party variable as the added color
-
 
 
 
