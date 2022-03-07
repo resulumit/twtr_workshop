@@ -177,12 +177,17 @@ df_mp_timelines <- get_timeline(user = mps1_5,
 search_users(q = "Universität Luzern")$screen_name
 
 # get the followers of the account
-
 df_followers <- get_followers(user = "UniLuzern")
+
 
 # exercise 24 -------------------------------------------------------------
 
+# get the list of friends
 df_friends <- get_friends(users = "UniLuzern")
+
+# look them up
+df_users <- lookup_users(users = df_friends$user_id)
+
 
 # exercise 25 -------------------------------------------------------------
 
