@@ -3260,7 +3260,7 @@ class: inverse, center, middle
 --
 <br>
 
-- I use the `dplyr` package `r Citep(bibliography, "R-dplyr")` for most data operations on numbers
+- I use the `dplyr` package `r gsub("Ã§", "ç", Citep(bibliography, "R-dplyr"))` for most data operations on numbers
 
    - part of the `tidyverse` family
    - you might have another favourite already
@@ -3420,36 +3420,26 @@ class: action
 
 ## Exercises
 
-.pull-left[
-
 40) Create a new variable without mentions
-
-- hint: the pattern is `"[@][\\w_-]+"`
 
 <br>
 
 41) Create a new variable without hashtags
-- hint: the pattern is `"[#][\\w_-]+"`
 
 <br>
 
 42) Create a new variable without links
-- by using the links from the `urls_t.co` variable
 
-]
-
-.pull-right[
+<br>
 
 43) Create a new variable without emojis
-- pull the help file for the `iconv` function first
 
 <br>
 
 44) Create a new variable without any of the above
 
-]
 
-`r countdown(minutes = 10, seconds = 00, top = 0)`
+`r countdown(minutes = 15, seconds = 00, top = 0)`
 
 ---
 ## Data Preperation &mdash; Remove Punctuations
@@ -3571,8 +3561,7 @@ class: action
 
 ## Exercises
 
-45) Remove punctuations
-- by using the `str_replace_all` function
+45) Remove punctuation
 
 <br>
 
@@ -3752,8 +3741,7 @@ class: action
 
 51) Remove stop words
 
-
-`r countdown(minutes = 10, seconds = 00, top = 0)`
+`r countdown(minutes = 15, seconds = 00, top = 0)`
 
 ---
 name: part5
@@ -3774,7 +3762,8 @@ class: inverse, center, middle
 
   - e.g., members of parliaments
   - as opposed to their tweets on Twitter
-      - not always mutually exclusive
+      - not always mutually exclusive     
+<br>      
   - might be supplemented with non-Twitter data
       - e.g., `data/mps.csv`
 
@@ -3786,7 +3775,8 @@ class: inverse, center, middle
 
    - count things, and describe or correlate
       - e.g., who has the most followers
-         - are female MPs more or less likely to have large number of followers?
+         - are female MPs more or less likely to have large number of followers?     
+<br>         
     - network analysis
       - e.g., who retweets whom, how often?
 
