@@ -40,7 +40,7 @@ Twitter's [Developer terms](https://developer.twitter.com/en/developer-terms/agr
 
 ### Presentation
 
-- `presentation/twtr_workshop.Rmd`, `presentation/twtr_workshop.html`, `presentation/twtr_workshop.pdf`
+- `presentation/twtr_workshop.Rmd`, `presentation/twtr_workshop.html`, and `presentation/twtr_workshop.pdf`
 
   - slides in three formats
 
