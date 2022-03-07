@@ -191,7 +191,7 @@ Resul Umit
 
 - Popularity of the network
 
-  - about 220 million users, more than half are daily active
+  - about 220 million users, more than three quarters are daily active
   - your subjects are likely Twitter users
      - e.g., for me, members of parliament
 
@@ -223,7 +223,7 @@ Resul Umit
 
 - Popularity of the network
 
-  - about 350 million users, more than half are daily active
+  - about 220 million users, more than three quarters are daily active
   - your subjects are likely Twitter users
      - e.g., for me, members of parliament
 
