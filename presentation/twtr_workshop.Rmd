@@ -488,7 +488,7 @@ name: potential-biases
 - These restrictions vary across API types
 
   - e.g., [Standard v1.1](https://developer.twitter.com/en/docs/twitter-api/v1) is the most restrictive APIs
-      - other first generation APIs are the [Premium v1.1](https://developer.twitter.com/en/products/twitter-api/premium-apis) and [Enterprise: Gnip 2.0](https://developer.twitter.com/en/products/twitter-api/enterprise) APIs &mdash; both with paid subscriptions
+      - other first generation APIs are the [Premium v1.1](https://developer.twitter.com/en/docs/twitter-api/premium) and [Enterprise: Gnip 2.0](https://developer.twitter.com/en/docs/twitter-api/enterprise) APIs &mdash; both with paid subscriptions
       - there are also the second generation APIs, including the newly announced [Academic Research access](https://developer.twitter.com/en/products/twitter-api/academic-research)
 
 --
@@ -583,7 +583,7 @@ name: potential-biases
            - ranging from master's students to professors    
 <br>
        - access to all public tweets
-          - by up to 1.5M a month at a time
+          - by up to 10M a month at a time
        
 ---
 ## Considerations &mdash; Law and Ethics
@@ -724,10 +724,11 @@ twtr_workshop-materials
    |
    |- analysis
    |  |
-   |  |- tweet_based.Rmd
-   |  |- tweet_based_answers.Rmd
-   |  |- user_based.Rmd
-   |  |- user_based_answers.Rmd
+   |  |- solutions.R   
+   |  |- tweets.Rmd
+   |  |- tweets_answers.Rmd
+   |  |- users.Rmd
+   |  |- users_answers.Rmd
 
 ```
 ---
@@ -755,17 +756,23 @@ twtr_workshop-materials
 ---
 ## Course Materials &mdash; Contents
 
-- `tweet_based.Rmd`
+- `exercises/solutions.R`
 
-  - an R Markdown file with exercises for [Part 6](#part-6)
-  - the solution to these exercises are in `tweet_based_answers.Rmd`
+  - an R script with solutions for exercises until the end of Part 4
 
 <br>
 
-- `user_based.Rmd`
+- `exercises/tweets.Rmd`
+
+  - an R Markdown file with exercises for [Part 6](#part-6)
+  - the solution to these exercises are in `tweets_answers.Rmd`
+
+<br>
+
+- `exercises/users.Rmd`
 
   - an R Markdown file with exercises for [Part 5](#part-5)
-  - the solution to these exercises are in `user_based_answers.Rmd`
+  - the solution to these exercises are in `users_answers.Rmd`
 
 ---
 class: action

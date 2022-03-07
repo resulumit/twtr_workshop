@@ -331,7 +331,7 @@ Slides with this background colour indicate that your action is required, for
     - these slides have countdown timers
         - as a guide, not to be followed strictly
     
-<div class="countdown" id="timer_6225bbd6" style="top:0;right:0;" data-warnwhen="0">
+<div class="countdown" id="timer_6225f504" style="top:0;right:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">03</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -457,7 +457,7 @@ name: potential-biases
 - These restrictions vary across API types
 
   - e.g., [Standard v1.1](https://developer.twitter.com/en/docs/twitter-api/v1) is the most restrictive APIs
-      - other first generation APIs are the [Premium v1.1](https://developer.twitter.com/en/products/twitter-api/premium-apis) and [Enterprise: Gnip 2.0](https://developer.twitter.com/en/products/twitter-api/enterprise) APIs &amp;mdash; both with paid subscriptions
+      - other first generation APIs are the [Premium v1.1](https://developer.twitter.com/en/docs/twitter-api/premium) and [Enterprise: Gnip 2.0](https://developer.twitter.com/en/docs/twitter-api/enterprise) APIs &amp;mdash; both with paid subscriptions
       - there are also the second generation APIs, including the newly announced [Academic Research access](https://developer.twitter.com/en/products/twitter-api/academic-research)
 
 --
@@ -552,7 +552,7 @@ name: potential-biases
            - ranging from master's students to professors    
 &lt;br&gt;
        - access to all public tweets
-          - by up to 1.5M a month at a time
+          - by up to 10M a month at a time
        
 ---
 ## Considerations &amp;mdash; Law and Ethics
@@ -693,10 +693,11 @@ twtr_workshop-materials
    |
    |- analysis
    |  |
-   |  |- tweet_based.Rmd
-   |  |- tweet_based_answers.Rmd
-   |  |- user_based.Rmd
-   |  |- user_based_answers.Rmd
+   |  |- solutions.R   
+   |  |- tweets.Rmd
+   |  |- tweets_answers.Rmd
+   |  |- users.Rmd
+   |  |- users_answers.Rmd
 
 ```
 ---
@@ -724,17 +725,23 @@ twtr_workshop-materials
 ---
 ## Course Materials &amp;mdash; Contents
 
-- `tweet_based.Rmd`
+- `exercises/solutions.R`
 
-  - an R Markdown file with exercises for [Part 6](#part-6)
-  - the solution to these exercises are in `tweet_based_answers.Rmd`
+  - an R script with solutions for exercises until the end of Part 4
 
 &lt;br&gt;
 
-- `user_based.Rmd`
+- `exercises/tweets.Rmd`
+
+  - an R Markdown file with exercises for [Part 6](#part-6)
+  - the solution to these exercises are in `tweets_answers.Rmd`
+
+&lt;br&gt;
+
+- `exercises/users.Rmd`
 
   - an R Markdown file with exercises for [Part 5](#part-5)
-  - the solution to these exercises are in `user_based_answers.Rmd`
+  - the solution to these exercises are in `users_answers.Rmd`
 
 ---
 class: action
@@ -1565,7 +1572,7 @@ class: action
 - compare and contrast the API- and browser-based searches
 
     
-<div class="countdown" id="timer_6225bbc9" style="top:0;right:0;" data-warnwhen="0">
+<div class="countdown" id="timer_6225f516" style="top:0;right:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">15</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -1879,7 +1886,7 @@ class: action
 - note that this is over the limit of 18,000
 - hint: pull the help file for the function to see which argument you must use to surpass the limit
 
-<div class="countdown" id="timer_6225b936" style="top:0;right:0;" data-warnwhen="0">
+<div class="countdown" id="timer_6225f3c3" style="top:0;right:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">20</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -1942,7 +1949,7 @@ class: action
 11) Conduct one or more searches that interest you
 - for tweets and/or users
 
-<div class="countdown" id="timer_6225b98e" style="top:0;right:0;" data-warnwhen="0">
+<div class="countdown" id="timer_6225f4ed" style="top:0;right:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">20</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -2082,7 +2089,7 @@ class: action
 15) Check your remaining limits for the `search_tweets` function again
 - how do they compare to the results from Exercise 13? 
 
-<div class="countdown" id="timer_6225bb93" style="top:0;right:0;" data-warnwhen="0">
+<div class="countdown" id="timer_6225f40c" style="top:0;right:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">10</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -2248,7 +2255,7 @@ class: action
 - hint: not all MPs are on Twitter, but most are
     - e.g., check if the 10&lt;sup&gt;th&lt;/sup&gt; and 20&lt;sup&gt;th&lt;/sup&gt; observations follow each other
 
-<div class="countdown" id="timer_6225b888" style="top:0;right:0;" data-warnwhen="0">
+<div class="countdown" id="timer_6225f363" style="top:0;right:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">15</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -2440,7 +2447,7 @@ class: action
 22) Collect data from timelines of the first five MPs in `mps.csv`
 - collect as many tweets as possible
 
-<div class="countdown" id="timer_6225ba56" style="top:0;right:0;" data-warnwhen="0">
+<div class="countdown" id="timer_6225f221" style="top:0;right:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">10</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -2557,7 +2564,7 @@ class: action
 25) Check your rate limits
 - see the ones that are getting low
 
-<div class="countdown" id="timer_6225b981" style="top:0;right:0;" data-warnwhen="0">
+<div class="countdown" id="timer_6225f343" style="top:0;right:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">07</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">30</span></code>
 </div>
 
@@ -2662,7 +2669,7 @@ class: action
 27) Collect a list of accounts retweeting a tweet of yours
 - compare and contrast the resulting data with what you can see on a browser
 
-<div class="countdown" id="timer_6225bc04" style="top:0;right:0;" data-warnwhen="0">
+<div class="countdown" id="timer_6225f45d" style="top:0;right:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">07</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">30</span></code>
 </div>
 
@@ -2749,7 +2756,7 @@ class: action
 30) Collect the list of trends for your location
 - compare and contrast the resulting data with what you see on your browser
 
-<div class="countdown" id="timer_6225ba83" style="top:0;right:0;" data-warnwhen="0">
+<div class="countdown" id="timer_6225f3da" style="top:0;right:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">07</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">30</span></code>
 </div>
 
@@ -3033,7 +3040,7 @@ class: action
 35) For one of these users, see if they are subscribed to any other lists
 
 
-<div class="countdown" id="timer_6225b8d4" style="top:0;right:0;" data-warnwhen="0">
+<div class="countdown" id="timer_6225f43d" style="top:0;right:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">10</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -3239,7 +3246,7 @@ class: action
 39) Stream for a word or words that interest you
 
 
-<div class="countdown" id="timer_6225ba4f" style="top:0;right:0;" data-warnwhen="0">
+<div class="countdown" id="timer_6225f48c" style="top:0;right:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">10</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -3508,7 +3515,7 @@ class: action
 
 ]
 
-<div class="countdown" id="timer_6225bb39" style="top:0;right:0;" data-warnwhen="0">
+<div class="countdown" id="timer_6225f2ed" style="top:0;right:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">10</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -3654,7 +3661,7 @@ class: action
 47) Change case to lower case
 
 
-<div class="countdown" id="timer_6225bae0" style="top:0;right:0;" data-warnwhen="0">
+<div class="countdown" id="timer_6225f30c" style="top:0;right:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">10</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -3833,7 +3840,7 @@ class: action
 51) Remove stop words
 
 
-<div class="countdown" id="timer_6225bb33" style="top:0;right:0;" data-warnwhen="0">
+<div class="countdown" id="timer_6225f1e0" style="top:0;right:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">10</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -3921,7 +3928,7 @@ On `users.Rmd`, complete the following exercises
 
 57) Who do they talk to?
 
-<div class="countdown" id="timer_6225bb71" style="top:0;right:0;" data-warnwhen="0">
+<div class="countdown" id="timer_6225f541" style="top:0;right:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">45</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -4164,7 +4171,7 @@ On `users.Rmd`, complete the following exercises
 
 63) Something interesting from your own data
 
-<div class="countdown" id="timer_6225bc26" style="top:0;right:0;" data-warnwhen="0">
+<div class="countdown" id="timer_6225f310" style="top:0;right:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">45</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -4252,7 +4259,7 @@ On `tweets.Rmd`, complete the following exercises
 
 68) Sentiments by Hours of the Day
 
-<div class="countdown" id="timer_6225bb7a" style="top:0;right:0;" data-warnwhen="0">
+<div class="countdown" id="timer_6225f533" style="top:0;right:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">45</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -4341,7 +4348,7 @@ On `tweets.Rmd`, complete the following exercises
 
 74) Something interesting from your own data
 
-<div class="countdown" id="timer_6225b8d6" style="top:0;right:0;" data-warnwhen="0">
+<div class="countdown" id="timer_6225f53d" style="top:0;right:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">45</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -4360,54 +4367,65 @@ class: inverse, center, middle
 ---
 ## References
 
-Cheng, J. and W. Chang (2022). _httpuv: HTTP and WebSocket Server Library_. R package version
-1.6.5.  https://github.com/rstudio/httpuv.
+Cheng, J. and W. Chang (2022). _httpuv: HTTP and WebSocket Server
+Library_. R package version 1.6.5. 
+https://github.com/rstudio/httpuv.
 
-Jungherr, A. (2016). "Twitter use in election campaigns: A systematic literature review". In:
-_Journal of Information Technology &amp; Politics_ 13.1, pp. 72-91.
+Jungherr, A. (2016). "Twitter use in election campaigns: A systematic
+literature review". In: _Journal of Information Technology &amp; Politics_
+13.1, pp. 72-91.
 
-Jürgens, P. and A. Jungherr (2016). "A tutorial for using Twitter data in the social sciences:
-Data collection, preparation, and analysis". In: _Available at
-http://dx.doi.org/10.2139/ssrn.2710146_.
+Jürgens, P. and A. Jungherr (2016). "A tutorial for using Twitter data
+in the social sciences: Data collection, preparation, and analysis".
+In: _Available at http://dx.doi.org/10.2139/ssrn.2710146_.
 
-Kearney, M. W. (2020). _rtweet: Collecting Twitter Data_. R package version 0.7.0. 
-https://CRAN.R-project.org/package=rtweet.
+Kearney, M. W. (2020). _rtweet: Collecting Twitter Data_. R package
+version 0.7.0.  https://CRAN.R-project.org/package=rtweet.
 
-Mellon, J. and C. Prosser (2017). "Twitter and Facebook are not representative of the general
-population: Political attitudes and demographics of British social media users". In: _Research &amp;
-Politics_ 4.3, pp. 1-9.
+Mellon, J. and C. Prosser (2017). "Twitter and Facebook are not
+representative of the general population: Political attitudes and
+demographics of British social media users". In: _Research &amp; Politics_
+4.3, pp. 1-9.
 
-Robinson, D. and J. Silge (2021). _tidytext: Text Mining using dplyr, ggplot2, and Other Tidy
-Tools_. R package version 0.3.2.  https://github.com/juliasilge/tidytext.
+Robinson, D. and J. Silge (2021). _tidytext: Text Mining using dplyr,
+ggplot2, and Other Tidy Tools_. R package version 0.3.2. 
+https://github.com/juliasilge/tidytext.
 
-Silge, J. and D. Robinson (2017). _Text mining with R: A tidy approach_. O'Reilly.
+Silge, J. and D. Robinson (2017). _Text mining with R: A tidy
+approach_. O'Reilly.
 
-Silva, B. C. and S. Proksch (2021). "Fake It 'Til You Make It: A Natural Experiment to Identify
-European Politicians' Benefit from Twitter Bots". In: _American Political Science Review_ 115.1,
-pp. 316-322.
+Silva, B. C. and S. Proksch (2021). "Fake It 'Til You Make It: A
+Natural Experiment to Identify European Politicians' Benefit from
+Twitter Bots". In: _American Political Science Review_ 115.1, pp.
+316-322.
 
 ---
 ## References
 
-Sinnenberg, L., A. M. Buttenheim, K. Padrez, et al. (2017). "Twitter as a tool for health
-research: a systematic review". In: _American Journal of Public Health_ 107.1, pp. 1-8.
+Sinnenberg, L., A. M. Buttenheim, K. Padrez, et al. (2017). "Twitter as
+a tool for health research: a systematic review". In: _American Journal
+of Public Health_ 107.1, pp. 1-8.
 
-Umit, R. (2017). "Strategic communication of EU affairs: an analysis of legislative behaviour on
-Twitter". In: _The Journal of Legislative Studies_ 23.1, pp. 93-124.
+Umit, R. (2017). "Strategic communication of EU affairs: an analysis of
+legislative behaviour on Twitter". In: _The Journal of Legislative
+Studies_ 23.1, pp. 93-124.
 
-Wickham, H. (2019). _stringr: Simple, Consistent Wrappers for Common String Operations_. R package
-version 1.4.0.  https://CRAN.R-project.org/package=stringr.
+Wickham, H. (2019). _stringr: Simple, Consistent Wrappers for Common
+String Operations_. R package version 1.4.0. 
+https://CRAN.R-project.org/package=stringr.
 
-Wickham, H. (2021). _tidyverse: Easily Install and Load the Tidyverse_. R package version 1.3.1.
- https://CRAN.R-project.org/package=tidyverse.
+Wickham, H. (2021). _tidyverse: Easily Install and Load the Tidyverse_.
+R package version 1.3.1. 
+https://CRAN.R-project.org/package=tidyverse.
 
-Wickham, H., R. François, L. Henry, et al. (2022). _dplyr: A Grammar of Data Manipulation_. R
-package version 1.0.8.  https://CRAN.R-project.org/package=dplyr.
+Wickham, H., R. François, L. Henry, et al. (2022). _dplyr: A Grammar
+of Data Manipulation_. R package version 1.0.8. 
+https://CRAN.R-project.org/package=dplyr.
 
 Wickham, H. and G. Grolemund (2021). _R for data science_. O'Reilly.
 
-Xie, Y. (2021). _xaringan: Presentation Ninja_. R package version 0.22. 
-https://github.com/yihui/xaringan.
+Xie, Y. (2021). _xaringan: Presentation Ninja_. R package version 0.22.
+ https://github.com/yihui/xaringan.
 ---
 class: middle, center
 
