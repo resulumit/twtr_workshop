@@ -2300,7 +2300,7 @@ Collect the most recent 200 tweets by David Robinson
 
 
 ```{r, eval=FALSE}
-search_tweets(user = "drob",
+get_timeline(user = "drob",
               n = 200)
 ```
 
@@ -2535,7 +2535,7 @@ class: action
 <br>
 
 24) Collect a list of accounts that *Universität Luzern* follows
-- find out more about these accounts with `lookup_users`
+- and find out more about these accounts with `lookup_users`
    
 <br>
    
@@ -2791,7 +2791,7 @@ lists_memberships(user = c("JennyBryan", "hadleywickham"))
 - Note that
 
   - lists also appear at twitter.com/USERNAME/lists
-  - see, for example, [twitter.com/tweetminster/lists](https://twitter.com/tweetminster/lists)
+  - see, for example, [twitter.com/TwitterGov/lists](https://twitter.com/tweetminster/lists)
 
 ]
    
@@ -2818,7 +2818,7 @@ Collect data on the list of MPs in the House of Commons
 - using the `list_id` argument
    
 ```{r, eval=FALSE}
-lists_members(list_id = "1405362")
+lists_members(list_id = "217199644")
 ```
 
 --
@@ -2828,7 +2828,7 @@ Collect the same data, with different arguments
 - using the `owner_user` .yellow-h[and] `slug` arguments
    
 ```{r, eval=FALSE}
-lists_members(owner_user = "tweetminster", slug = "UKMPs")
+lists_members(owner_user = "TwitterGov", slug = "UK-MPs")
 ```
 
 ---
@@ -2864,11 +2864,11 @@ lists_statuses(list_id = NULL,
 ---
 ## Data Collection &mdash; `lists_statuses`
 
-Collect tweets posted by the members of the UKMPs list
+Collect tweets posted by the members of the UK MPs list
 - using the `list_id` argument
    
 ```{r, eval=FALSE}
-lists_statuses(list_id = "1405362")
+lists_statuses(list_id = "217199644")
 ```
 
 --
@@ -2878,7 +2878,7 @@ Collect the same data, with different arguments
 - using the `owner_user` .yellow-h[and] `slug` arguments
    
 ```{r, eval=FALSE}
-lists_statuses(owner_user = "tweetminster", slug = "UKMPs")
+lists_statuses(owner_user = "TwitterGov", slug = "UK-MPs")
 ```
 
 ---
@@ -2927,7 +2927,7 @@ Collect the same data, with different arguments
 - using the `owner_user` .yellow-h[and] `slug` arguments
    
 ```{r, eval=FALSE}
-lists_subscribers(owner_user = "tweetminster", slug = "UKMPs")
+lists_subscribers(owner_user = "TwitterGov", slug = "UK-MPs")
 ```
 
 ---
@@ -2959,10 +2959,10 @@ lists_subscriptions(user,
 ## Data Collection &mdash; `lists_subscriptions`
 
 
-Collect data on the lists that Aimee Paige is subscribed to
+Collect data on the lists that TwitterGov is subscribed to
 
 ```{r, eval=FALSE}
-lists_subscriptions(user = "AimeePaige")
+lists_subscriptions(user = "TwitterGov")
 ```
 
 ---
