@@ -291,6 +291,8 @@ name: contents-slide
 
 ## The Workshop &mdash; Contents
 
+<br>
+
 .pull-left[
 
 [Part 1. Preliminary Considerations](#part1)
@@ -301,22 +303,20 @@ name: contents-slide
 
 [Part 3. Data Collection](#part3)
    - e.g., acquiring a user's tweets
-   
-[Part 4. Data Preperation](#part4)
-   - e.g., creating a tidy dataset of tweets
-   
+
 ]
 
 .pull-right[
+
+[Part 4. Data Preperation](#part4)
+   - e.g., creating a tidy dataset of tweets
+   
    
 [Part 5. Data Anaysis: Users](#part5)
    - e.g., conducting network analysis
    
 [Part 6. Data Anaysis: Tweets](#part6)
    - e.g., conducting sentiment analysis
-   
-[Part 7. Next Steps](#part7)
-   - e.g., applying for a developer account  
    
 ]
 
@@ -973,6 +973,230 @@ Sign up for Twitter at [https://twitter.com/](twitter.com)
       - either choose an anonymous username (e.g., `asdf029348`)
       - or choose one carefully &mdash; they become a part of users' online presence
 
+---
+class: action
+
+## Twitter &mdash; Apply for a Developer Account
+
+- On [developer.twitter.com](https://developer.twitter.com/), click `Apply`
+   - at the top-right corner of the page<sup>*</sup>
+   - follow the instructions on consecutive pages    
+
+.footnote[
+
+<sup>*</sup>It takes a few days for Twitter to review and hopefully approve your request to have an account. You might have created an account before. In that case, you will see `Developer Portal` instead of `Apply`. 
+
+]
+
+---
+class: action
+
+## Twitter &mdash; Apply for a Developer Account
+
+- On [developer.twitter.com](https://developer.twitter.com/), click `Apply`
+   - at the top-right corner of the page<sup>*</sup>
+   - follow the instructions on consecutive pages    
+
+<br>
+
+- Write a detailed case for your intended use of Twitter APIs
+       - not just that you are attending this workshop
+       - a quick application is likely to slow the review process
+          - as Twitter often asks for more details via email
+       - rejection is also a possibility    
+
+<br>
+
+- Carefully review the Twitter's [Developer Agreement and Policy](https://developer.twitter.com/en/developer-terms/agreement-and-policy)
+       - especially important if you will develop an app that
+           - others will use
+           - will write as well as read Twitter data
+
+---
+class: action
+
+## Twitter &mdash; Register an App
+
+- On [developer.twitter.com/en/portal/projects-and-apps](https://developer.twitter.com/en/portal/projects-and-apps), click `+ Create App`
+   - follow the instructions on consecutive pages
+       - you will need a unique name for your app
+       
+  - note that, once the app is registered, you are provided with keys and tokens
+      - you will use these for authentication
+          - if you choose not to authenticate through `rtweet`'s own app, called `rstats2twitter`
+          - more on this in [Part 3](#part3)
+          
+- does not mean you have to create an actual app
+    - e.g., an app for smart phones
+
+---
+## Twitter &mdash; Keys and Tokens &mdash; Notes          
+      
+- Keys and tokens are personal
+   - should not be shared with others
+      - e.g., through replication files, when asking a question on [Stack Overflow](https://stackoverflow.com/) 
+
+--
+          
+- Keys and tokens can be re-generated anytime
+  - on your applications page, under the `Keys and tokens` tab
+  - this requires updating your R script with the new tokens as well
+  
+--
+
+- Twitter allows for further, optional settings involving keys and tokens
+   - relevant, mostly, for apps to do more than just collecting tweets
+   - e.g., settings for 3-legged OAuth
+      - like `rstats2twitter`, to allow for other users to authenticate through a browser pop up
+   - not covered in this workshop
+   
+---
+## Twitter &mdash; Keys and Tokens &mdash; Notes &mdash; Definitions
+
+- Consumer key and Consumer secret
+
+  - identifiers for an application
+  - provide .yellow-h[project authorization]
+     - identify the application
+     - check whether the application has been granted access
+  - like your application's username and password
+
+--
+
+- Access token and Access token secret
+
+  - identifier for users of an application
+     - this may or may not include anyone other than the owner
+     - e.g., for `rstats2twitter`, there are many users
+  - provide .yellow-h[user authentication] 
+     - identify the user
+     - check whether the user should have access to a request
+     
+---
+## Data Collection &mdash; `rtweet` &mdash; Authentication
+
+There are two different methods of [authentication](https://developer.twitter.com/en/docs/authentication/overview)   
+<br>   
+- through `rtweet`'s `rstats2twitter` app
+      
+  - the app makes requests on your behalf
+  - you simply approve this, via a browser that pops up
+  - nice and easy, but comes with some limitations  
+  
+--
+
+<br>  
+      
+- through your own app   
+      
+  - you make requests on your behalf
+  - through your own app that you register as a developer 
+  - takes a little effort, but comes with additional stability and functionality
+        - removing the dependency on `rstats2twitter`, over which you have no control
+        - getting rid of the pop up windows   
+        - not only for collecting tweets, but also posting your own tweets
+              - and, reading and writing your own direct messages
+              
+---
+name: create-token
+class: action
+
+## Data Collection &mdash; Define Your Token
+
+If you are using your own app to authenticate, create a token
+- using the `create_token` function
+- the `app` argument requires for the name of your own app, as registered on [developer.twitter.com](https://developer.twitter.com/)
+- the other arguments to be filled with the information from the `Keys and tokens` tab on the same website
+
+
+```{r, eval=FALSE}
+tw_token <- create_token(
+    app = "",
+    consumer_key = "",
+    consumer_secret = "",
+    access_token = "",
+    access_secret = ""
+  )
+```
+
+---
+## Data Collection &mdash; Define Your Token &mdash; Alternatives
+
+.pull-left[
+- You may wish to put your keys and tokens elsewhere
+   - they are personal, just like a password
+
+- There are at least two alternatives
+   - .yellow-h[create a separate script, which you can then `source` at the top of your main script]
+   
+]
+   
+.pull-right[
+
+`keys_tokens.R`
+
+```{r, eval=FALSE}
+ tw_token <- create_token(
+    app = "",
+    consumer_key = "",
+    consumer_secret = "",
+    access_token = "",
+    access_secret = ""
+   )
+```
+
+
+`data_collection.R`
+
+```{r, eval=FALSE}
+ library(rtweet)
+ `source("keys_tokens.R")`
+```
+
+]
+
+---
+## Data Collection &mdash; Define Your Token &mdash; Alternatives
+
+.pull-left[
+- You may wish to put your keys and tokens elsewhere
+   - they are personal, just like a password
+
+- There are at least two alternatives
+   - create a separate script, which you can then `source` at the top of your main script
+   
+   - .yellow-h[store your keys and tokens in your `.Renviron` file, which can be created at the project level as well]
+   
+]
+   
+.pull-right[
+
+`.Renviron`
+
+```{r, eval=FALSE}
+TWITTER_APP=name_of_my_app
+TWITTER_CONSUMER_KEY=akN...
+TWITTER_CONSUMER_SECRET=HJK...
+TWITTER_ACCESS_TOKEN=345...
+TWITTER_ACCESS_SECRET=SDF...
+```
+
+
+`data_collection.R`
+
+```{r, eval=FALSE}
+ library(rtweet)
+tw_token <- create_token(
+    app = Sys.getenv("TWITTER_APP"),
+    consumer_key = Sys.getenv("TWITTER_CONSUMER_KEY"),
+    consumer_secret = Sys.getenv("TWITTER_CONSUMER_SECRET"),
+    access_token = Sys.getenv("TWITTER_ACCESS_TOKEN"),
+    access_secret = Sys.getenv("TWITTER_ACCESS_SECRET")
+ )
+```
+
+]
+     
 ---
 ## Other Resources<sup>*</sup>
 
@@ -4063,255 +4287,6 @@ On `tweets.Rmd`, complete the following exercises
 
 `r countdown(minutes = 45, seconds = 00, top = 0)`
 
----
-name: part7
-class: inverse, center, middle
-
-# Part 7. Data Anaysis: Machiene Learning
-
-.footnote[
-
-[Back to the contents slide](#contents-slide).
-
-]
-
----
-name: part7
-class: inverse, center, middle
-
-# Part 7. Next Steps
-
-.footnote[
-
-[Back to the contents slide](#contents-slide).
-
-]
-
----
-class: action
-
-## Twitter &mdash; Apply for a Developer Account
-
-- On [developer.twitter.com](https://developer.twitter.com/), click `Apply`
-   - at the top-right corner of the page<sup>*</sup>
-   - follow the instructions on consecutive pages    
-
-.footnote[
-
-<sup>*</sup>It takes a few days for Twitter to review and hopefully approve your request to have an account. You might have created an account before. In that case, you will see `Developer Portal` instead of `Apply`. 
-
-]
-
----
-class: action
-
-## Twitter &mdash; Apply for a Developer Account
-
-- On [developer.twitter.com](https://developer.twitter.com/), click `Apply`
-   - at the top-right corner of the page<sup>*</sup>
-   - follow the instructions on consecutive pages    
-
-<br>
-
-- Write a detailed case for your intended use of Twitter APIs
-       - not just that you are attending this workshop
-       - a quick application is likely to slow the review process
-          - as Twitter often asks for more details via email
-       - rejection is also a possibility    
-
-<br>
-
-- Carefully review the Twitter's [Developer Agreement and Policy](https://developer.twitter.com/en/developer-terms/agreement-and-policy)
-       - especially important if you will develop an app that
-           - others will use
-           - will write as well as read Twitter data
-
----
-class: action
-
-## Twitter &mdash; Register an App
-
-- On [developer.twitter.com/en/portal/projects-and-apps](https://developer.twitter.com/en/portal/projects-and-apps), click `+ Create App`
-   - follow the instructions on consecutive pages
-       - you will need a unique name for your app
-       
-  - note that, once the app is registered, you are provided with keys and tokens
-      - you will use these for authentication
-          - if you choose not to authenticate through `rtweet`'s own app, called `rstats2twitter`
-          - more on this in [Part 3](#part3)
-          
-- does not mean you have to create an actual app
-    - e.g., an app for smart phones
-
----
-## Twitter &mdash; Keys and Tokens &mdash; Notes          
-      
-- Keys and tokens are personal
-   - should not be shared with others
-      - e.g., through replication files, when asking a question on [Stack Overflow](https://stackoverflow.com/) 
-
---
-          
-- Keys and tokens can be re-generated anytime
-  - on your applications page, under the `Keys and tokens` tab
-  - this requires updating your R script with the new tokens as well
-  
---
-
-- Twitter allows for further, optional settings involving keys and tokens
-   - relevant, mostly, for apps to do more than just collecting tweets
-   - e.g., settings for 3-legged OAuth
-      - like `rstats2twitter`, to allow for other users to authenticate through a browser pop up
-   - not covered in this workshop
-   
----
-## Twitter &mdash; Keys and Tokens &mdash; Notes &mdash; Definitions
-
-- Consumer key and Consumer secret
-
-  - identifiers for an application
-  - provide .yellow-h[project authorization]
-     - identify the application
-     - check whether the application has been granted access
-  - like your application's username and password
-
---
-
-- Access token and Access token secret
-
-  - identifier for users of an application
-     - this may or may not include anyone other than the owner
-     - e.g., for `rstats2twitter`, there are many users
-  - provide .yellow-h[user authentication] 
-     - identify the user
-     - check whether the user should have access to a request
-     
----
-## Data Collection &mdash; `rtweet` &mdash; Authentication
-
-There are two different methods of [authentication](https://developer.twitter.com/en/docs/authentication/overview)   
-<br>   
-- through `rtweet`'s `rstats2twitter` app
-      
-  - the app makes requests on your behalf
-  - you simply approve this, via a browser that pops up
-  - nice and easy, but comes with some limitations  
-  
---
-
-<br>  
-      
-- through your own app   
-      
-  - you make requests on your behalf
-  - through your own app that you register as a developer 
-  - takes a little effort, but comes with additional stability and functionality
-        - removing the dependency on `rstats2twitter`, over which you have no control
-        - getting rid of the pop up windows   
-        - not only for collecting tweets, but also posting your own tweets
-              - and, reading and writing your own direct messages
-
-
----
-name: create-token
-class: action
-
-## Data Collection &mdash; Define Your Token
-
-If you are using your own app to authenticate, create a token
-- using the `create_token` function
-- the `app` argument requires for the name of your own app, as registered on [developer.twitter.com](https://developer.twitter.com/)
-- the other arguments to be filled with the information from the `Keys and tokens` tab on the same website
-
-
-```{r, eval=FALSE}
-tw_token <- create_token(
-    app = "",
-    consumer_key = "",
-    consumer_secret = "",
-    access_token = "",
-    access_secret = ""
-  )
-```
-
----
-## Data Collection &mdash; Define Your Token &mdash; Alternatives
-
-.pull-left[
-- You may wish to put your keys and tokens elsewhere
-   - they are personal, just like a password
-
-- There are at least two alternatives
-   - .yellow-h[create a separate script, which you can then `source` at the top of your main script]
-   
-]
-   
-.pull-right[
-
-`keys_tokens.R`
-
-```{r, eval=FALSE}
- tw_token <- create_token(
-    app = "",
-    consumer_key = "",
-    consumer_secret = "",
-    access_token = "",
-    access_secret = ""
-   )
-```
-
-
-`data_collection.R`
-
-```{r, eval=FALSE}
- library(rtweet)
- `source("keys_tokens.R")`
-```
-
-]
-
----
-## Data Collection &mdash; Define Your Token &mdash; Alternatives
-
-.pull-left[
-- You may wish to put your keys and tokens elsewhere
-   - they are personal, just like a password
-
-- There are at least two alternatives
-   - create a separate script, which you can then `source` at the top of your main script
-   
-   - .yellow-h[store your keys and tokens in your `.Renviron` file, which can be created at the project level as well]
-   
-]
-   
-.pull-right[
-
-`.Renviron`
-
-```{r, eval=FALSE}
-TWITTER_APP=name_of_my_app
-TWITTER_CONSUMER_KEY=akN...
-TWITTER_CONSUMER_SECRET=HJK...
-TWITTER_ACCESS_TOKEN=345...
-TWITTER_ACCESS_SECRET=SDF...
-```
-
-
-`data_collection.R`
-
-```{r, eval=FALSE}
- library(rtweet)
-tw_token <- create_token(
-    app = Sys.getenv("TWITTER_APP"),
-    consumer_key = Sys.getenv("TWITTER_CONSUMER_KEY"),
-    consumer_secret = Sys.getenv("TWITTER_CONSUMER_SECRET"),
-    access_token = Sys.getenv("TWITTER_ACCESS_TOKEN"),
-    access_secret = Sys.getenv("TWITTER_ACCESS_SECRET")
- )
-```
-
-]
-     
 ---
 name: reference-slide
 class: inverse, center, middle
