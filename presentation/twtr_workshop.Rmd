@@ -3313,6 +3313,47 @@ str_remove_all(string = tweet, pattern = "[`#`][\\w_-]+")
 ]
 
 ---
+## Data Preperation &mdash; Exercises &mdash; Notes
+
+
+- The exercises in this part are best followed by
+
+  - using `tweets.rds` or a similar existing dataset
+  - saving a new variable at every step of preparation
+  - observing the newly created variables 
+      - by selecting only the old and new variable
+      - to confirm whether the code works as intended
+
+<br>
+
+- The `mutate` and `select` functions, from the `dplyr` package, can be helpful, as follows
+
+```{r, eval=FALSE}
+
+df_tweets <- read_rds("data/tweets.rds")
+
+df_tweets %>%
+  `mutate(no_mentions` = str_remove_all(string = `text`, pattern = "[@][\\w_-]+")) %>% 
+  `select(text, no_mentions)` %>% 
+  View()
+
+```
+
+---
+class: action
+
+## Exercises
+
+40) Create a new variable without mentions
+
+<br>
+
+41) Create a new variable without hashtags
+
+
+`r countdown(minutes = 5, seconds = 00, top = 0)`
+
+---
 ## Data Preperation &mdash; Remove Links
 
 ```{r, eval=FALSE}
@@ -3388,45 +3429,12 @@ iconv(x = tweet, from = "latin1", to = "ASCII", sub = "")
 
 ]
 
----
-## Data Preperation &mdash; Exercises &mdash; Notes
-
-
-- The exercises in this part are best followed by
-
-  - using `tweets.rds` or a similar existing dataset
-  - saving a new variable at every step of preparation
-  - observing the newly created variables 
-      - by selecting only the old and new variable
-      - to confirm whether the code works as intended
-
-<br>
-
-- The `mutate` and `select` functions, from the `dplyr` package, can be helpful, as follows
-
-```{r, eval=FALSE}
-
-df_tweets <- read_rds("data/tweets.rds")
-
-df_tweets %>%
-  `mutate(no_mentions` = str_remove_all(string = `text`, pattern = "[@][\\w_-]+")) %>% 
-  `select(text, no_mentions)` %>% 
-  View()
-
-```
 
 ---
 class: action
 
 ## Exercises
 
-40) Create a new variable without mentions
-
-<br>
-
-41) Create a new variable without hashtags
-
-<br>
 
 42) Create a new variable without links
 
@@ -3436,10 +3444,10 @@ class: action
 
 <br>
 
-44) Create a new variable without any of the above
+44) Create a new variable without links and emojis
 
 
-`r countdown(minutes = 15, seconds = 00, top = 0)`
+`r countdown(minutes = 7, seconds = 30, top = 0)`
 
 ---
 ## Data Preperation &mdash; Remove Punctuations
@@ -3795,6 +3803,20 @@ knitr::include_graphics("twtr_workshop_files/figure-html/exercise_53-1.png")
 ```
 
 ---
+class: action
+
+## Exercises
+
+On `users.Rmd`, complete the following exercises
+
+52) Correlates of being on Twitter
+
+53) Who has the most followers?
+
+
+`r countdown(minutes = 20, seconds = 00, top = 0)`
+
+---
 ## Analysing Users &mdash; Correlates of having more followers
 
 ```{r, echo = FALSE, out.width = "70%", fig.align = "center"}
@@ -3807,6 +3829,19 @@ knitr::include_graphics("twtr_workshop_files/figure-html/exercise_54-1.png")
 ```{r, echo = FALSE, out.width = "70%", fig.align = "center"}
 knitr::include_graphics("twtr_workshop_files/figure-html/exercise_55-1.png")
 ```
+
+---
+class: action
+
+## Exercises
+
+On `users.Rmd`, complete the following exercises
+
+54) Correlates of having more followers
+
+55) Who tweets the most often?
+
+`r countdown(minutes = 20, seconds = 00, top = 0)`
 
 ---
 ## Analysing Users &mdash; Correlates of tweeting more often
@@ -3829,19 +3864,11 @@ class: action
 
 On `users.Rmd`, complete the following exercises
 
-52) Correlates of being on Twitter
-
-53) Who has the most followers?
-
-54) Correlates of having more followers
-
-55) Who tweets the most often?
-
 56) Correlates of tweeting more often
 
 57) Who do they talk to?
 
-`r countdown(minutes = 45, seconds = 00, top = 0)`
+`r countdown(minutes = 20, seconds = 00, top = 0)`
 
 ---
 class: center, middle
@@ -3897,6 +3924,7 @@ class: center, middle
 ## Analysing Users &mdash; Network Analysis &mdash; `tidygraph`
 
 .pull-left[
+
 ```{r, eval=FALSE}
 read_rds("data/tweets.rds") %>%
   filter(is_retweet == TRUE) %>% 
@@ -4043,7 +4071,6 @@ Once the nodes and edges are ready, use the `ggraph` package to visualise
    - many verbs are intuitively similar
 
 ```{r, eval=FALSE}
-
 ggraph(rt_network) +
   geom_edge_link() +
   geom_node_point(aes(color = party)) +
@@ -4066,6 +4093,19 @@ knitr::include_graphics("twtr_workshop_files/figure-html/exercise_59-1.png")
 ```
 
 ---
+class: action
+
+## Exercises
+
+On `users.Rmd`, complete the following exercises
+
+58) Reply networks
+
+59) Retweet networks
+
+`r countdown(minutes = 20, seconds = 00, top = 0)`
+
+---
 ## Analysing Users &mdash; Who are more central in the retweet networks?
 
 ```{r, echo = FALSE, out.width = "70%", fig.align = "center"}
@@ -4078,10 +4118,6 @@ class: action
 ## Exercises
 
 On `users.Rmd`, complete the following exercises
-
-58) Reply networks
-
-59) Retweet networks
 
 60) Who are more central in the retweet networks?
 
@@ -4147,26 +4183,6 @@ knitr::include_graphics("twtr_workshop_files/figure-html/exercise_64-1.png")
 knitr::include_graphics("twtr_workshop_files/figure-html/exercise_65-1.png")
 ```
 
----
-## Analysing Tweets &mdash; Which hastags were the most frequent?
-
-```{r, echo = FALSE, out.width = "70%", fig.align = "center"}
-knitr::include_graphics("twtr_workshop_files/figure-html/exercise_66-1.png")
-```
-
----
-## Analysing Tweets &mdash; Which words were the most frequent?
-
-```{r, echo = FALSE, out.width = "70%", fig.align = "center"}
-knitr::include_graphics("twtr_workshop_files/figure-html/exercise_67-1.png")
-```
-
----
-## Analysing Tweets &mdash; Sentiments by Hours of the Day
-
-```{r, echo = FALSE, out.width = "70%", fig.align = "center"}
-knitr::include_graphics("twtr_workshop_files/figure-html/exercise_68-1.png")
-```
 
 ---
 class: action
@@ -4181,14 +4197,35 @@ On `tweets.Rmd`, complete the following exercises
 
 65) What time of the day?
 
+`r countdown(minutes = 20, seconds = 00, top = 0)`
+
+---
+## Analysing Tweets &mdash; Which hastags were the most frequent?
+
+```{r, echo = FALSE, out.width = "70%", fig.align = "center"}
+knitr::include_graphics("twtr_workshop_files/figure-html/exercise_66-1.png")
+```
+
+---
+## Analysing Tweets &mdash; Which words were the most frequent?
+
+```{r, echo = FALSE, out.width = "70%", fig.align = "center"}
+knitr::include_graphics("twtr_workshop_files/figure-html/exercise_67-1.png")
+```
+
+
+---
+class: action
+
+## Exercises
+
+On `tweets.Rmd`, complete the following exercises
+
 66) Which hastags were the most frequent?
 
 67) Which words were the most frequent?
 
-68) Sentiments by Hours of the Day
-
-`r countdown(minutes = 45, seconds = 00, top = 0)`
-
+`r countdown(minutes = 20, seconds = 00, top = 0)`
 
 ---
 class: center, middle
@@ -4233,6 +4270,13 @@ class: center, middle
    
   - the sentiment dictionary stored at `tidytext::get_sentiments("nrc")`
   - the concreteness dictionary stored at `doc2concrete::mturk_list`
+  
+---
+## Analysing Tweets &mdash; Sentiments by Hours of the Day
+
+```{r, echo = FALSE, out.width = "70%", fig.align = "center"}
+knitr::include_graphics("twtr_workshop_files/figure-html/exercise_68-1.png")
+```
 
 ---
 
@@ -4248,6 +4292,19 @@ knitr::include_graphics("twtr_workshop_files/figure-html/exercise_69-1.png")
 ```{r, echo = FALSE, out.width = "70%", fig.align = "center"}
 knitr::include_graphics("twtr_workshop_files/figure-html/exercise_70-1.png")
 ```
+
+---
+class: action
+
+## Exercises
+
+On `tweets.Rmd`, complete the following exercises
+
+69) Sentiments across the time frame
+
+70) Sentiments in different types of tweets
+
+`r countdown(minutes = 20, seconds = 00, top = 0)`
 
 ---
 ## Analysing Tweets &mdash; Concreteness in different types of tweets
@@ -4269,10 +4326,6 @@ class: action
 ## Exercises
 
 On `tweets.Rmd`, complete the following exercises
-
-69) Sentiments across the time frame
-
-70) Sentiments in different types of tweets
 
 71) Concreteness in different types of tweets
 
