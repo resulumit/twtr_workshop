@@ -177,12 +177,17 @@ df_mp_timelines <- get_timeline(user = mps1_5,
 search_users(q = "Universität Luzern")$screen_name
 
 # get the followers of the account
-
 df_followers <- get_followers(user = "UniLuzern")
+
 
 # exercise 24 -------------------------------------------------------------
 
+# get the list of friends
 df_friends <- get_friends(users = "UniLuzern")
+
+# look them up
+df_users <- lookup_users(users = df_friends$user_id)
+
 
 # exercise 25 -------------------------------------------------------------
 
@@ -322,14 +327,10 @@ df_tweets %>%
 
 # exercise 44 -------------------------------------------------------------
 df_tweets %>%
-  mutate(no_mentions = str_remove_all(string = text, pattern = c("[@][\\w_-]+", "[#][\\w_-]+"),
-         no_mentions_hashtags = str_remove_all(string = no_mentions, pattern = "[#][\\w_-]+"))) %>%
-  group_by(status_id) %>%
-  mutate(no_mentions_hashtags_links =
-           str_remove_all(string = no_mentions_hashtags,
-                          pattern = str_c(unlist(urls_t.co), collapse = "|"))) %>%
-  ungroup() %>%
-  mutate(all_clean = iconv(x = no_mentions_hashtags_links, from = "latin1", to = "ASCII", sub = "")) %>%
+  mutate(no_mentions = str_remove_all(string = text, pattern = "[@][\\w_-]+"),
+         no_mentions_hashtags = str_remove_all(string = no_mentions, pattern = "[#][\\w_-]+"),
+         no_mentions_hashtags_links = str_remove_all(string = no_mentions, pattern = "http\\S+\\s*"),
+         all_clean = iconv(x = no_mentions_hashtags_links, from = "latin1", to = "ASCII", sub = "")) %>%
   select(text, all_clean)  %>%
   View()
 
@@ -398,3 +399,4 @@ no_stopwords <- df_tweets %>%
 
 # answers are available in:
 # exercises/tweets_answers.Rmd
+
