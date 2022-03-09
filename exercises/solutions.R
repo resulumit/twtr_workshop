@@ -327,14 +327,10 @@ df_tweets %>%
 
 # exercise 44 -------------------------------------------------------------
 df_tweets %>%
-  mutate(no_mentions = str_remove_all(string = text, pattern = c("[@][\\w_-]+", "[#][\\w_-]+"),
-         no_mentions_hashtags = str_remove_all(string = no_mentions, pattern = "[#][\\w_-]+"))) %>%
-  group_by(status_id) %>%
-  mutate(no_mentions_hashtags_links =
-           str_remove_all(string = no_mentions_hashtags,
-                          pattern = str_c(unlist(urls_t.co), collapse = "|"))) %>%
-  ungroup() %>%
-  mutate(all_clean = iconv(x = no_mentions_hashtags_links, from = "latin1", to = "ASCII", sub = "")) %>%
+  mutate(no_mentions = str_remove_all(string = text, pattern = "[@][\\w_-]+"),
+         no_mentions_hashtags = str_remove_all(string = no_mentions, pattern = "[#][\\w_-]+"),
+         no_mentions_hashtags_links = str_remove_all(string = no_mentions, pattern = "http\\S+\\s*"),
+         all_clean = iconv(x = no_mentions_hashtags_links, from = "latin1", to = "ASCII", sub = "")) %>%
   select(text, all_clean)  %>%
   View()
 

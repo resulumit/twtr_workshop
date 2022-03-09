@@ -243,7 +243,6 @@ df_sentiments <- get_sentiments("nrc") %>%
   mutate(sentiment_value = 1) %>%
   pivot_wider(names_from = sentiment, values_from = sentiment_value, values_fill = 0)
 
-
 # using the tweets dataset
 twts %>%
   
@@ -308,7 +307,6 @@ df_tone <- twts %>%
                             (sum(positive, na.rm = TRUE) + sum(negative, na.rm = TRUE))) %>%
   ungroup()
   
-
 # create a temporary dataframe, from the `tweets` dataset
 twts_temp <- twts %>%
   
@@ -328,7 +326,6 @@ twts_temp <- twts %>%
 # join in the positivit scores
   left_join(., df_tone, by = "status_id")
   
-
 # run a regression model, with positivity score as the dependent variable and tweet types (tweets, replies, quotes) as independent variables
 m <- lm(positive_tone ~ mentions + quotes + replies, data = twts_temp)
 
@@ -362,7 +359,6 @@ df_concreteness <- twts %>%
   summarise(concrete_tone = if_else(all(is.na(Conc.M)), NA_real_, sum(Conc.M, na.rm = TRUE))) %>%
   ungroup()
 
-
 # create a temporary dataframe, from the `tweets` dataset
 twts_temp <- twts %>%
   
@@ -382,9 +378,8 @@ twts_temp <- twts %>%
 # join in the positivit scores
   left_join(., df_concreteness, by = "status_id")
   
-
 # run a regression model, with positivity score as the dependent variable and tweet types (tweets, replies, quotes) as independent variables
-m <- lm(concrete_tone ~ Mentions + Quotes + Replies, data = twts_temp)
+m <- lm(concrete_tone ~ mentions + quotes + replies, data = twts_temp)
 
 # plot the regression results with the `dwplot` function
 dwplot(m, dot_args = list(size = 3.2), whisker_args = list(size = 1.5)) +
@@ -393,7 +388,6 @@ dwplot(m, dot_args = list(size = 3.2), whisker_args = list(size = 1.5)) +
   geom_vline(xintercept = 0, linetype = 2) +
   xlab("Regression Coefficient")+
   scale_y_discrete(labels = function(x) stringr::str_to_title(x))
-
 
 ```
 
@@ -431,6 +425,7 @@ Conduct another tweet-based analysis of the `tweets` dataset --- something that 
 
 
 ```{r, exercise_73, echo=FALSE}
+
 
 
 ```

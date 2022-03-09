@@ -210,8 +210,6 @@ Conventional wisdom suggests that MPs are more likely to interact with MPs from 
 mps_temp <- mps %>% 
   select(screen_name, party)
 
-
-
 # use the `filter` function to select replies, exclude replies to self
 twts %>%
   filter(!is.na(reply_to_screen_name) & screen_name != reply_to_screen_name) %>%
@@ -275,8 +273,6 @@ twts_temp <- twts %>%
   group_by(screen_name) %>%
   count(reply_to_screen_name)
 
-
-
 # turn that temporary dataframe into a data structure for tidy graph
 # using the `as_tbl_graph` function
 rply_network <- as_tbl_graph(twts_temp) %>%
@@ -295,8 +291,6 @@ rply_network <- as_tbl_graph(twts_temp) %>%
 # filter down to the SNP MPs only
   filter(party %in% c("SNP"))
 
-
-
 # plot the tidy graph data with the `ggraph` function
 ggraph(rply_network) +
   geom_edge_link(aes(size = n),
@@ -305,7 +299,6 @@ ggraph(rply_network) +
   geom_node_point() +
   geom_node_text(aes(label = surname)) +
   theme_graph()
-
 
 ```
 
@@ -334,9 +327,6 @@ twts_temp <- twts %>%
   group_by(screen_name) %>%
   count(retweet_screen_name)
 
-
-
-
 # turn that temporary dataframe into a data structure for tidy graph
 # using the `as_tbl_graph` function
 rt_network <- as_tbl_graph(twts_temp) %>%
@@ -350,9 +340,6 @@ rt_network <- as_tbl_graph(twts_temp) %>%
 
 # filter down to the four main parties: Conservative, Labour, SNP, LibDem
   filter(party %in% c("Conservative", "Labour", "SNP", "LibDem"))
-
-
-
 
 # plot the tidy graph data with the `ggraph` function
 ggraph(rt_network, layout = "lgl") +
@@ -391,7 +378,6 @@ twts_temp <- twts %>%
   group_by(screen_name) %>%
   count(retweet_screen_name)
 
-
 # turn that temporary dataframe into a data structure for tidy graph
 # using the `as_tbl_graph` function
 rt_network <- as_tbl_graph(twts_temp) %>%
@@ -419,7 +405,6 @@ rt_network_df <- as.data.frame(rt_network) %>%
   arrange(centrality_value, desc = TRUE) %>%
   top_n(20) %>%
   ungroup()
-
 
 # plot the resulting dataframe
 ggplot(rt_network_df, aes(y = reorder(name.y, centrality_value),

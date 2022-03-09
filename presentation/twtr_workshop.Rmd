@@ -3271,7 +3271,6 @@ class: inverse, center, middle
 
 ```{r, eval=FALSE}
 tweet <- "These from @handle1 are #socool. 👏 A #mustsee, @handle2! 
-          👉 t.co/aq7MJJ1
           👉 https://t.co/aq7MJJ2"
 ```
 
@@ -3283,19 +3282,22 @@ str_remove_all(string = tweet, pattern = "[@][\\w_-]+")
 .out-t[
 
 [1] "This from  are #socool. 👏 A #mustsee, ! 
-          👉 t.co/aq7MJJ1
           👉 https://t.co/aq7MJJ2"
 
 ]
 
+<br>
 
+Note that
+   - this removes all occurrences
+   - there is also the `str_remove` fucntion, which removes the first occurrence only
+   
 ---
 ## Data Preperation &mdash; Remove Hashtags
 
 
 ```{r, eval=FALSE}
 tweet <- "These from @handle1 are #socool. 👏 A #mustsee, @handle2! 
-          👉 t.co/aq7MJJ1
           👉 https://t.co/aq7MJJ2"
 ```
 
@@ -3307,7 +3309,6 @@ str_remove_all(string = tweet, pattern = "[`#`][\\w_-]+")
 .out-t[
 
 [1] "These from @handle1 are . 👏 A , @handle2! 
-          👉 t.co/aq7MJJ1
           👉 https://t.co/aq7MJJ2"
 
 ]
@@ -3358,7 +3359,6 @@ class: action
 
 ```{r, eval=FALSE}
 tweet <- "These from @handle1 are #socool. 👏 A #mustsee, @handle2! 
-          👉 t.co/aq7MJJ1
           👉 https://t.co/aq7MJJ2"
 
 ```
@@ -3371,48 +3371,15 @@ str_remove_all(string = tweet, pattern = "http\\S+\\s*")
 .out-t[
 
 [1] "These from @handle1 are. 👏 A, @handle2! 
-          👉 t.co/aq7MJJ1"
+          👉 "
 
 ]
-
-<br>
-
-- Notice that
-
-  - links come in various formats
-  - you may need multiple or complicated regular expression patterns
-
----
-## Data Preperation &mdash; Remove Links &mdash; Alternative
-
-Use the `urls_t.co` variable to remove all links
-
-- if there are more than one link in a tweet, they are stored as a list in this variable
-
-
-```{r, eval=FALSE}
-# start with your existing dataset of tweets
-df_tweets <- df_tweets %>%
-  
-# limit the operation to within individual tweets  
-  group_by(status_id) %>%
-  
-# create a new variable of tweets without links  
-  mutate(tidy_text = 
-           
-# by removing them from the existing variable `text`           
-           str_remove_all(string = text, 
- 
-# that matches the `urls_t.co` variable, after being collapsed into a string      
-           pattern = str_c(unlist(urls_t.co), collapse = "|")))
-```
 
 ---
 ## Data Preperation &mdash; Remove Emojis
 
 ```{r, eval=FALSE}
 tweet <- "These from @handle1 are #socool. 👏 A #mustsee, @handle2! 
-          👉 t.co/aq7MJJ1
           👉 https://t.co/aq7MJJ2"
 ```
 
@@ -3424,7 +3391,6 @@ iconv(x = tweet, from = "latin1", to = "ASCII", sub = "")
 .out-t[
 
 [1] "These from @handle1 are #socool. A #mustsee, @handle2! 
-          t.co/aq7MJJ1
           https://t.co/aq7MJJ2"
 
 ]
@@ -3444,17 +3410,17 @@ class: action
 
 <br>
 
-44) Create a new variable without links and emojis
+44) Create a new variable without:
+- mentions, hashtags, links, and emojis
 
 
-`r countdown(minutes = 7, seconds = 30, top = 0)`
+`r countdown(minutes = 10, seconds = 00, top = 0)`
 
 ---
 ## Data Preperation &mdash; Remove Punctuations
 
 ```{r, eval=FALSE}
 tweet <- "These from @handle1 are #socool. 👏 A #mustsee, @handle2! 
-          👉 t.co/aq7MJJ1
           👉 https://t.co/aq7MJJ2"
 ```
 
@@ -3466,16 +3432,15 @@ str_remove_all(string = tweet, pattern = "[[:punct:]]")
 .out-t[
 
 [1] "This from are socool 👏 A mustsee handle2
-          👉 tcoaq7MJJ1
-          👉 httpst.coaq7MJJ2"
+          👉 httpstcoaq7MJJ2"
 
 ]
 
 <br>
 
 Note that
-   - this removed all punctuation, including those in mentions, hashtags, and links
-   - there is a `str_remove` version, which removes the first occurrence only
+   - this removed all punctuation, including those in links
+   
 ---
 ## Data Preperation &mdash; Remove Punctuations
 
@@ -3562,7 +3527,6 @@ str_to_lower(string = tweet)
 Note that
    - there are other functions in this family, including
       - `str_to_sentence`, `str_to_title`, `str_to_upper`
-
 
 ---
 class: action
@@ -3743,7 +3707,7 @@ class: action
 <br>
 
 50) Dis-aggregate `hashtags`
-- make sure each row has at most one hashtag
+- as one tweet can include multiple hashtags
 
 <br>
 
