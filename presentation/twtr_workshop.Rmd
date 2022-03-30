@@ -1,5 +1,5 @@
 ---
-title: "Working with Twitter Data in R"
+title: "Twitter Data in R"
 subtitle: "Resul Umit"
 institute: ""
 date: "March 2022"
@@ -107,7 +107,8 @@ bibliography <- ReadBib("twtr_workshop_files/bibliography/presentation.bib",
 </style>
 
 
-# Working with Twitter Data in R
+# Twitter Data in R
+# Collection | Cleaning | Analysis
 
 <br>
 
@@ -928,7 +929,7 @@ Authorization to use Twitter APIs requires at least three steps<sup>*</sup>
       
 .footnote[
 
-<sup>*</sup> There may be additional steps, such as registering for the [Academic Research product track](https://developer.twitter.com/en/portal/petition/academic/is-it-right-for-you).
+<sup>*</sup> There may be additional steps, such as registering for the [Academic Research access](https://developer.twitter.com/en/products/twitter-api/academic-research/application-info).
 
 ]
 
@@ -951,7 +952,7 @@ Authorization to use Twitter APIs requires at least three steps<sup>*</sup>
        - is otherwise automatic
        - allows us to use `rstats2twitter` and follow the workshop   
 <br>
-   - leaving the remaining steps until [Part 7](#part-7)
+   - leaving the remaining steps until after the workshop
        - to allow you to think and write your applications carefully
        - to get my feedback if you prefer to do so
        
@@ -1039,13 +1040,15 @@ class: action
 ---
 ## Twitter &mdash; Keys and Tokens &mdash; Notes          
       
-- Keys and tokens are personal
+- Keys and tokens are personal     
+<br>
    - should not be shared with others
       - e.g., through replication files, when asking a question on [Stack Overflow](https://stackoverflow.com/) 
 
 --
           
-- Keys and tokens can be re-generated anytime
+- Keys and tokens can be re-generated anytime     
+<br>
   - on your applications page, under the `Keys and tokens` tab
   - this requires updating your R script with the new tokens as well
   
@@ -1080,7 +1083,7 @@ class: action
      - check whether the user should have access to a request
      
 ---
-## Data Collection &mdash; `rtweet` &mdash; Authentication
+## Data Collection &mdash;  Authentication
 
 There are two different methods of [authentication](https://developer.twitter.com/en/docs/authentication/overview)   
 <br>   
