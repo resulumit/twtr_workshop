@@ -1,6 +1,6 @@
-# Working with Twitter Data in R
+# Twitter Data in R: Collection, Cleaning, and Analysis
 
-This repository holds the materials for a workshop on working with Twitter data in R, organised at [Campus Luzern](https://www.campus-luzern.ch/).
+This repository holds the materials for a workshop on working with Twitter data in R. I first run it at [Campus Luzern](https://www.campus-luzern.ch/), in February 2021. I have since updated the material, and the last iteration of this workshop was at the [University of Lucerne](https://www.unilu.ch/en/), in March 2022.
 
 Below are the workshop materials kept in this repository. 
 
