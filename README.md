@@ -2,7 +2,7 @@
 
 This repository holds the materials for a workshop on working with Twitter data in R. I first run it at [Campus Luzern](https://www.campus-luzern.ch/), in February 2021. I have since updated the material, and the last iteration of this workshop was at the [University of Lucerne](https://www.unilu.ch/en/), in March 2022.
 
-Below are the workshop materials kept in this repository. 
+Below are the workshop materials kept in this repository. Except the Twitter data, all material is copyright Resul Umit, licensed [CC-BY-SA 3.0](https://github.com/resulumit/twtr_workshop/blob/master/LICENCE.md). An easy to read summary of this permissive licence is available on the [Creative Commons website](https://creativecommons.org/licenses/by-sa/3.0/).
 
 ### Data
 
